@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package Test;
+
+message TestInfo
+{
+    string name = 1;
+    int64 guid = 2;
+    int32 level = 3;
+}
