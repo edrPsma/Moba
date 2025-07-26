@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Audio;
 using Observable;
 using Scene;
+using Task;
 using UI;
 using UnityEngine;
 using YooAsset;
@@ -13,6 +15,8 @@ public static class GameEntry
     public static BaseGameFSM Procedure { get; private set; }
     public static IUIManager UI { get; private set; }
     public static ISceneManager Scene { get; private set; }
+    public static ITaskManager Task { get; private set; }
+    public static IAudioManager Audio { get; private set; }
 
     static bool _initialize;
 
@@ -33,6 +37,8 @@ public static class GameEntry
         Procedure = procedure;
         procedure.Initialize();
         procedure.Enter();
+        Task = TaskManager.Instance;
+        Audio = AudioManager.Instance;
         new GameObject("[GameFSMRunner]").AddComponent<GameFSMRunner>();
     }
 }

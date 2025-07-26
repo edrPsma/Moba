@@ -250,5 +250,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b587b0bccf656344af9580581b23042, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playMode: 2
+  _playMode: 0
   _resServer: https://a.unity.cn/client_api/v1/buckets/b7f40f04-ce92-46fa-a54b-68d33d37b3f9/release_by_badge/latest/content/v1.0
