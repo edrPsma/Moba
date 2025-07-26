@@ -9,6 +9,7 @@ public class CopyDll : MonoBehaviour
 {
     const string AssemblyPath = "Assets/GameAssets/Dll";
     const string AotPath = "Assets/GameAssets/Dll/Aot";
+    const string ProtocolPath = "Assets/Plugins/Protocol/netstandard2.0/Protocol.dll";
 
     [MenuItem("Tools/Copy Dlls")]
     static void Copy()
@@ -50,6 +51,9 @@ public class CopyDll : MonoBehaviour
 
             File.Copy(filePath, newFilePath, true);
         }
+
+        string newProtocolPath=$"{assemblyOutPutPath}/Protocol.dll.bytes";
+        File.Copy(ProtocolPath, newProtocolPath, true);
 
 
         AssetDatabase.Refresh();

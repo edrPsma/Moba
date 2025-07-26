@@ -53,6 +53,14 @@ MonoBehaviour:
         FilterRuleName: CollectAll
         AssetTags: 
         UserData: 
+      - CollectPath: Assets/GameAssets/Dll/Protocol.dll.bytes
+        CollectorGUID: edc9c486a335fac448b8569379eacc32
+        CollectorType: 0
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackSeparately
+        FilterRuleName: CollectAll
+        AssetTags: 
+        UserData: 
     - GroupName: scene
       GroupDesc: 
       AssetTags: 

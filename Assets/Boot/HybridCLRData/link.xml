@@ -1,26 +1,117 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <linker>
+  <assembly fullname="Google.Protobuf">
+    <type fullname="Google.Protobuf.CodedOutputStream" preserve="all" />
+    <type fullname="Google.Protobuf.IMessage" preserve="all" />
+    <type fullname="Google.Protobuf.MessageParser" preserve="all" />
+    <type fullname="Google.Protobuf.Reflection.MessageDescriptor" preserve="all" />
+  </assembly>
+  <assembly fullname="KCPNetwork">
+    <type fullname="KCPNetwork.KCPClient`1" preserve="all" />
+    <type fullname="KCPNetwork.KCPSession" preserve="all" />
+    <type fullname="KCPNetwork.KCPTool" preserve="all" />
+  </assembly>
+  <assembly fullname="LitJosn">
+    <type fullname="LitJson.JsonMapper" preserve="all" />
+  </assembly>
+  <assembly fullname="Protocol">
+    <type fullname="Protocol.MessageBuilder" preserve="all" />
+    <type fullname="Protocol.Ping" preserve="all" />
+    <type fullname="Test.TestInfo" preserve="all" />
+  </assembly>
+  <assembly fullname="System">
+    <type fullname="System.Collections.Generic.LinkedListNode`1" preserve="all" />
+    <type fullname="System.Collections.Generic.LinkedList`1" preserve="all" />
+    <type fullname="System.Collections.Generic.Queue`1" preserve="all" />
+  </assembly>
   <assembly fullname="System.Core">
     <type fullname="System.Collections.Generic.HashSet`1" preserve="all" />
     <type fullname="System.Collections.Generic.HashSet`1/Enumerator" preserve="all" />
+    <type fullname="System.Linq.Enumerable" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.CoreModule">
+    <type fullname="UnityEngine.Camera" preserve="all" />
+    <type fullname="UnityEngine.Color" preserve="all" />
+    <type fullname="UnityEngine.ColorUtility" preserve="all" />
     <type fullname="UnityEngine.Component" preserve="all" />
+    <type fullname="UnityEngine.Debug" preserve="all" />
+    <type fullname="UnityEngine.Events.UnityAction" preserve="all" />
+    <type fullname="UnityEngine.Events.UnityAction`1" preserve="all" />
+    <type fullname="UnityEngine.Events.UnityEvent" preserve="all" />
+    <type fullname="UnityEngine.Events.UnityEventBase" preserve="all" />
+    <type fullname="UnityEngine.Events.UnityEvent`1" preserve="all" />
     <type fullname="UnityEngine.GameObject" preserve="all" />
+    <type fullname="UnityEngine.HideFlags" preserve="all" />
+    <type fullname="UnityEngine.KeyCode" preserve="all" />
+    <type fullname="UnityEngine.Mathf" preserve="all" />
     <type fullname="UnityEngine.MonoBehaviour" preserve="all" />
     <type fullname="UnityEngine.Object" preserve="all" />
+    <type fullname="UnityEngine.Quaternion" preserve="all" />
+    <type fullname="UnityEngine.Random" preserve="all" />
+    <type fullname="UnityEngine.RangeAttribute" preserve="all" />
+    <type fullname="UnityEngine.RectTransform" preserve="all" />
+    <type fullname="UnityEngine.RequireComponent" preserve="all" />
+    <type fullname="UnityEngine.Resources" preserve="all" />
+    <type fullname="UnityEngine.SceneManagement.LoadSceneMode" preserve="all" />
+    <type fullname="UnityEngine.SceneManagement.LocalPhysicsMode" preserve="all" />
+    <type fullname="UnityEngine.SceneManagement.Scene" preserve="all" />
     <type fullname="UnityEngine.SerializeField" preserve="all" />
+    <type fullname="UnityEngine.SerializeReference" preserve="all" />
+    <type fullname="UnityEngine.Sprite" preserve="all" />
+    <type fullname="UnityEngine.TextAsset" preserve="all" />
+    <type fullname="UnityEngine.Transform" preserve="all" />
+    <type fullname="UnityEngine.Vector2" preserve="all" />
+    <type fullname="UnityEngine.Vector3" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.InputLegacyModule">
+    <type fullname="UnityEngine.Input" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.UI">
+    <type fullname="UnityEngine.EventSystems.EventSystem" preserve="all" />
+    <type fullname="UnityEngine.UI.Button" preserve="all" />
+    <type fullname="UnityEngine.UI.Button/ButtonClickedEvent" preserve="all" />
+    <type fullname="UnityEngine.UI.Dropdown" preserve="all" />
+    <type fullname="UnityEngine.UI.Dropdown/DropdownEvent" preserve="all" />
+    <type fullname="UnityEngine.UI.Graphic" preserve="all" />
+    <type fullname="UnityEngine.UI.GraphicRaycaster" preserve="all" />
+    <type fullname="UnityEngine.UI.HorizontalOrVerticalLayoutGroup" preserve="all" />
+    <type fullname="UnityEngine.UI.Image" preserve="all" />
+    <type fullname="UnityEngine.UI.InputField" preserve="all" />
+    <type fullname="UnityEngine.UI.InputField/OnChangeEvent" preserve="all" />
+    <type fullname="UnityEngine.UI.LayoutGroup" preserve="all" />
+    <type fullname="UnityEngine.UI.LayoutRebuilder" preserve="all" />
+    <type fullname="UnityEngine.UI.ScrollRect" preserve="all" />
+    <type fullname="UnityEngine.UI.Selectable" preserve="all" />
     <type fullname="UnityEngine.UI.Slider" preserve="all" />
+    <type fullname="UnityEngine.UI.Slider/SliderEvent" preserve="all" />
     <type fullname="UnityEngine.UI.Text" preserve="all" />
+    <type fullname="UnityEngine.UI.Toggle" preserve="all" />
+    <type fullname="UnityEngine.UI.Toggle/ToggleEvent" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.UIModule">
+    <type fullname="UnityEngine.Canvas" preserve="all" />
     <type fullname="UnityEngine.CanvasGroup" preserve="all" />
+    <type fullname="UnityEngine.CanvasRenderer" preserve="all" />
+  </assembly>
+  <assembly fullname="YooAsset">
+    <type fullname="YooAsset.AssetHandle" preserve="all" />
+    <type fullname="YooAsset.AsyncOperationBase" preserve="all" />
+    <type fullname="YooAsset.HandleBase" preserve="all" />
+    <type fullname="YooAsset.ResourcePackage" preserve="all" />
+    <type fullname="YooAsset.SceneHandle" preserve="all" />
+    <type fullname="YooAsset.UnloadSceneOperation" preserve="all" />
+    <type fullname="YooAsset.UnloadUnusedAssetsOperation" preserve="all" />
+    <type fullname="YooAsset.YooAssets" preserve="all" />
   </assembly>
   <assembly fullname="mscorlib">
     <type fullname="System.Action`1" preserve="all" />
+    <type fullname="System.Action`2" preserve="all" />
     <type fullname="System.Activator" preserve="all" />
+    <type fullname="System.ArithmeticException" preserve="all" />
+    <type fullname="System.Array" preserve="all" />
+    <type fullname="System.AsyncCallback" preserve="all" />
+    <type fullname="System.Attribute" preserve="all" />
+    <type fullname="System.Byte" preserve="all" />
     <type fullname="System.Collections.Generic.Dictionary`2" preserve="all" />
     <type fullname="System.Collections.Generic.Dictionary`2/Enumerator" preserve="all" />
     <type fullname="System.Collections.Generic.Dictionary`2/KeyCollection" preserve="all" />
@@ -35,21 +126,52 @@
     <type fullname="System.Collections.Generic.List`1/Enumerator" preserve="all" />
     <type fullname="System.Collections.IEnumerable" preserve="all" />
     <type fullname="System.Collections.IEnumerator" preserve="all" />
+    <type fullname="System.Comparison`1" preserve="all" />
+    <type fullname="System.DateTime" preserve="all" />
     <type fullname="System.Delegate" preserve="all" />
     <type fullname="System.Diagnostics.DebuggableAttribute" preserve="all" />
     <type fullname="System.Diagnostics.DebuggableAttribute/DebuggingModes" preserve="all" />
+    <type fullname="System.Enum" preserve="all" />
     <type fullname="System.Exception" preserve="all" />
+    <type fullname="System.Func`1" preserve="all" />
+    <type fullname="System.Func`2" preserve="all" />
+    <type fullname="System.Globalization.CultureInfo" preserve="all" />
+    <type fullname="System.Globalization.NumberFormatInfo" preserve="all" />
+    <type fullname="System.IAsyncResult" preserve="all" />
     <type fullname="System.IComparable`1" preserve="all" />
     <type fullname="System.IDisposable" preserve="all" />
+    <type fullname="System.IEquatable`1" preserve="all" />
+    <type fullname="System.IFormatProvider" preserve="all" />
+    <type fullname="System.IFormattable" preserve="all" />
+    <type fullname="System.IndexOutOfRangeException" preserve="all" />
+    <type fullname="System.Int16" preserve="all" />
+    <type fullname="System.Int32" preserve="all" />
+    <type fullname="System.Int64" preserve="all" />
+    <type fullname="System.Math" preserve="all" />
+    <type fullname="System.MulticastDelegate" preserve="all" />
+    <type fullname="System.NotImplementedException" preserve="all" />
     <type fullname="System.Object" preserve="all" />
+    <type fullname="System.Predicate`1" preserve="all" />
+    <type fullname="System.Random" preserve="all" />
     <type fullname="System.Reflection.DefaultMemberAttribute" preserve="all" />
     <type fullname="System.Reflection.MemberInfo" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.CompilationRelaxationsAttribute" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.CompilerGeneratedAttribute" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.ExtensionAttribute" preserve="all" />
+    <type fullname="System.Runtime.CompilerServices.IsReadOnlyAttribute" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" preserve="all" />
+    <type fullname="System.Runtime.CompilerServices.RuntimeHelpers" preserve="all" />
+    <type fullname="System.RuntimeFieldHandle" preserve="all" />
     <type fullname="System.RuntimeTypeHandle" preserve="all" />
+    <type fullname="System.Single" preserve="all" />
     <type fullname="System.String" preserve="all" />
+    <type fullname="System.StringSplitOptions" preserve="all" />
+    <type fullname="System.Threading.Interlocked" preserve="all" />
+    <type fullname="System.Threading.Tasks.Task`1" preserve="all" />
+    <type fullname="System.Threading.Thread" preserve="all" />
+    <type fullname="System.TimeSpan" preserve="all" />
     <type fullname="System.Type" preserve="all" />
+    <type fullname="System.UInt32" preserve="all" />
+    <type fullname="System.ValueType" preserve="all" />
   </assembly>
 </linker>

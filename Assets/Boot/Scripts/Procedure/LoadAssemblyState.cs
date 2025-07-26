@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using HybridCLR;
 using UnityEngine;
 using YooAsset;
@@ -11,7 +13,7 @@ public class LoadAssemblyState : IState
     {
 #if !UNITY_EDITOR
         LoadMetadataForAOTAssemblies();
-        LoadAssembly();
+        LoadAssembly().Forget();
 #else
         Boot.StateMachine.ChangeState(EBootState.EnterGame);
 #endif
@@ -21,26 +23,42 @@ public class LoadAssemblyState : IState
 
     public void Exit() { }
 
-    void LoadAssembly()
+    async UniTaskVoid LoadAssembly()
     {
         var package = YooAssets.GetPackage(ConstantDefine.DefaultPackageName);
-        AssetHandle assetHandle = package.LoadAssetAsync<TextAsset>("Assets/GameAssets/Dll/HotUpdate.dll.bytes");
-        assetHandle.Completed += handle =>
+
+        AssetHandle assetHandle = package.LoadAssetAsync<TextAsset>("Assets/GameAssets/Dll/Protocol.dll.bytes");
+        AssetHandle assetHandle2 = package.LoadAssetAsync<TextAsset>("Assets/GameAssets/Dll/HotUpdate.dll.bytes");
+
+
+        await UniTask.WhenAll(assetHandle2.ToUniTask(), assetHandle.ToUniTask());
+
+        if (assetHandle.Status == EOperationStatus.Succeed)
         {
-            if (handle.Status == EOperationStatus.Succeed)
-            {
-                // 加载热更新程序集
-                Assembly hotUpdateAss = Assembly.Load((handle.AssetObject as TextAsset).bytes);
-            }
-            else
-            {
-                Debug.LogError($"加载热更程序集失败: {handle.LastError}");
-            }
+            // 加载热更新程序集
+            Assembly.Load((assetHandle.AssetObject as TextAsset).bytes);
+        }
+        else
+        {
+            Debug.LogError($"加载热更程序集失败: {assetHandle.LastError}");
+        }
+        assetHandle.Release();
 
-            handle.Release();
 
-            Boot.StateMachine.ChangeState(EBootState.EnterGame);
-        };
+        if (assetHandle2.Status == EOperationStatus.Succeed)
+        {
+            // 加载热更新程序集
+            Assembly.Load((assetHandle2.AssetObject as TextAsset).bytes);
+        }
+        else
+        {
+            Debug.LogError($"加载热更程序集失败: {assetHandle2.LastError}");
+        }
+        assetHandle2.Release();
+
+        Boot.StateMachine.ChangeState(EBootState.EnterGame);
+
+
     }
 
 

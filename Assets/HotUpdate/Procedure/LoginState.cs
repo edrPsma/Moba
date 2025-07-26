@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using HFSM;
 using Sirenix.OdinInspector;
+using Test;
 using UnityEngine;
 
 public class LoginState : BaseState
@@ -13,6 +14,8 @@ public class LoginState : BaseState
         base.OnEnter();
         Debug.Log("进入登陆流程");
 
+        UserInfo testInfo = new UserInfo();
+        Debug.Log("测试协议是否正确加载: " + testInfo?.GetType());
         GameEntry.UI.PushAsync<LoginForm>();
     }
 
