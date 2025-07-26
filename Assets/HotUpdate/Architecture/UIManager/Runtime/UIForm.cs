@@ -47,5 +47,28 @@ namespace UI
     {
         TData Data { get; set; }
     }
+
+    public static class UIFormExtension
+    {
+        public static T Get<T>(this BaseUIForm form, string name) where T : Object
+        {
+            return form.Panel.BindComponent.Get<T>(name);
+        }
+
+        public static T[] GetArray<T>(this BaseUIForm form, string name) where T : Object
+        {
+            return form.Panel.BindComponent.GetArray<T>(name);
+        }
+
+        public static T GetAsset<T>(this BaseUIForm form, string name) where T : Object
+        {
+            return form.Panel.BindComponent.GetAsset<T>(name);
+        }
+
+        public static void ChangeState(this BaseUIForm form, string states)
+        {
+            form.Panel.BindComponent.ChangeState(states);
+        }
+    }
 }
 

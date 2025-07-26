@@ -1,3 +1,4 @@
+using BindableUI.Runtime;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,11 +21,11 @@ namespace UI
         [ShowInInspector] public IUIForm Form { get; internal set; }
         public GameObject GameObject => gameObject;
         public bool StartOver { get; private set; }
-        // public BindComponent BindComponent { get; private set; }
+        public BindComponent BindComponent { get; private set; }
 
         void Awake()
         {
-            // BindComponent = GetComponent<BindComponent>();
+            BindComponent = GetComponent<BindComponent>();
             Canvas = GetComponent<Canvas>();
             CanvasGroup = GetComponent<CanvasGroup>();
             // Canvas.vertexColorAlwaysGammaSpace = true;

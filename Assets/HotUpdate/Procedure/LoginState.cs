@@ -12,6 +12,8 @@ public class LoginState : BaseState
     {
         base.OnEnter();
         Debug.Log("进入登陆流程");
+
+        GameEntry.UI.PushAsync<LoginForm>();
     }
 
     [Button]

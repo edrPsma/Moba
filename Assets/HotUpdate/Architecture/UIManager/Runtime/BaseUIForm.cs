@@ -11,7 +11,7 @@ namespace UI
         EPanelState IUIForm.PanelState { get; set; } = EPanelState.Closed;
         IUIPanel IUIForm.Panel { get; set; }
         public GameObject GameObject => (this as IUIForm).Panel?.GameObject;
-        protected UIPanel Panel => (this as IUIForm).Panel as UIPanel;
+        public UIPanel Panel => (this as IUIForm).Panel as UIPanel;
 
         public object LoadUserData { get; set; }
 
