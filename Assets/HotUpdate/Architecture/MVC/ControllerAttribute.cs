@@ -1,0 +1,12 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ControllerAttribute : ModuleAttribute
+{
+    public ControllerAttribute(params Type[] types)
+    {
+        Types = types;
+    }
+}

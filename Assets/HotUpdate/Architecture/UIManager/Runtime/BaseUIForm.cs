@@ -35,7 +35,10 @@ namespace UI
             OnOpen();
         }
 
-        void IUIForm.Start() { OnStart(); }
+        void IUIForm.Start()
+        {
+            OnStart();
+        }
 
         protected virtual void OnStart() { }
         protected virtual void OnOpen() { }

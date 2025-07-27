@@ -482,7 +482,7 @@ namespace UI
             }
             else
             {
-                IUIForm form = new T();
+                IUIForm form = MVCContainer.NewAndInject<T>(); ;
                 _cacheFormDic.Add(type, form);
                 return form;
             }
