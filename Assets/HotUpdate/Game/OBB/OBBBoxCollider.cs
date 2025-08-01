@@ -16,7 +16,7 @@ namespace OBB
         {
             Size = size;
 
-            OBBCollisionTools.CalBoxVertexts(Position, size, Scale, Vertexts = new FixIntVector3[8]);
+            OBBCollisionTools.CalBoxVertexts(Position, size, Scale, Axes, Vertexts = new FixIntVector3[8]);
         }
 
         public void SetSize(FixIntVector3 size)
@@ -43,7 +43,7 @@ namespace OBB
         {
             if (_isDirty)
             {
-                OBBCollisionTools.CalBoxVertexts(Position, Size, Scale, Vertexts);
+                OBBCollisionTools.CalBoxVertexts(Position, Size, Scale, Axes, Vertexts);
                 _isDirty = false;
             }
         }
@@ -79,15 +79,5 @@ namespace OBB
 
             return result;
         }
-
-        // void Update()
-        // {
-        //     Position = new FixIntVector3(transform.position.x, transform.position.y, transform.position.z);
-        //     SetAxes(transform);
-        //     Drawing.Draw.WireBox(new float3(Position.x.RawFloat, Position.y.RawFloat, Position.z.RawFloat),
-        //     transform.rotation,
-        //     new float3(Size.x.RawFloat, Size.y.RawFloat, Size.z.RawFloat),
-        //      Color.blue);
-        // }
     }
 }

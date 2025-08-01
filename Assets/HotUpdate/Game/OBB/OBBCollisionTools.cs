@@ -283,7 +283,7 @@ namespace OBB
             FixIntVector3 center2 = data2.Center;
             FixIntVector3 dist = center1 - center2;
 
-            FixInt[] extents = new FixInt[3] { data2.Vertexts[1].x - center2.x, data2.Vertexts[1].y - center2.y, data2.Vertexts[1].z - center2.z };
+            FixInt[] extents = new FixInt[3] { data2.Size.x / 2f, data2.Size.y / 2f, data2.Size.z / 2f };
             FixIntVector3[] axes = data2.Axes;
 
             for (int i = 0; i < 3; i++)
@@ -401,20 +401,20 @@ namespace OBB
         /// <param name="size"></param>
         /// <param name="scale"></param>
         /// <param name="vertexts"></param>
-        public static void CalBoxVertexts(FixIntVector3 pos, FixIntVector3 size, FixIntVector3 scale, FixIntVector3[] vertexts)
+        public static void CalBoxVertexts(FixIntVector3 pos, FixIntVector3 size, FixIntVector3 scale, FixIntVector3[] axes, FixIntVector3[] vertexts)
         {
             FixInt halfSizeX = size.x * scale.x / 2f;
             FixInt halfSizeY = size.y * scale.y / 2f;
             FixInt halfSizeZ = size.z * scale.z / 2f;
 
-            vertexts[0] = new FixIntVector3(pos.x - halfSizeX, pos.y + halfSizeY, pos.z + halfSizeZ);
-            vertexts[1] = new FixIntVector3(pos.x + halfSizeX, pos.y + halfSizeY, pos.z + halfSizeZ);
-            vertexts[2] = new FixIntVector3(pos.x + halfSizeX, pos.y + halfSizeY, pos.z - halfSizeZ);
-            vertexts[3] = new FixIntVector3(pos.x - halfSizeX, pos.y + halfSizeY, pos.z - halfSizeZ);
-            vertexts[4] = new FixIntVector3(pos.x - halfSizeX, pos.y - halfSizeY, pos.z + halfSizeZ);
-            vertexts[5] = new FixIntVector3(pos.x + halfSizeX, pos.y - halfSizeY, pos.z + halfSizeZ);
-            vertexts[6] = new FixIntVector3(pos.x + halfSizeX, pos.y - halfSizeY, pos.z - halfSizeZ);
-            vertexts[7] = new FixIntVector3(pos.x - halfSizeX, pos.y - halfSizeY, pos.z - halfSizeZ);
+            vertexts[0] = -halfSizeX * axes[0] + halfSizeY * axes[1] + halfSizeZ * axes[2] + pos;
+            vertexts[1] = halfSizeX * axes[0] + halfSizeY * axes[1] + halfSizeZ * axes[2] + pos;
+            vertexts[2] = halfSizeX * axes[0] + halfSizeY * axes[1] - halfSizeZ * axes[2] + pos;
+            vertexts[3] = -halfSizeX * axes[0] + halfSizeY * axes[1] - halfSizeZ * axes[2] + pos;
+            vertexts[4] = -halfSizeX * axes[0] - halfSizeY * axes[1] + halfSizeZ * axes[2] + pos;
+            vertexts[5] = halfSizeX * axes[0] - halfSizeY * axes[1] + halfSizeZ * axes[2] + pos;
+            vertexts[6] = halfSizeX * axes[0] - halfSizeY * axes[1] - halfSizeZ * axes[2] + pos;
+            vertexts[7] = -halfSizeX * axes[0] - halfSizeY * axes[1] - halfSizeZ * axes[2] + pos;
         }
 
         // 计算投影是否不相交

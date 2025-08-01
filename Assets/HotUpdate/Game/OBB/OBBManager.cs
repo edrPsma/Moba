@@ -60,6 +60,7 @@ namespace OBB
                 Vertexts = boxCollider.Vertexts,
                 Axes = boxCollider.Axes,
                 Center = boxCollider.Position,
+                Size = boxCollider.Size
             };
 
             BoxColliderData box2 = new BoxColliderData
@@ -67,6 +68,7 @@ namespace OBB
                 Vertexts = target.Vertexts,
                 Axes = target.Axes,
                 Center = target.Position,
+                Size = target.Size
             };
 
             bool isColliding = OBBCollisionTools.CollisionDetect(box1, box2, out collisionData);
@@ -85,6 +87,7 @@ namespace OBB
                 Vertexts = boxCollider.Vertexts,
                 Axes = boxCollider.Axes,
                 Center = boxCollider.Position,
+                Size = boxCollider.Size
             };
 
             FixInt scale = FixIntMath.Max(target.Scale.x, target.Scale.y);
@@ -175,6 +178,7 @@ namespace OBB
                 Vertexts = boxCollider.Vertexts,
                 Axes = boxCollider.Axes,
                 Center = boxCollider.Position,
+                Size = boxCollider.Size
             };
 
             FixInt scaleR = FixIntMath.Max(target.Scale.x, target.Scale.z);

@@ -23,6 +23,11 @@ namespace OBB
         /// 中心点
         /// </summary>
         public FixIntVector3 Center;
+
+        /// <summary>
+        /// 大小
+        /// </summary>
+        public FixIntVector3 Size;
     }
 
     [Serializable]
