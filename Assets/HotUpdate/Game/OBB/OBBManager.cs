@@ -9,6 +9,7 @@ namespace OBB
     public class OBBManager : MonoSingleton<OBBManager, OBBManager>
     {
         private List<OBBCollider> _colliders = new List<OBBCollider>();
+        List<CollisionData> _cacheCollisionDatas = new List<CollisionData>();
 
         protected override void OnInit()
         {
@@ -18,15 +19,16 @@ namespace OBB
 
         void Update()
         {
-            LogicFrameUpdate();
+            LogicFrameUpdate(Time.deltaTime);
         }
 
-        public void LogicFrameUpdate()
+        public void LogicFrameUpdate(FixInt deltaTime)
         {
             for (int i = 0; i < _colliders.Count; i++)
             {
                 var item = _colliders[i];
                 item.SyncCollisionData();
+                _cacheCollisionDatas.Clear();
 
                 for (int j = 0; j < _colliders.Count; j++)
                 {
@@ -38,171 +40,82 @@ namespace OBB
 
                     target.SyncCollisionData();
                     //碰撞检测逻辑
-                    item.DetectCollider(target);
+                    if (item.IsUseAdjustPos && item.DetectCollider(target, out CollisionData collisionData))
+                    {
+                        _cacheCollisionDatas.Add(collisionData);
+                    }
+                }
+
+                AdjustPos(item, deltaTime);
+            }
+        }
+
+        void AdjustPos(OBBCollider collider, FixInt deltaTime)
+        {
+            if (!collider.IsUseAdjustPos) return;
+
+            if (_cacheCollisionDatas.Count == 0)
+            {
+                collider.Position += collider.Velocity * deltaTime;
+                return;
+            }
+            else if (_cacheCollisionDatas.Count == 1)
+            {
+                FixIntVector3 velocity = CorrectVelocity(collider.Velocity, _cacheCollisionDatas[0].Normal);
+
+                collider.Position += velocity * deltaTime;
+            }
+            else
+            {
+                FixIntVector3 normal = FixIntVector3.zero;
+                FixInt maxAngle = FixInt.MinValue;
+                for (int i = 0; i < _cacheCollisionDatas.Count; i++)
+                {
+                    normal += _cacheCollisionDatas[i].Normal;
+                }
+
+                for (int i = 0; i < _cacheCollisionDatas.Count; i++)
+                {
+                    maxAngle = FixIntMath.Max(maxAngle, FixIntVector3.AngleBetween(normal, _cacheCollisionDatas[i].Normal));
+                }
+
+                FixInt speedAngle = FixIntVector3.AngleBetween(-collider.Velocity, normal);
+                if (speedAngle > maxAngle)
+                {
+                    FixIntVector3 velocity = CorrectVelocity(collider.Velocity, normal);
+                    collider.Position += velocity * deltaTime;
                 }
             }
         }
 
-        public void AddCollider2D(OBBCollider collider)
+        private FixIntVector3 CorrectVelocity(FixIntVector3 velocity, FixIntVector3 normal)
+        {
+            if (normal.sqrMagnitude < 0.001f || velocity.sqrMagnitude < 0.001f)
+            {
+                return velocity;
+            }
+
+            if (FixIntVector3.AngleBetween(normal, velocity) > 3.1415926f / 2f)
+            {
+                FixInt len = FixIntVector3.Dot(velocity, normal);
+
+                if (len != 0)
+                {
+                    velocity -= len * normal;
+                }
+            }
+
+            return velocity;
+        }
+
+        public void AddCollider(OBBCollider collider)
         {
             _colliders.Add(collider);
         }
 
-        public void RemoveCollider2D(OBBCollider collider)
+        public void RemoveCollider(OBBCollider collider)
         {
             _colliders.Remove(collider);
-        }
-
-        public bool DetectCollider(OBBBoxCollider boxCollider, OBBBoxCollider target, OBBCollider impactor, out CollisionData collisionData)
-        {
-            BoxColliderData box1 = new BoxColliderData
-            {
-                Vertexts = boxCollider.Vertexts,
-                Axes = boxCollider.Axes,
-                Center = boxCollider.Position,
-                Size = boxCollider.Size
-            };
-
-            BoxColliderData box2 = new BoxColliderData
-            {
-                Vertexts = target.Vertexts,
-                Axes = target.Axes,
-                Center = target.Position,
-                Size = target.Size
-            };
-
-            bool isColliding = OBBCollisionTools.CollisionDetect(box1, box2, out collisionData);
-            if (target == impactor)
-            {
-                collisionData.Normal *= -1;
-            }
-
-            return isColliding;
-        }
-
-        public bool DetectCollider(OBBBoxCollider boxCollider, OBBSphereCollider target, OBBCollider impactor, out CollisionData collisionData)
-        {
-            BoxColliderData box = new BoxColliderData
-            {
-                Vertexts = boxCollider.Vertexts,
-                Axes = boxCollider.Axes,
-                Center = boxCollider.Position,
-                Size = boxCollider.Size
-            };
-
-            FixInt scale = FixIntMath.Max(target.Scale.x, target.Scale.y);
-            scale = FixIntMath.Max(target.Scale.z, scale);
-
-            SphereColliderData sphere = new SphereColliderData
-            {
-                Center = target.Position,
-                Radius = scale * target.Radius
-            };
-
-            bool isColliding = OBBCollisionTools.CollisionDetect(box, sphere, out collisionData);
-            if (target == impactor)
-            {
-                collisionData.Normal *= -1;
-            }
-
-            return isColliding;
-        }
-
-        public bool DetectCollider(OBBSphereCollider sphereCollider, OBBSphereCollider target, OBBCollider impactor, out CollisionData collisionData)
-        {
-            FixInt scale1 = FixIntMath.Max(sphereCollider.Scale.x, sphereCollider.Scale.y);
-            scale1 = FixIntMath.Max(sphereCollider.Scale.z, scale1);
-
-            SphereColliderData sphere1 = new SphereColliderData
-            {
-                Center = sphereCollider.Position,
-                Radius = scale1 * sphereCollider.Radius
-            };
-
-            FixInt scale2 = FixIntMath.Max(target.Scale.x, target.Scale.y);
-            scale2 = FixIntMath.Max(target.Scale.z, scale2);
-
-            SphereColliderData sphere2 = new SphereColliderData
-            {
-                Center = target.Position,
-                Radius = scale2 * target.Radius
-            };
-
-            bool isColliding = OBBCollisionTools.CollisionDetect(sphere1, sphere2, out collisionData);
-            if (target == impactor)
-            {
-                collisionData.Normal *= -1;
-            }
-
-            return isColliding;
-        }
-
-        public bool DetectCollider(OBBSphereCollider sphereCollider, OBBCapsuleCollider target, OBBCollider impactor, out CollisionData collisionData)
-        {
-            FixInt scale = FixIntMath.Max(sphereCollider.Scale.x, sphereCollider.Scale.y);
-            scale = FixIntMath.Max(sphereCollider.Scale.z, scale);
-            SphereColliderData sphere = new SphereColliderData
-            {
-                Center = sphereCollider.Position,
-                Radius = scale * sphereCollider.Radius
-            };
-
-            FixInt scaleR = FixIntMath.Max(target.Scale.x, target.Scale.z);
-            FixInt scaleH = target.Scale.y;
-
-            FixInt h = scaleH * target.Height;
-            FixInt r = scaleR * target.Radius;
-
-            FixInt realH = FixIntMath.Clamp(h - r * 2, 0, h);
-            CapsuleColliderData capsule = new CapsuleColliderData
-            {
-                Center = target.Position,
-                Direction = target.Direction,
-                Radius = r,
-                Height = realH,
-            };
-
-            bool isColliding = OBBCollisionTools.CollisionDetect(sphere, capsule, out collisionData);
-            if (target == impactor)
-            {
-                collisionData.Normal *= -1;
-            }
-
-            return isColliding;
-        }
-
-        public bool DetectCollider(OBBBoxCollider boxCollider, OBBCapsuleCollider target, OBBCollider impactor, out CollisionData collisionData)
-        {
-            BoxColliderData box = new BoxColliderData
-            {
-                Vertexts = boxCollider.Vertexts,
-                Axes = boxCollider.Axes,
-                Center = boxCollider.Position,
-                Size = boxCollider.Size
-            };
-
-            FixInt scaleR = FixIntMath.Max(target.Scale.x, target.Scale.z);
-            FixInt scaleH = target.Scale.y;
-
-            FixInt h = scaleH * target.Height;
-            FixInt r = scaleR * target.Radius;
-
-            FixInt realH = FixIntMath.Clamp(h - r * 2, 0, h);
-            CapsuleColliderData capsule = new CapsuleColliderData
-            {
-                Center = target.Position,
-                Direction = target.Direction,
-                Radius = r,
-                Height = realH,
-            };
-
-            bool isColliding = OBBCollisionTools.CollisionDetect(box, capsule, out collisionData);
-            if (target == impactor)
-            {
-                collisionData.Normal *= -1;
-            }
-
-            return isColliding;
         }
     }
 }

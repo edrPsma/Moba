@@ -20,7 +20,13 @@ namespace OBB
             SetData();
             _sphereCollider.OnCollisionEnterAction = OnCollisionEnterFunc;
             _sphereCollider.OnCollisionEmptyAction = OnCollisionEmptyFunc;
-            OBBManager.Instance.AddCollider2D(_sphereCollider);
+            _sphereCollider.OnCollisionStayAction = OnCollisionStayFunc;
+            OBBManager.Instance.AddCollider(_sphereCollider);
+        }
+
+        private void OnCollisionStayFunc(OBBCollider collider, CollisionData data)
+        {
+            Draw.Line(transform.position, data.Normal.ToVector3() + transform.position, Color.green);
         }
 
         private void OnCollisionEmptyFunc()

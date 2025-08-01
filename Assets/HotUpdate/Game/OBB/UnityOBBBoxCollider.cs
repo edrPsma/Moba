@@ -20,7 +20,13 @@ namespace OBB
             SetData();
             _boxCollider.OnCollisionEnterAction = OnCollisionEnterFunc;
             _boxCollider.OnCollisionEmptyAction = OnCollisionEmptyFunc;
-            OBBManager.Instance.AddCollider2D(_boxCollider);
+            _boxCollider.OnCollisionStayAction = OnCollisionStayFunc;
+            OBBManager.Instance.AddCollider(_boxCollider);
+        }
+
+        private void OnCollisionStayFunc(OBBCollider collider, CollisionData data)
+        {
+            Draw.Line(transform.position, data.Normal.ToVector3() + transform.position, Color.green);
         }
 
         private void OnCollisionEmptyFunc()

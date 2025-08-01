@@ -23,11 +23,11 @@ namespace OBB
         {
             if (target.ColliderType == EOBBColliderType.Box)
             {
-                return OBBManager.Instance.DetectCollider(target as OBBBoxCollider, this, this, out collisionData);
+                return DetectCollider(target as OBBBoxCollider, this, this, out collisionData);
             }
             else if (target.ColliderType == EOBBColliderType.Sphere)
             {
-                return OBBManager.Instance.DetectCollider(target as OBBSphereCollider, this, this, out collisionData);
+                return DetectCollider(target as OBBSphereCollider, this, this, out collisionData);
             }
             else
             {

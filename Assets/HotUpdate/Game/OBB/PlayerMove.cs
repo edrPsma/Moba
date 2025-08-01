@@ -7,10 +7,11 @@ using UnityEngine;
 
 namespace OBB
 {
-    public class UnityOBBCapsuleCollider : MonoBehaviourGizmos
+    public class PlayerMove : MonoBehaviourGizmos
     {
         [SerializeField] float _radius;
         [SerializeField] float _height;
+        [SerializeField] float _moveSpeed;
 
         OBBCapsuleCollider _capsuleCollider;
         Color _color = Color.blue;
@@ -18,6 +19,8 @@ namespace OBB
         void Start()
         {
             _capsuleCollider = new OBBCapsuleCollider(_radius, _height, new FixIntVector3(transform.up));
+            _capsuleCollider.IsUseAdjustPos = true;
+            _capsuleCollider.Position = new FixIntVector3(transform.position);
             SetData();
             _capsuleCollider.OnCollisionEnterAction = OnCollisionEnterFunc;
             _capsuleCollider.OnCollisionEmptyAction = OnCollisionEmptyFunc;
@@ -42,7 +45,16 @@ namespace OBB
 
         void Update()
         {
-            SetData();
+            // SetData();
+            FixInt moveHorizontal = Input.GetAxis("Horizontal"); // A/D 或 左右箭头
+            FixInt moveVertical = Input.GetAxis("Vertical"); // W/S 或 上下箭头
+
+            // 移动
+            FixIntVector3 movement = new FixIntVector3(moveHorizontal * _moveSpeed, 0.0f, moveVertical * _moveSpeed);
+
+            _capsuleCollider.Velocity = movement;
+
+            transform.position = _capsuleCollider.Position.ToVector3();
         }
 
         public override void DrawGizmos()
@@ -63,7 +75,7 @@ namespace OBB
             _capsuleCollider.Radius = _radius;
             _capsuleCollider.Height = _height;
             _capsuleCollider.Direction = new FixIntVector3(transform.up);
-            _capsuleCollider.Position = new FixIntVector3(transform.position);
+            // _capsuleCollider.Position = new FixIntVector3(transform.position);
         }
     }
 }

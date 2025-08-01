@@ -29,15 +29,15 @@ namespace OBB
         {
             if (target.ColliderType == EOBBColliderType.Box)
             {
-                return OBBManager.Instance.DetectCollider(target as OBBBoxCollider, this, this, out collisionData);
+                return DetectCollider(target as OBBBoxCollider, this, this, out collisionData);
             }
             else if (target.ColliderType == EOBBColliderType.Sphere)
             {
-                return OBBManager.Instance.DetectCollider(this, target as OBBSphereCollider, this, out collisionData);
+                return DetectCollider(this, target as OBBSphereCollider, this, out collisionData);
             }
             else if (target.ColliderType == EOBBColliderType.Capsule)
             {
-                return OBBManager.Instance.DetectCollider(this, target as OBBCapsuleCollider, this, out collisionData);
+                return DetectCollider(this, target as OBBCapsuleCollider, this, out collisionData);
             }
             else
             {
@@ -50,12 +50,5 @@ namespace OBB
         {
 
         }
-
-        // void Update()
-        // {
-        //     Position = new FixIntVector3(transform.position.x, transform.position.y, transform.position.z);
-
-        //     Drawing.Draw.WireSphere(new float3(Position.x.RawFloat, Position.y.RawFloat, Position.z.RawFloat), Radius.RawFloat, Color.blue);
-        // }
     }
 }

@@ -52,15 +52,15 @@ namespace OBB
         {
             if (target.ColliderType == EOBBColliderType.Box)
             {
-                return OBBManager.Instance.DetectCollider(this, target as OBBBoxCollider, this, out collisionData);
+                return DetectCollider(this, target as OBBBoxCollider, this, out collisionData);
             }
             else if (target.ColliderType == EOBBColliderType.Sphere)
             {
-                return OBBManager.Instance.DetectCollider(this, target as OBBSphereCollider, this, out collisionData);
+                return DetectCollider(this, target as OBBSphereCollider, this, out collisionData);
             }
             else if (target.ColliderType == EOBBColliderType.Capsule)
             {
-                return OBBManager.Instance.DetectCollider(this, target as OBBCapsuleCollider, this, out collisionData);
+                return DetectCollider(this, target as OBBCapsuleCollider, this, out collisionData);
             }
             else
             {
