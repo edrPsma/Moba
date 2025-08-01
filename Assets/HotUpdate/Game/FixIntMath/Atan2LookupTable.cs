@@ -1,4 +1,4 @@
-﻿namespace FixIntMath
+﻿namespace FixedPointNumber
 {
     public static class Atan2LookupTable
     {

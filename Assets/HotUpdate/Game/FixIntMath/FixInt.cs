@@ -1,4 +1,4 @@
-namespace FixIntMath
+namespace FixedPointNumber
 {
     using System;
 
