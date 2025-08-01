@@ -28,7 +28,7 @@ namespace OBB
 
                     target.SyncCollisionData();
                     //碰撞检测逻辑
-                    item.DetectCollider(target, out CollisionData collisionData);
+                    item.DetectCollider(target);
                 }
             }
         }

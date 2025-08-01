@@ -48,7 +48,7 @@ namespace OBB
             }
         }
 
-        public override bool DetectCollider(OBBCollider target, out CollisionData collisionData)
+        protected override bool OnDetectCollider(OBBCollider target, out CollisionData collisionData)
         {
             if (target.ColliderType == EOBBColliderType.Box)
             {
