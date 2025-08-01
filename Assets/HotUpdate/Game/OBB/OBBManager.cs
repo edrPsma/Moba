@@ -10,6 +10,16 @@ namespace OBB
     {
         private List<OBBCollider> _colliders = new List<OBBCollider>();
 
+        protected override void OnInit()
+        {
+            base.OnInit();
+            GameObject.DontDestroyOnLoad(gameObject);
+        }
+
+        void Update()
+        {
+            LogicFrameUpdate();
+        }
 
         public void LogicFrameUpdate()
         {

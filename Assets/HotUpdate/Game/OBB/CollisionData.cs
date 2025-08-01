@@ -61,6 +61,9 @@ namespace OBB
         /// 轴向 x,y,z
         /// </summary>
         public FixIntVector3 Direction;
+
+        public FixIntVector3 Top => Center + Direction * Height / 2f;
+        public FixIntVector3 Down => Center - Direction * Height / 2f;
     }
 
     [Serializable]

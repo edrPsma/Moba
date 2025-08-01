@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Drawing;
@@ -11,10 +12,29 @@ namespace OBB
     {
         [SerializeField] Vector3 _size;
         OBBBoxCollider _boxCollider;
+        Color _color = Color.blue;
 
         void Start()
         {
             _boxCollider = new OBBBoxCollider(new FixIntVector3(_size));
+            SetData();
+            _boxCollider.OnCollisionEnterAction = OnCollisionEnterFunc;
+            _boxCollider.OnCollisionEmptyAction = OnCollisionEmptyFunc;
+            OBBManager.Instance.AddCollider2D(_boxCollider);
+        }
+
+        private void OnCollisionEmptyFunc()
+        {
+            _color = Color.blue;
+        }
+
+        private void OnCollisionEnterFunc(OBBCollider collider, CollisionData data)
+        {
+            _color = Color.red;
+        }
+
+        void Update()
+        {
             SetData();
         }
 
@@ -25,7 +45,7 @@ namespace OBB
             Draw.WireBox(new float3(transform.position),
                 transform.rotation,
                 new float3(_size),
-                Color.blue
+                _color
              );
         }
 

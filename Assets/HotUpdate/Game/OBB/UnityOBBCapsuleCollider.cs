@@ -13,10 +13,29 @@ namespace OBB
         [SerializeField] float _height;
 
         OBBCapsuleCollider _capsuleCollider;
+        Color _color = Color.blue;
 
         void Start()
         {
             _capsuleCollider = new OBBCapsuleCollider(_radius, _height, new FixIntVector3(transform.up));
+            SetData();
+            _capsuleCollider.OnCollisionEnterAction = OnCollisionEnterFunc;
+            _capsuleCollider.OnCollisionEmptyAction = OnCollisionEmptyFunc;
+            OBBManager.Instance.AddCollider2D(_capsuleCollider);
+        }
+
+        private void OnCollisionEmptyFunc()
+        {
+            _color = Color.blue;
+        }
+
+        private void OnCollisionEnterFunc(OBBCollider collider, CollisionData data)
+        {
+            _color = Color.red;
+        }
+
+        void Update()
+        {
             SetData();
         }
 
@@ -29,7 +48,7 @@ namespace OBB
                 new float3(transform.up),
                 _height,
                 _radius,
-                Color.blue
+                _color
             );
         }
 

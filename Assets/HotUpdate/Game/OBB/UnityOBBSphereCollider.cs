@@ -12,10 +12,29 @@ namespace OBB
         [SerializeField] float _radius;
 
         OBBSphereCollider _sphereCollider;
+        Color _color = Color.blue;
 
         void Start()
         {
             _sphereCollider = new OBBSphereCollider(_radius);
+            SetData();
+            _sphereCollider.OnCollisionEnterAction = OnCollisionEnterFunc;
+            _sphereCollider.OnCollisionEmptyAction = OnCollisionEmptyFunc;
+            OBBManager.Instance.AddCollider2D(_sphereCollider);
+        }
+
+        private void OnCollisionEmptyFunc()
+        {
+            _color = Color.blue;
+        }
+
+        private void OnCollisionEnterFunc(OBBCollider collider, CollisionData data)
+        {
+            _color = Color.red;
+        }
+
+        void Update()
+        {
             SetData();
         }
 
@@ -26,7 +45,7 @@ namespace OBB
             Draw.WireSphere(
                 new float3(transform.position),
                 _radius,
-                Color.blue
+                _color
             );
         }
 

@@ -18,6 +18,7 @@ namespace OBB
         public Action<OBBCollider, CollisionData> OnCollisionEnterAction;
         public Action<OBBCollider, CollisionData> OnCollisionStayAction;
         public Action<OBBCollider> OnCollisionExitAction;
+        public Action OnCollisionEmptyAction;
 
         protected List<OBBCollider> _alreayOccurCollisionList = new List<OBBCollider>();
 
@@ -46,6 +47,11 @@ namespace OBB
                 {
                     _alreayOccurCollisionList.Remove(target);
                     OnCollisionExitAction?.Invoke(target);
+
+                    if (_alreayOccurCollisionList.Count == 0)
+                    {
+                        OnCollisionEmptyAction?.Invoke();
+                    }
                 }
 
             }

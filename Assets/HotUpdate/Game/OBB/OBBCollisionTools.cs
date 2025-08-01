@@ -140,15 +140,8 @@ namespace OBB
 
         public static bool CollisionCapsule(CapsuleColliderData data1, CapsuleColliderData data2)
         {
-            //计算头尾点最值
-            FixIntVector3 pointA1 = data1.Center + data1.Direction * (data1.Height / 2f + data1.Radius);
-            FixIntVector3 pointA2 = data1.Center - data1.Direction * (data1.Height / 2f + data1.Radius);
-
-            FixIntVector3 pointB1 = data2.Center + data2.Direction * (data2.Height / 2f + data2.Radius);
-            FixIntVector3 pointB2 = data2.Center - data2.Direction * (data2.Height / 2f + data2.Radius);
-
             // 求两条线段的最短距离
-            FixInt distance = GetClosestDistanceBetweenLinesSqr(pointA1, pointA2, pointB1, pointB2);
+            FixInt distance = GetClosestDistanceBetweenLinesSqr(data1.Top, data2.Down, data2.Top, data2.Down);
 
             //求两个球半径和
             FixInt totalRadius = FixIntMath.Pow(data1.Radius + data2.Radius, 2);
@@ -201,18 +194,14 @@ namespace OBB
 
         public static bool CollisionDetect(CapsuleColliderData data1, BoxColliderData data2, out CollisionData collisionData)
         {
-            //计算头尾点最值
-            FixIntVector3 point1 = data1.Center + data1.Direction * (data1.Height / 2f + data1.Radius);
-            FixIntVector3 point2 = data1.Center - data1.Direction * (data1.Height / 2f + data1.Radius);
-
-            FixIntVector3 closest = GetClosestPointOnLineSegment(point1, point2, data2.Center);
+            FixIntVector3 closest = GetClosestPointOnLineSegment(data1.Top, data1.Down, data2.Center);
 
             //求最近点
             FixIntVector3 nearP = GetClosestPointOBB(closest, data2);
             //与AABB检测原理相同
 
             FixIntVector3 dir = closest - nearP;
-            FixInt distance = dir.sqrMagnitude;
+            FixInt distance = dir.magnitude;
             FixInt radius = data1.Radius;
 
             bool IsColliding = distance <= radius;
@@ -250,11 +239,7 @@ namespace OBB
 
         public static bool CollisionDetect(CapsuleColliderData data1, SphereColliderData data2, out CollisionData collisionData)
         {
-            //计算头尾点最值
-            FixIntVector3 point1 = data1.Center + data1.Direction * (data1.Height / 2f + data1.Radius);
-            FixIntVector3 point2 = data1.Center - data1.Direction * (data1.Height / 2f + data1.Radius);
-
-            FixIntVector3 closest = GetClosestPointOnLineSegment(point1, point2, data2.Center);
+            FixIntVector3 closest = GetClosestPointOnLineSegment(data1.Top, data1.Down, data2.Center);
 
             //求两个球半径和
             FixInt totalRadius = data1.Radius + data2.Radius;
