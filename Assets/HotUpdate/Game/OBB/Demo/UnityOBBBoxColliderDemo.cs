@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace OBB
 {
-    public class UnityOBBBoxCollider : MonoBehaviourGizmos
+    public class UnityOBBBoxColliderDemo : MonoBehaviourGizmos
     {
         [SerializeField] Vector3 _size;
         OBBBoxCollider _boxCollider;
@@ -21,7 +21,7 @@ namespace OBB
             _boxCollider.OnCollisionEnterAction = OnCollisionEnterFunc;
             _boxCollider.OnCollisionEmptyAction = OnCollisionEmptyFunc;
             _boxCollider.OnCollisionStayAction = OnCollisionStayFunc;
-            OBBManager.Instance.AddCollider(_boxCollider);
+            OBBManagerDemo.Instance.AddCollider(_boxCollider);
         }
 
         private void OnCollisionStayFunc(OBBCollider collider, CollisionData data)

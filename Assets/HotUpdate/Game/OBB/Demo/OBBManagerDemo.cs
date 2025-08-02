@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace OBB
 {
-    public class OBBManager : MonoSingleton<OBBManager, OBBManager>
+    public class OBBManagerDemo : MonoSingleton<OBBManagerDemo, OBBManagerDemo>
     {
         private List<OBBCollider> _colliders = new List<OBBCollider>();
         List<CollisionData> _cacheCollisionDatas = new List<CollisionData>();
@@ -40,9 +40,12 @@ namespace OBB
 
                     target.SyncCollisionData();
                     //碰撞检测逻辑
-                    if (item.IsUseAdjustPos && item.DetectCollider(target, out CollisionData collisionData))
+                    if (item.DetectCollider(target, out CollisionData collisionData))
                     {
-                        _cacheCollisionDatas.Add(collisionData);
+                        if (item.IsUseAdjustPos)
+                        {
+                            _cacheCollisionDatas.Add(collisionData);
+                        }
                     }
                 }
 

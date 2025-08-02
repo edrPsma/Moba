@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace OBB
 {
-    public class PlayerMove : MonoBehaviourGizmos
+    public class PlayerMoveDemo : MonoBehaviourGizmos
     {
         [SerializeField] float _radius;
         [SerializeField] float _height;
@@ -25,7 +25,7 @@ namespace OBB
             _capsuleCollider.OnCollisionEnterAction = OnCollisionEnterFunc;
             _capsuleCollider.OnCollisionEmptyAction = OnCollisionEmptyFunc;
             _capsuleCollider.OnCollisionStayAction = OnCollisionStayFunc;
-            OBBManager.Instance.AddCollider(_capsuleCollider);
+            OBBManagerDemo.Instance.AddCollider(_capsuleCollider);
         }
 
         private void OnCollisionStayFunc(OBBCollider collider, CollisionData data)

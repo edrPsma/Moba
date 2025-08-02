@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace OBB
 {
-    public class UnityOBBSphereCollider : MonoBehaviourGizmos
+    public class UnityOBBSphereColliderDemo : MonoBehaviourGizmos
     {
         [SerializeField] float _radius;
 
@@ -21,7 +21,7 @@ namespace OBB
             _sphereCollider.OnCollisionEnterAction = OnCollisionEnterFunc;
             _sphereCollider.OnCollisionEmptyAction = OnCollisionEmptyFunc;
             _sphereCollider.OnCollisionStayAction = OnCollisionStayFunc;
-            OBBManager.Instance.AddCollider(_sphereCollider);
+            OBBManagerDemo.Instance.AddCollider(_sphereCollider);
         }
 
         private void OnCollisionStayFunc(OBBCollider collider, CollisionData data)
