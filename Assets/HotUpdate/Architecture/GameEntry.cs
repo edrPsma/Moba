@@ -34,11 +34,11 @@ public static class GameEntry
         UI = UIManager.Instance;
         UI.Initialize(uILoader);
         Scene = SceneManager.Instance;
+        Task = TaskManager.Instance;
+        Audio = AudioManager.Instance;
         Procedure = procedure;
         procedure.Initialize();
         procedure.Enter();
-        Task = TaskManager.Instance;
-        Audio = AudioManager.Instance;
         new GameObject("[GameFSMRunner]").AddComponent<GameFSMRunner>();
     }
 }

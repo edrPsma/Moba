@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7761268541476543835}
-  - component: {fileID: 1119488481}
+  - component: {fileID: 7499101631975030198}
   m_Layer: 5
   m_Name: TipsWnd
   m_TagString: Untagged
@@ -30,6 +30,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 201823489485433299}
+  - {fileID: 22949140635833454}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -38,27 +39,33 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!95 &1119488481
-Animator:
-  serializedVersion: 5
+--- !u!114 &7499101631975030198
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2109729688406687294}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9ac791e1e04ba63469ad03aeaf719800, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ca176853fd77b54186b9aba6028c9bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ArrayDatas: []
+  AssetDatas: []
+  ComponentDatas:
+  - Name: clone
+    Type: RectTransform
+    Reference: {fileID: 2518289373001012036}
+    BindReference: {fileID: 201823489485433299}
+  - Name: recycleNode
+    Type: RectTransform
+    Reference: {fileID: 2846344725402971555}
+    BindReference: {fileID: 22949140635833454}
+  StateDatas: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &2518289373001012036
 GameObject:
   m_ObjectHideFlags: 0
@@ -71,12 +78,12 @@ GameObject:
   - component: {fileID: 4813056890256573779}
   - component: {fileID: 6445091410169151473}
   m_Layer: 5
-  m_Name: bgTips
+  m_Name: clone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &201823489485433299
 RectTransform:
   m_ObjectHideFlags: 0
@@ -136,6 +143,42 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &2846344725402971555
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 22949140635833454}
+  m_Layer: 5
+  m_Name: recycleNode
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &22949140635833454
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2846344725402971555}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7761268541476543835}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5683770033783934842
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,7 +192,7 @@ GameObject:
   - component: {fileID: 3644159415441910519}
   - component: {fileID: 6917037087093798640}
   m_Layer: 5
-  m_Name: txtTips
+  m_Name: text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -216,7 +259,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u9F50\u9F50\u8BFE\uFF0C\u4E13\u6CE8\u5B9E\u6218\uFF0C\u53EA\u8BB2\u5E72\u8D27\uFF01"
+  m_Text: '!!!!!!!!'
 --- !u!114 &6917037087093798640
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -17,11 +17,20 @@ public class LoginForm : UIForm
     {
         this.Get<Button>("btnLogin").Subscribe(BtnLoginOnClick);
         this.Get<Toggle>("togSrv").Subscribe(OnServerTypeChange);
+        SetRandomInfo();
     }
 
     private void OnServerTypeChange(bool isOn)
     {
 
+    }
+
+    void SetRandomInfo()
+    {
+        int randomAcc = Utility.Random.GetRandom(100, 1000);
+        int randomPass = Utility.Random.GetRandom(100, 1000);
+        this.Get<InputField>("iptAcct").text = $"{randomAcc}";
+        this.Get<InputField>("iptPass").text = $"{randomPass}";
     }
 
     private void BtnLoginOnClick()

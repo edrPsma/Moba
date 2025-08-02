@@ -13,4 +13,10 @@ public class GameFSM : BaseGameFSM
         AddState(EGameState.Login, new LoginState());
         AddState(EGameState.SystemInit, new SystemInitState());
     }
+
+    protected override void OnEnter()
+    {
+        base.OnEnter();
+        GameEntry.UI.PushAsync<TipsForm>();
+    }
 }

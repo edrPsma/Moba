@@ -16,6 +16,7 @@ public class LoginState : BaseState
 
         GameEntry.Scene.LoadScene<MainScene>();
         GameEntry.UI.PushAsync<LoginForm>();
+        GameEntry.Audio.PlayBGM("Assets/GameAssets/Audio/main.mp3");
     }
 
     protected override void OnExit()
