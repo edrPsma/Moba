@@ -7,8 +7,8 @@ namespace GameServer.Common
     public class ReflectionManager : Singleton<ReflectionManager, ReflectionManager>
     {
         Dictionary<Type, object> _map;
-
         Dictionary<Type, FieldInfo[]> _fieldMap;
+        public HashSet<object> CacheSet;
 
         protected override void OnInit()
         {
@@ -16,21 +16,20 @@ namespace GameServer.Common
 
             _map = new Dictionary<Type, object>();
             _fieldMap = new Dictionary<Type, FieldInfo[]>();
+            CacheSet = new HashSet<object>();
             Collect();
         }
 
         void Collect()
         {
-            HashSet<object> set = new HashSet<object>();
-
             Type[] types = typeof(ReflectionManager).Assembly.GetTypes();
             foreach (var item in types)
             {
-                CollectMaskClass(item, set);
+                CollectMaskClass(item, CacheSet);
                 CollectFields(item);
             }
 
-            foreach (var item in set)
+            foreach (var item in CacheSet)
             {
                 Inject(item);
             }
@@ -50,6 +49,7 @@ namespace GameServer.Common
             else
             {
                 object instance = Activator.CreateInstance(item);
+                Console.WriteLine(item.Name);
                 for (int i = 0; i < attribute.Types.Count; i++)
                 {
                     _map.Add(attribute.Types[i], instance);
@@ -88,6 +88,19 @@ namespace GameServer.Common
             }
         }
 
+        public T Get<T>()
+        {
+            Type type = typeof(T);
+            if (_map.ContainsKey(type))
+            {
+                return (T)_map[type];
+            }
+            else
+            {
+                return default;
+            }
+        }
+
         public void Inject(object obj)
         {
             Type type = obj.GetType();
@@ -104,12 +117,25 @@ namespace GameServer.Common
 
     public static class Builder
     {
-        public static T NewAndInject<T>() where T : new()
+        public static T NewAndInject<T>() where T : class, new()
         {
             T t = new T();
             ReflectionManager.Instance.Inject(t);
 
             return t;
+        }
+
+        public static T Get<T>()
+        {
+            return ReflectionManager.Instance.Get<T>();
+        }
+
+        public static void ForEach(Action<object> action)
+        {
+            foreach (var item in ReflectionManager.Instance.CacheSet)
+            {
+                action?.Invoke(item);
+            }
         }
     }
 }

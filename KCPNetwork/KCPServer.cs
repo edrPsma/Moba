@@ -8,7 +8,7 @@ using Google.Protobuf;
 
 namespace KCPNetwork
 {
-    public abstract class KCPServer<TSession> : KCPNet<TSession> where TSession : KCPSession, new()
+    public class KCPServer<TSession> : KCPNet<TSession> where TSession : KCPSession, new()
     {
         protected Dictionary<uint, TSession> _sessionDic = null;
         TSession _cacheSession;
@@ -97,7 +97,7 @@ namespace KCPNetwork
             }
             else
             {
-                KCPTool.Error($"Session:{sid} cannot find in _sessionDic");
+                KCPTool.Error?.Invoke($"Session:{sid} cannot find in _sessionDic");
             }
         }
 

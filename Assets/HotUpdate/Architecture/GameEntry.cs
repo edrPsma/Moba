@@ -17,6 +17,7 @@ public static class GameEntry
     public static ISceneManager Scene { get; private set; }
     public static ITaskManager Task { get; private set; }
     public static IAudioManager Audio { get; private set; }
+    public static INetManager Net { get; private set; }
 
     static bool _initialize;
 
@@ -36,6 +37,7 @@ public static class GameEntry
         Scene = SceneManager.Instance;
         Task = TaskManager.Instance;
         Audio = AudioManager.Instance;
+        Net = NetManager.Instance;
         Procedure = procedure;
         procedure.Initialize();
         procedure.Enter();

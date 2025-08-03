@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KCPNetwork
 {
-    public abstract class KCPClient<TSession> : KCPNet<TSession> where TSession : KCPSession, new()
+    public class KCPClient<TSession> : KCPNet<TSession> where TSession : KCPSession, new()
     {
         public TSession Session { get; private set; }
 
@@ -18,7 +18,7 @@ namespace KCPNetwork
                 _udp.Client.IOControl((IOControlCode)(-1744830452), new byte[] { 0, 0, 0, 0 }, null);
             }
             RemotePoint = new IPEndPoint(IPAddress.Parse(ip), port);
-            KCPTool.Log("Client Start...");
+            KCPTool.Log?.Invoke("Client Start...");
 
             Task.Run(ClientRecive, _token);
         }
@@ -66,7 +66,7 @@ namespace KCPNetwork
                 {
                     if (_token.IsCancellationRequested)
                     {
-                        KCPTool.Log("ClientRecive Task is Cancelled.");
+                        KCPTool.Log?.Invoke("ClientRecive Task is Cancelled.");
                         break;
                     }
                     result = await _udp.ReceiveAsync();
@@ -80,13 +80,13 @@ namespace KCPNetwork
                             if (Session != null && Session.IsConnected())
                             {
                                 //已经建立连接，初始化完成了，收到了多的sid,直接丢弃。
-                                KCPTool.Warn("Client is Init Done,Sid Surplus.");
+                                KCPTool.Warn?.Invoke("Client is Init Done,Sid Surplus.");
                             }
                             else
                             {
                                 //未初始化，收到服务器分配的sid数据，初始化一个客户端session
                                 sid = BitConverter.ToUInt32(result.Buffer, 4);
-                                KCPTool.Log($"UDP Request Conv Sid: {sid}");
+                                KCPTool.Log?.Invoke($"UDP Request Conv Sid: {sid}");
 
                                 //会话处理
                                 Session = new TSession();
@@ -105,18 +105,18 @@ namespace KCPNetwork
                             {
                                 //没初始化且sid!=0，数据消息提前到了，直接丢弃消息，直到初
                                 //始化完成，kcp重传再开始处理。
-                                KCPTool.Warn("Client is Initing...");
+                                KCPTool.Warn?.Invoke("Client is Initing...");
                             }
                         }
                     }
                     else
                     {
-                        KCPTool.Warn("Client Udp Recive illegal target Data.");
+                        KCPTool.Warn?.Invoke("Client Udp Recive illegal target Data.");
                     }
                 }
                 catch (Exception e)
                 {
-                    KCPTool.Warn($"Client Udp Recive Data Exception:{e}");
+                    KCPTool.Warn?.Invoke($"Client Udp Recive Data Exception:{e}");
                 }
             }
         }
@@ -130,7 +130,7 @@ namespace KCPNetwork
                 _udp = null;
             }
             Session = null;
-            KCPTool.Warn($"Client Session Close,sid: {sessionID}");
+            KCPTool.Warn?.Invoke($"Client Session Close,sid: {sessionID}");
         }
     }
 }

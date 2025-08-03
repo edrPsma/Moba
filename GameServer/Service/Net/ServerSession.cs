@@ -1,46 +1,14 @@
+using System;
+using GameServer.Common;
 using Google.Protobuf;
-using KCPNetwork;
 using Protocol;
-using Test;
 
-namespace KCPServerTest;
-
-class Program
+namespace GameServer.Service
 {
-    static void Main(string[] args)
+    public class ServerSession : KCPNetwork.KCPSession
     {
-        KCPTool.Log = Console.WriteLine;
-        KCPTool.Warn = Console.WriteLine;
-        KCPTool.Error = Console.WriteLine;
+        public INetService NetService => Builder.Get<INetService>();
 
-        string ip = "127.0.0.1";
-        KCPServer<ServerSession> server = new Server();
-        server.StartAsServer(ip, 17666);
-
-        while (true)
-        {
-            string ipt = Console.ReadLine();
-            if (ipt == "quit")
-            {
-                server.CloseServer();
-                break;
-            }
-            else
-            {
-                server.BroadCastMsg(new TestInfo { Name = "傻逼消息" });
-            }
-        }
-
-        Console.ReadKey();
-    }
-
-    class Server : KCPServer<ServerSession>
-    {
-
-    }
-
-    class ServerSession : KCPSession
-    {
         protected override void OnConnected()
         {
             Console.WriteLine($"Client Online,Sid:{SessionID}");
@@ -53,6 +21,8 @@ class Program
 
         protected override void OnReciveMsg(IMessage msg)
         {
+            NetService.Enqueue(this, msg);
+
             Console.WriteLine("Sid:{0},RcvClient,CMD:{1}", SessionID, msg.GetType());
             if (msg is Ping)
             {

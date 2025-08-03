@@ -54,7 +54,7 @@ namespace KCPNetwork
             }
             else
             {
-                KCPTool.Warn("Session Disconnected.Can not send msg.");
+                KCPTool.Warn?.Invoke("Session Disconnected.Can not send msg.");
             }
         }
 
@@ -70,7 +70,7 @@ namespace KCPNetwork
             }
             else
             {
-                KCPTool.Warn("Session Disconnected.Can not send msg.");
+                KCPTool.Warn?.Invoke("Session Disconnected.Can not send msg.");
             }
         }
 

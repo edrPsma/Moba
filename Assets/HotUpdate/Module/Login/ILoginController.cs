@@ -13,6 +13,7 @@ public class LoginController : ILoginController
 {
     public void Login(string acc, string pass)
     {
+        GameEntry.Net.Connect();
         if (acc.Length < 3 || pass.Length < 3)
         {
             TipsForm.ShowTips("账号或密码错误");

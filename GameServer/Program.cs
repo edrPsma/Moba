@@ -1,5 +1,6 @@
 ﻿using System;
 using GameServer.Common;
+using GameServer.Service;
 using GameServer.Test;
 
 namespace GameServer
@@ -10,12 +11,10 @@ namespace GameServer
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, World!");
+            Debug.InitSettings();
             ReflectionManager.Instance.Init();
 
-            TestUI testUI = Builder.NewAndInject<TestUI>();
-            Console.WriteLine(testUI.TestController);
-            testUI.Log();
-
+            Builder.Get<INetService>().StartServer();
             Console.ReadKey();
         }
     }
