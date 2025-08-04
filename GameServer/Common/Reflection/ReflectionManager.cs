@@ -125,6 +125,11 @@ namespace GameServer.Common
             return t;
         }
 
+        public static void Inject(object obj)
+        {
+            ReflectionManager.Instance.Inject(obj);
+        }
+
         public static T Get<T>()
         {
             return ReflectionManager.Instance.Get<T>();

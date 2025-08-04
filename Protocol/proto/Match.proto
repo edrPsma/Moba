@@ -6,3 +6,21 @@ message U2GS_Match
 {
     
 }
+
+message ComfirmData
+{
+    int32 iconIndex = 1;// 图标索引
+    bool comfirmDone = 2;// 是否确认结束
+}
+
+message GS2U_Comfirm
+{
+    int32 roomID = 1;// 房间ID
+    bool dismiss = 2;// 是否解散房间
+    repeated ComfirmData comfirmArr = 3;// 确认数据数组
+}
+
+message U2GS_Comfirm
+{
+    int32 roomID = 1;// 房间ID
+}
