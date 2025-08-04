@@ -20,7 +20,6 @@ namespace GameServer.Controller
         List<PvpRoom> _rooms = new List<PvpRoom>();
         Dictionary<int, PvpRoom> _roomMap = new Dictionary<int, PvpRoom>();
         int _roomID = 0;
-        CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
         protected override void OnInitialize()
         {
@@ -28,23 +27,12 @@ namespace GameServer.Controller
 
             _sessions = new Queue<ServerSession>();
             NetService.Register<U2GS_Match>(OnMatchReceive);
-            Task.Run(() =>
-            {
-                while (true)
-                {
-                    if (_cancellationTokenSource.Token.IsCancellationRequested)
-                    {
-                        break;
-                    }
-
-                    Update();
-                    Thread.Sleep(1000);
-                }
-            }, _cancellationTokenSource.Token);
         }
 
-        private void Update()
+        protected override void OnUpdate()
         {
+            base.OnUpdate();
+
             if (_sessions.Count >= 2)
             {
                 ServerSession[] sessions = new ServerSession[2];
@@ -55,13 +43,6 @@ namespace GameServer.Controller
                 _rooms.Add(room);
                 _roomMap.Add(room.RoomID, room);
             }
-        }
-
-        protected override void OnShutDown()
-        {
-            base.OnShutDown();
-
-            _cancellationTokenSource.Cancel();
         }
 
         private void OnMatchReceive(ServerSession session, U2GS_Match match)

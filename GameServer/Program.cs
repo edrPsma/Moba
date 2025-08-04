@@ -20,22 +20,15 @@ namespace GameServer
 
             Builder.Get<INetService>().StartServer();
 
-            List<IService> services = new List<IService>();
-            List<IController> controllers = new List<IController>();
+            List<IGameLoop> gameLoops = new List<IGameLoop>();
 
             Builder.ForEach(item =>
             {
-                if (item is IService)
+                if (item is IGameLoop)
                 {
-                    IService service = item as IService;
-                    services.Add(service);
-                    service.Initialize();
-                }
-                else if (item is IController)
-                {
-                    IController controller = item as IController;
-                    controller.Initialize();
-                    controllers.Add(controller);
+                    IGameLoop looper = item as IGameLoop;
+                    gameLoops.Add(looper);
+                    looper.Initialize();
                 }
             });
 
@@ -49,7 +42,7 @@ namespace GameServer
                     {
                         break;
                     }
-                    foreach (var item in services)
+                    foreach (var item in gameLoops)
                     {
                         item.Update();
                     }
@@ -62,11 +55,6 @@ namespace GameServer
                 Thread.Sleep(10);
             }
             cancellationTokenSource.Cancel();
-
-            foreach (var item in controllers)
-            {
-                item.ShutDown();
-            }
 
             Builder.Get<INetService>().Close();
             Console.ReadKey();

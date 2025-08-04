@@ -1,22 +1,21 @@
 using System;
+using GameServer.Common;
 
 namespace GameServer.Service
 {
-    public interface IService
+    public interface IService : IGameLoop
     {
-        void Initialize();
 
-        void Update();
     }
 
     public abstract class AbstractService : IService
     {
-        void IService.Update()
+        void IGameLoop.Update()
         {
             OnUpdate();
         }
 
-        void IService.Initialize()
+        void IGameLoop.Initialize()
         {
             OnInitialize();
         }

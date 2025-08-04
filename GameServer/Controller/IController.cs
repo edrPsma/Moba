@@ -1,28 +1,27 @@
 using System;
+using GameServer.Common;
 
 namespace GameServer.Controller
 {
-    public interface IController
+    public interface IController : IGameLoop
     {
-        void Initialize();
 
-        void ShutDown();
     }
 
     public abstract class AbstractController : IController
     {
-        void IController.Initialize()
+        void IGameLoop.Initialize()
         {
             OnInitialize();
         }
 
-        void IController.ShutDown()
+        void IGameLoop.Update()
         {
-            OnShutDown();
+            OnUpdate();
         }
 
         protected virtual void OnInitialize() { }
 
-        protected virtual void OnShutDown() { }
+        protected virtual void OnUpdate() { }
     }
 }
