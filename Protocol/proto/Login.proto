@@ -1,0 +1,16 @@
+syntax = "proto3";
+import "UserData.proto";
+
+package Protocol;
+
+message U2GS_Login
+{
+    string acct = 1;
+    string pass = 2;
+}
+
+message GS2U_Login
+{
+    int32 state = 1;// -1账号已登陆 0登陆成功
+    UserData userData = 2;
+}

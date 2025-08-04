@@ -21,8 +21,6 @@ namespace GameServer.Service
 
         protected override void OnReciveMsg(IMessage msg)
         {
-            NetService.Enqueue(this, msg);
-
             Console.WriteLine("Sid:{0},RcvClient,CMD:{1}", SessionID, msg.GetType());
             if (msg is Ping)
             {
@@ -41,6 +39,10 @@ namespace GameServer.Service
                     };
                     Send(pingMsg);
                 }
+            }
+            else
+            {
+                NetService.Enqueue(this, msg);
             }
         }
 

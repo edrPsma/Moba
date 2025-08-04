@@ -8,12 +8,15 @@ public partial class MVCContainer
 {
     static partial void BindController()
     {
-		_container.Bind(typeof(ILoginController)).To<LoginController>().AsSingle();
+		_container.BindInterfacesAndSelfTo<LoginController>().AsSingle();
+
 
     }
 
     static partial void BindModel()
     {
+		_container.BindInterfacesAndSelfTo<PlayerModel>().AsSingle();
+
 
     }
 

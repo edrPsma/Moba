@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using HFSM;
 using Sirenix.OdinInspector;
-using Test;
 using UnityEngine;
 
 public class LoginState : BaseState
@@ -14,6 +13,7 @@ public class LoginState : BaseState
         base.OnEnter();
         Debug.Log("Procedure 进入登陆流程");
 
+        GameEntry.Net.InitNet();
         GameEntry.Scene.LoadScene<MainScene>();
         GameEntry.UI.PushAsync<LoginForm>();
         GameEntry.Audio.PlayBGM("Assets/GameAssets/Audio/main.mp3");

@@ -5,8 +5,4 @@ using UnityEngine;
 
 public class ControllerAttribute : ModuleAttribute
 {
-    public ControllerAttribute(params Type[] types)
-    {
-        Types = types;
-    }
 }

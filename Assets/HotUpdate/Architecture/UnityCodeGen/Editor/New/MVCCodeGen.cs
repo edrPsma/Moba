@@ -55,29 +55,7 @@ public partial class MVCContainer
             StringBuilder sb = new StringBuilder();
             foreach (var item in allController)
             {
-                TAttribute attribute = item.GetCustomAttribute<TAttribute>();
-                if (attribute.Types == null || attribute.Types.Length == 0)
-                {
-                    sb.AppendLine($"\t\t_container.Bind<{item.FullName}>().AsSingle();");
-                }
-                else
-                {
-                    sb.Append("\t\t_container.Bind(");
-                    for (int i = 0; i < attribute.Types.Length; i++)
-                    {
-                        if (i != attribute.Types.Length - 1)
-                        {
-
-                            sb.Append($"typeof({attribute.Types[i].FullName}),");
-                        }
-                        else
-                        {
-                            sb.Append($"typeof({attribute.Types[i].FullName})");
-                        }
-                    }
-                    sb.Append($").To<{item.FullName}>()");
-                    sb.Append(".AsSingle();\r\n");
-                }
+                sb.AppendLine($"\t\t_container.BindInterfacesAndSelfTo<{item.FullName}>().AsSingle();\r\n");
             }
 
             return sb.ToString();

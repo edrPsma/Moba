@@ -21,8 +21,6 @@ public class ClientSession : KCPSession
 
     protected override void OnReciveMsg(IMessage msg)
     {
-        NetManager.Instance.Enqueue(msg);
-
         Debug.Log(string.Format("Thread:{0} Sid;{1},RcvClient:{2}", Thread.CurrentThread.ManagedThreadId, SessionID, msg));
         if (msg is Protocol.Ping)
         {
@@ -38,10 +36,9 @@ public class ClientSession : KCPSession
                 Debug.Log(string.Format("Thread:{0} NetDelay:{1}", Thread.CurrentThread.ManagedThreadId, delay));
             }
         }
-        else if (msg is Test.TestInfo)
+        else
         {
-            Test.TestInfo testInfo = (Test.TestInfo)msg;
-            Debug.Log(testInfo.Name);
+            NetManager.Instance.Enqueue(msg);
         }
     }
 

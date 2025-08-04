@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using GameServer.Common;
 using Google.Protobuf;
 using KCPNetwork;
+using Observable;
+using Protocol;
 
 namespace GameServer.Service
 {
@@ -11,6 +13,10 @@ namespace GameServer.Service
         void Enqueue(ServerSession session, IMessage message);
 
         void StartServer();
+
+        void Close();
+
+        void Register<T>(Action<ServerSession, T> onMsgReceive);
     }
 
     [Reflection(typeof(INetService))]
@@ -19,12 +25,16 @@ namespace GameServer.Service
         public static readonly string QueLock = "QueLock";
         private KCPServer<ServerSession> _server = new KCPServer<ServerSession>();
         private Queue<MessagePackage> _queue = new Queue<MessagePackage>();
+        TypeEventSource<short> _eventSource;
 
-        public NetService()
+        protected override void OnInitialize()
         {
+            base.OnInitialize();
+
             KCPTool.Log = str => Debug.Log(str);
             KCPTool.Warn = str => Debug.Warn(str);
             KCPTool.Error = str => Debug.Error(str);
+            _eventSource = new TypeEventSource<short>();
         }
 
         public void StartServer()
@@ -45,19 +55,35 @@ namespace GameServer.Service
         {
             base.OnUpdate();
 
-            if (_queue.Count > 0)
+            if (_server != null)
             {
-                lock (QueLock)
+                if (_queue.Count > 0)
                 {
-                    MessagePackage messagePackage = _queue.Dequeue();
-                    HandOutMessage(messagePackage);
+                    lock (QueLock)
+                    {
+                        MessagePackage messagePackage = _queue.Dequeue();
+                        HandOutMessage(messagePackage);
+                    }
                 }
             }
         }
 
         private void HandOutMessage(MessagePackage package)
         {
+            short msgID = MessageBuilder.QueryMessageID(package.Message.GetType());
+            _eventSource.Trigger(msgID, package);
+        }
 
+        public void Close()
+        {
+            _server.CloseServer();
+            _server = null;
+        }
+
+        public void Register<T>(Action<ServerSession, T> onMsgReceive)
+        {
+            short msgID = MessageBuilder.QueryMessageID(typeof(T));
+            _eventSource.Register<MessagePackage>(msgID, package => onMsgReceive?.Invoke(package.Session, (T)package.Message));
         }
     }
 

@@ -14,10 +14,9 @@ public class TipsForm : UIForm
     Queue<string> _cacheShowList;
     HashSet<string> _cacheRemoveList;
     GameObjectPool<RectTransform> _pool;
-    float _interval = 0.1f;
-    float _moveTime = 0.5f;
+    float _interval = 0.2f;
+    float _moveTime = 1f;
     float _moveDelayTime = 0;
-    bool _isInit;
 
     protected override void OnStart()
     {
@@ -34,22 +33,6 @@ public class TipsForm : UIForm
 
         this.Get<RectTransform>("clone").SetActive(false);
         Panel.StartCoroutine(DelayShow());
-    }
-
-    protected override void OnOpen()
-    {
-        base.OnOpen();
-        if (!_isInit)
-        {
-            _isInit = true;
-            // List<float> times = DataTable.GetItem<Global>("Prompt_Duration").ToValue<List<float>>();
-            // _interval = times[0];
-            // _interval = Mathf.Clamp(_interval, 0.1f, 10);
-            // _moveTime = times[1];
-            // _moveTime = Mathf.Clamp(_moveTime, 0.1f, 10);
-            // _moveDelayTime = times[2];
-            // _moveDelayTime = Mathf.Clamp(_moveDelayTime, 0, 10);
-        }
     }
 
     void Show(string str)

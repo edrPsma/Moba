@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package Protocol;
+
+message UserData
+{
+    uint32 uId = 1;
+    repeated int32 heroList = 2;
+}

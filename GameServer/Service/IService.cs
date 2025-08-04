@@ -4,6 +4,8 @@ namespace GameServer.Service
 {
     public interface IService
     {
+        void Initialize();
+
         void Update();
     }
 
@@ -14,7 +16,17 @@ namespace GameServer.Service
             OnUpdate();
         }
 
+        void IService.Initialize()
+        {
+            OnInitialize();
+        }
+
         protected virtual void OnUpdate()
+        {
+
+        }
+
+        protected virtual void OnInitialize()
         {
 
         }

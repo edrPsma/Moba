@@ -12,6 +12,8 @@ public partial class MVCContainer
         BindModel();
 
         BindController();
+
+        InitializeAllControllerAndModel();
     }
 
     static partial void BindModel();
@@ -29,5 +31,20 @@ public partial class MVCContainer
         Inject(t);
 
         return t;
+    }
+
+    static void InitializeAllControllerAndModel()
+    {
+        List<IModel> models = _container.ResolveAll<IModel>();
+        foreach (var item in models)
+        {
+            item.Initialize();
+        }
+
+        List<IController> controllers = _container.ResolveAll<IController>();
+        foreach (var item in controllers)
+        {
+            item.Initialize();
+        }
     }
 }
