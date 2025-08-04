@@ -21,6 +21,7 @@ namespace GameServer
             Builder.Get<INetService>().StartServer();
 
             List<IService> services = new List<IService>();
+            List<IController> controllers = new List<IController>();
 
             Builder.ForEach(item =>
             {
@@ -32,7 +33,9 @@ namespace GameServer
                 }
                 else if (item is IController)
                 {
-                    (item as IController).Initialize();
+                    IController controller = item as IController;
+                    controller.Initialize();
+                    controllers.Add(controller);
                 }
             });
 
@@ -59,6 +62,11 @@ namespace GameServer
                 Thread.Sleep(10);
             }
             cancellationTokenSource.Cancel();
+
+            foreach (var item in controllers)
+            {
+                item.ShutDown();
+            }
 
             Builder.Get<INetService>().Close();
             Console.ReadKey();

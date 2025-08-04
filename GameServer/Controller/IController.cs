@@ -5,6 +5,8 @@ namespace GameServer.Controller
     public interface IController
     {
         void Initialize();
+
+        void ShutDown();
     }
 
     public abstract class AbstractController : IController
@@ -14,6 +16,13 @@ namespace GameServer.Controller
             OnInitialize();
         }
 
+        void IController.ShutDown()
+        {
+            OnShutDown();
+        }
+
         protected virtual void OnInitialize() { }
+
+        protected virtual void OnShutDown() { }
     }
 }

@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class LobbyForm : UIForm
 {
     public override UIGroup DefultGroup => UIGroup.Middle;
     public override string Location => "Assets/GameAssets/UIPrefab/LobbyWnd.prefab";
 
+    [Inject] public IMatchController MatchController;
     int _countTask;
     protected override void OnStart()
     {
@@ -23,11 +25,13 @@ public class LobbyForm : UIForm
     private void BtnRankOnClick()
     {
         SetMatchInfo(true);
+        MatchController.Match();
     }
 
     private void BtnPvpOnClick()
     {
-        SetMatchInfo(false);
+        SetMatchInfo(true);
+        MatchController.Match();
     }
 
     void SetMatchInfo(bool show)

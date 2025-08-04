@@ -8,6 +8,8 @@ public partial class MVCContainer
 {
     static partial void BindController()
     {
+		_container.BindInterfacesAndSelfTo<MatchController>().AsSingle();
+
 		_container.BindInterfacesAndSelfTo<LoginController>().AsSingle();
 
 
