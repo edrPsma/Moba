@@ -8,7 +8,7 @@ using Zenject;
 
 public class LoginForm : UIForm
 {
-    public override UIGroup DefultGroup => UIGroup.Middle;
+    public override UIGroup DefultGroup => UIGroup.Pop;
     public override string Location => "Assets/GameAssets/UIPrefab/LoginWnd.prefab";
 
     [Inject] ILoginController _loginController;

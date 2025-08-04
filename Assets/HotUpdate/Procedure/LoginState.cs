@@ -23,23 +23,7 @@ public class LoginState : BaseState
     {
         base.OnExit();
         Debug.Log("Procedure 退出登陆流程");
-    }
 
-    [Button]
-    void ShowA()
-    {
-        GameEntry.Audio.PlayEffect("Assets/GameAssets/Audio/victory.mp3");
-    }
-
-    [Button]
-    void HideA1()
-    {
-        GameEntry.Audio.StopBGM();
-    }
-
-    [Button]
-    void Relsease()
-    {
-        GameEntry.Resource.UnloadUnusedAssetsAsync();
+        GameEntry.UI.Pop<LoginForm>();
     }
 }

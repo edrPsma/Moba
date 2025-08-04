@@ -10,12 +10,7 @@ public enum EGameState
     Login,
 
     /// <summary>
-    /// 系统初始化
+    /// 进入大厅界面
     /// </summary>
-    SystemInit,
-
-    /// <summary>
-    /// 进入主菜单界面
-    /// </summary>
-    MainMenu,
+    Lobby,
 }

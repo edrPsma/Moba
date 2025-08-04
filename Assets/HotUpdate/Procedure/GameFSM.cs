@@ -11,7 +11,7 @@ public class GameFSM : BaseGameFSM
         base.OnInitialize();
 
         AddState(EGameState.Login, new LoginState());
-        AddState(EGameState.SystemInit, new SystemInitState());
+        AddState(EGameState.Lobby, new LobbyState());
     }
 
     protected override void OnEnter()

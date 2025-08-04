@@ -1677,7 +1677,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cbcff2e43423a754681587b2ae51a8ab, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 052d8f7e3bb748945a6d2c624a81ab99, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2314,6 +2314,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6954002299937049045}
+  - component: {fileID: 679821980468674743}
   m_Layer: 5
   m_Name: LobbyWnd
   m_TagString: Untagged
@@ -2347,6 +2348,45 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &679821980468674743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7176764894937321329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ca176853fd77b54186b9aba6028c9bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ArrayDatas: []
+  AssetDatas: []
+  ComponentDatas:
+  - Name: txtPredictTime
+    Type: Text
+    Reference: {fileID: 7744724189676079466}
+    BindReference: {fileID: 4941833282827540913}
+  - Name: txtCountTime
+    Type: Text
+    Reference: {fileID: 2425649697677819689}
+    BindReference: {fileID: 8243375322827510551}
+  - Name: MatchInfoRoot
+    Type: GameObject
+    Reference: {fileID: 900519224}
+    BindReference: {fileID: 900519224}
+  - Name: btnPvp
+    Type: Button
+    Reference: {fileID: 7176554151964598779}
+    BindReference: {fileID: 7063938262806986881}
+  - Name: btnRank
+    Type: Button
+    Reference: {fileID: 2898334005692922451}
+    BindReference: {fileID: 435864990928859150}
+  StateDatas: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &7191633790860029709
 GameObject:
   m_ObjectHideFlags: 0
@@ -2426,7 +2466,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: PlaneZhong
+  m_Text: PlayerName
 --- !u!1 &7344079745605870685
 GameObject:
   m_ObjectHideFlags: 0
