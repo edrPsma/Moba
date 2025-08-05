@@ -10,6 +10,10 @@ namespace GameServer.Service
         bool IsAcctOnline(string acct);
 
         void AcctOnline(string acct, ServerSession session, UserData userData);
+
+        string GetPlayerName(ServerSession session);
+
+        // void ClearCache(string acct);
     }
 
     [Reflection(typeof(ICacheService))]
@@ -34,7 +38,25 @@ namespace GameServer.Service
         public void AcctOnline(string acct, ServerSession session, UserData userData)
         {
             _acctDic.Add(acct, session);
+            // session.Acct = acct;
             _dataDic.Add(session, userData);
+        }
+
+        public string GetPlayerName(ServerSession session)
+        {
+            if (_dataDic.ContainsKey(session))
+            {
+                return _dataDic[session].Name;
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
+
+        public void ClearCache(string acct)
+        {
+            throw new NotImplementedException();
         }
     }
 }

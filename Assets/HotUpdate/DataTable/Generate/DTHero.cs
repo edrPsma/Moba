@@ -15,4 +15,5 @@ public class DTHero : IDataTable
 	[ShowInInspector] public readonly string Icon;// 图标
 	[ShowInInspector] public readonly int[] Skills;// 技能
 	[ShowInInspector] public readonly string Model;// 模型
+	[ShowInInspector] public readonly string Pic;// 立绘
 }

@@ -8,6 +8,8 @@ namespace GameServer.Service
     public class ServerSession : KCPNetwork.KCPSession
     {
         public INetService NetService => Builder.Get<INetService>();
+        public ICacheService CacheService => Builder.Get<ICacheService>();
+        // public string Acct;
 
         protected override void OnConnected()
         {

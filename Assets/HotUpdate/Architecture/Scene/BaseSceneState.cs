@@ -12,6 +12,7 @@ public abstract class BaseSceneState : ISceneState
     public string CurScenePath { get; set; }
     SceneHandle ISceneState.AssetHandle { get; set; }
     ESceneLoadState ISceneState.SceneState { get; set; }
+    public int Progress => (int)(this.As<ISceneState>().AssetHandle?.Progress * 100);
 
     void ISceneState.Enter()
     {

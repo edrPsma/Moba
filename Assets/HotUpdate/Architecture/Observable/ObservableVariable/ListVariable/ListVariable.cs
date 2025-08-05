@@ -25,7 +25,7 @@ namespace Observable
             _onModified?.Invoke(this);
         }
 
-        public IUnRegister Register(Action<IReadOnlyListVariable<T>> action, bool runInFirst)
+        public IUnRegister Register(Action<IReadOnlyListVariable<T>> action, bool runInFirst = true)
         {
             _onModified += action;
             if (runInFirst)

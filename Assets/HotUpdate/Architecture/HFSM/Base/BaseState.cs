@@ -24,6 +24,7 @@ namespace HFSM
 
         void IState.Initialize()
         {
+            MVCContainer.Inject(this);
             OnInit();
         }
 

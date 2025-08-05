@@ -26,6 +26,7 @@ public class SelectHeroForm : UIForm, IEnhancedScrollerDelegate
     {
         base.OnStart();
         GameEntry.UI.Pop<MatchForm>();
+        GameEntry.UI.SearchForm<LobbyForm>()?.SetMatchInfo(false);
 
         this.Get<Button>("btnSure").Subscribe(BtnSureOnClick);
         GameEntry.Event.Register<EventSelectHero>(OnSelectHero).Bind(Panel);

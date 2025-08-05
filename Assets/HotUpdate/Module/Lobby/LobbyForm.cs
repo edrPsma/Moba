@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Observable;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +13,7 @@ public class LobbyForm : UIForm
     public override string Location => "Assets/GameAssets/UIPrefab/LobbyWnd.prefab";
 
     [Inject] public IMatchController MatchController;
+    [Inject] public IPlayerModel PlayerModel;
     int _countTask;
     protected override void OnStart()
     {
@@ -20,6 +22,7 @@ public class LobbyForm : UIForm
         this.Get<GameObject>("MatchInfoRoot").SetActive(false);
         this.Get<Button>("btnPvp").Subscribe(BtnPvpOnClick);
         this.Get<Button>("btnRank").Subscribe(BtnRankOnClick);
+        this.Get<Text>("txtName").Observe(PlayerModel.Name).Bind(Panel);
     }
 
     private void BtnRankOnClick()
@@ -34,7 +37,7 @@ public class LobbyForm : UIForm
         MatchController.Match();
     }
 
-    void SetMatchInfo(bool show)
+    public void SetMatchInfo(bool show)
     {
         this.Get<GameObject>("MatchInfoRoot").SetActive(show);
         if (show)

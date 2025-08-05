@@ -2383,6 +2383,10 @@ MonoBehaviour:
     Type: Button
     Reference: {fileID: 2898334005692922451}
     BindReference: {fileID: 435864990928859150}
+  - Name: txtName
+    Type: Text
+    Reference: {fileID: 7191633790860029709}
+    BindReference: {fileID: 4871557869079396677}
   StateDatas: []
   references:
     version: 2

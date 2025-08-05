@@ -17,6 +17,9 @@ namespace GameServer.Controller
         [Inject] public INetService NetService;
         [Inject] public ICacheService CacheService;
 
+        private static readonly char[] chars =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".ToCharArray();
+
         protected override void OnInitialize()
         {
             NetService.Register<U2GS_Login>(OnLoginReceive);
@@ -38,6 +41,7 @@ namespace GameServer.Controller
                 UserData userData = new UserData
                 {
                     UId = session.SessionID,
+                    Name = GenerateRandomString()
                 };
                 userData.HeroList.AddRange(new List<int> { 1, 2 });
                 CacheService.AcctOnline(login.Acct, session, userData);
@@ -49,6 +53,19 @@ namespace GameServer.Controller
                 };
                 session.Send(msg);
             }
+        }
+
+        public static string GenerateRandomString(int length = 4)
+        {
+            Random random = new Random();
+            char[] result = new char[length];
+
+            for (int i = 0; i < length; i++)
+            {
+                result[i] = chars[random.Next(chars.Length)];
+            }
+
+            return new string(result);
         }
     }
 }

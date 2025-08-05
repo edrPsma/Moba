@@ -4,7 +4,7 @@ package Protocol;
 
 message U2GS_Match
 {
-    
+
 }
 
 message ComfirmData
@@ -29,4 +29,34 @@ message U2GS_SelectHero
 {
     int32 roomID = 1;
     int32 heroID = 2;
+}
+
+message GS2U_StartLoad
+{
+    repeated LoadInfo loadInfo = 2;
+}
+
+message GS2U_Load
+{
+    repeated LoadInfo loadInfo = 1;
+}
+
+message U2GS_Load
+{
+    int32 roomID = 1;
+    int32 progress = 2;
+}
+
+message LoadInfo
+{
+    uint32 uId = 1;
+    int32 index = 2;
+    string name = 3;
+    int32 progress = 4;
+    int32 heroID = 5;
+}
+
+message GS2U_Battle
+{
+
 }

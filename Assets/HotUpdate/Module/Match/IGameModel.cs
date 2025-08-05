@@ -10,6 +10,7 @@ public interface IGameModel
     BoolVariable RoomDismiss { get; }
     ListVariable<ComfirmData> ComfirmDatas { get; }
     int SelectHeroID { get; set; }
+    ListVariable<LoadInfo> LoadInfo { get; }
 }
 
 [Model]
@@ -19,6 +20,7 @@ public class GameModel : AbstractModel, IGameModel
     public BoolVariable RoomDismiss { get; private set; }
     public ListVariable<ComfirmData> ComfirmDatas { get; private set; }
     public int SelectHeroID { get; set; }
+    public ListVariable<LoadInfo> LoadInfo { get; private set; }
 
     protected override void OnInitialize()
     {
@@ -26,5 +28,6 @@ public class GameModel : AbstractModel, IGameModel
 
         RoomDismiss = new BoolVariable();
         ComfirmDatas = new ListVariable<ComfirmData>();
+        LoadInfo = new ListVariable<LoadInfo>();
     }
 }

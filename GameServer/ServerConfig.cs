@@ -8,5 +8,6 @@ namespace GameServer
         public const int ServerPort = 17666;
 
         public const int ConfirmCountDown = 15;
+        public const int SelectHeroCountDown = 32;
     }
 }

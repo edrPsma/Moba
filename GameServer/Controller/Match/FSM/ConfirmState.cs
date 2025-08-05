@@ -20,13 +20,13 @@ namespace GameServer.Controller
 
             InitComfirmData();
             _checkTaskID = TimeService.AddTask(ServerConfig.ConfirmCountDown * 1000, ReachTimeLimit);
-            MatchController.EventSource.Register<EventComfirm>(OnComfirm);
+            FSM.Room.EventSource.Register<EventComfirm>(OnComfirm);
         }
 
         protected override void OnExit()
         {
             base.OnExit();
-            MatchController.EventSource.UnRegister<EventComfirm>(OnComfirm);
+            FSM.Room.EventSource.UnRegister<EventComfirm>(OnComfirm);
             TimeService.DeleteTask(_checkTaskID);
             _checkTaskID = 0;
         }
@@ -39,13 +39,13 @@ namespace GameServer.Controller
 
             _comfirmDatas[comfirm.Index].ComfirmDone = true;
 
+            SyncData(false);
             if (CheckComfirmDone())
             {
                 TimeService.DeleteTask(_checkTaskID);
                 Debug.ColorLog(LogColor.Green, $"所有玩家确认完成,进入英雄选择,RoomID: {FSM.Room.RoomID}");
                 FSM.TransitionImmediately(EPvpState.SelectHero);
             }
-            SyncData(false);
         }
 
         private void ReachTimeLimit(int taskID)

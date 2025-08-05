@@ -12,7 +12,7 @@ namespace GameServer.Controller
 {
     public interface IMatchController
     {
-        TypeEventSource EventSource { get; }
+
     }
 
     [Reflection(typeof(IMatchController))]
@@ -23,18 +23,18 @@ namespace GameServer.Controller
         List<PvpFSM> _fsms;
         Dictionary<int, PvpRoom> _roomMap;
         int _roomID = 0;
-        public TypeEventSource EventSource { get; private set; }
 
         protected override void OnInitialize()
         {
             base.OnInitialize();
 
-            EventSource = new TypeEventSource();
             _roomMap = new Dictionary<int, PvpRoom>();
             _sessions = new Queue<ServerSession>();
             _fsms = new List<PvpFSM>();
             NetService.Register<U2GS_Match>(OnMatchReceive);
             NetService.Register<U2GS_Comfirm>(OnComfirm);
+            NetService.Register<U2GS_SelectHero>(OnSelectHero);
+            NetService.Register<U2GS_Load>(OnLoadChange);
         }
 
         protected override void OnUpdate()
@@ -50,6 +50,7 @@ namespace GameServer.Controller
                 PvpRoom room = Builder.NewAndInject<PvpRoom>();
                 room.RoomID = _roomID++;
                 room.Sessions = sessions;
+                room.EventSource = new TypeEventSource();
 
                 PvpFSM pvpFSM = new PvpFSM(room);
                 pvpFSM.Initialize();
@@ -81,15 +82,39 @@ namespace GameServer.Controller
             _sessions.Enqueue(session);
         }
 
-        private void OnComfirm(ServerSession session, U2GS_Comfirm comfirm)
+        private void OnComfirm(ServerSession session, U2GS_Comfirm msg)
         {
-            if (_roomMap.TryGetValue(comfirm.RoomID, out PvpRoom room))
+            if (_roomMap.TryGetValue(msg.RoomID, out PvpRoom room))
             {
                 room.Comfirm(session);
             }
             else
             {
-                Debug.Warn($"该房间不存在,RoomID: {comfirm.RoomID}");
+                Debug.Warn($"该房间不存在,RoomID: {msg.RoomID}");
+            }
+        }
+
+        private void OnSelectHero(ServerSession session, U2GS_SelectHero msg)
+        {
+            if (_roomMap.TryGetValue(msg.RoomID, out PvpRoom room))
+            {
+                room.SelectHero(session, msg.HeroID);
+            }
+            else
+            {
+                Debug.Warn($"该房间不存在,RoomID: {msg.RoomID}");
+            }
+        }
+
+        private void OnLoadChange(ServerSession session, U2GS_Load msg)
+        {
+            if (_roomMap.TryGetValue(msg.RoomID, out PvpRoom room))
+            {
+                room.ChangeProgress(session, msg.Progress);
+            }
+            else
+            {
+                Debug.Warn($"该房间不存在,RoomID: {msg.RoomID}");
             }
         }
     }
@@ -100,6 +125,8 @@ namespace GameServer.Controller
         public ServerSession[] Sessions;
         public bool IsComplete;
         [Inject] public IMatchController MatchController;
+        public HeroSelectInfo[] HeroArr;
+        public TypeEventSource EventSource;
 
         public void BroadcastMsg(IMessage message)
         {
@@ -113,15 +140,55 @@ namespace GameServer.Controller
 
         public void Comfirm(ServerSession session)
         {
+            int index = GetIndex(session);
+            if (index != -1)
+            {
+                EventSource.Trigger(new EventComfirm(RoomID, index));
+            }
+        }
+
+        public void SelectHero(ServerSession session, int heroID)
+        {
+            int index = GetIndex(session);
+            if (index != -1)
+            {
+                EventSource.Trigger(new EventSelectHero(RoomID, index, heroID));
+            }
+        }
+
+        public void ChangeProgress(ServerSession session, int progress)
+        {
+            int index = GetIndex(session);
+            if (index != -1)
+            {
+                EventSource.Trigger(new EventLoading(RoomID, index, progress));
+            }
+        }
+
+        public void Fight()
+        {
+            GS2U_Battle msg = new GS2U_Battle();
+            BroadcastMsg(msg);
+        }
+
+        private int GetIndex(ServerSession session)
+        {
             for (int i = 0; i < Sessions.Length; i++)
             {
                 if (Sessions[i] == session)
                 {
-                    MatchController.EventSource.Trigger(new EventComfirm(RoomID, i));
-                    break;
+                    return i;
                 }
             }
+
+            return -1;
         }
+    }
+
+    public class HeroSelectInfo
+    {
+        public int HeroID;
+        public bool Comfirm;
     }
 
     public readonly struct EventComfirm
@@ -133,6 +200,34 @@ namespace GameServer.Controller
         {
             RoomID = roomID;
             Index = index;
+        }
+    }
+
+    public readonly struct EventSelectHero
+    {
+        public int RoomID { get; }
+        public int Index { get; }
+        public int HeroID { get; }
+
+        public EventSelectHero(int roomID, int index, int heroID)
+        {
+            RoomID = roomID;
+            Index = index;
+            HeroID = heroID;
+        }
+    }
+
+    public readonly struct EventLoading
+    {
+        public int RoomID { get; }
+        public int Index { get; }
+        public int Progress { get; }
+
+        public EventLoading(int roomID, int index, int progress)
+        {
+            RoomID = roomID;
+            Index = index;
+            Progress = progress;
         }
     }
 }

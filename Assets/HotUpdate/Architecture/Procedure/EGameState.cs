@@ -18,4 +18,14 @@ public enum EGameState
     /// 进入大厅界面
     /// </summary>
     Lobby,
+
+    /// <summary>
+    /// 加载游戏
+    /// </summary>
+    LoadingGame,
+
+    /// <summary>
+    /// 战斗
+    /// </summary>
+    Combat,
 }

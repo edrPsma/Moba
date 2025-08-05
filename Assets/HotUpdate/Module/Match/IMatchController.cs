@@ -13,6 +13,8 @@ public interface IMatchController
     void Comfirm();
 
     void SelectHero(int heroID, bool comfirm);
+
+    void LoadChange(int progress);
 }
 
 [Controller]
@@ -24,6 +26,9 @@ public class MatchController : AbstarctController, IMatchController
     {
         base.OnInitialize();
         GameEntry.Net.Register<GS2U_Comfirm>(OnComfirm);
+        GameEntry.Net.Register<GS2U_Load>(OnLoad);
+        GameEntry.Net.Register<GS2U_StartLoad>(OnStartLoad);
+        GameEntry.Net.Register<GS2U_Battle>(OnStartBattle);
     }
 
     public void Match()
@@ -85,5 +90,39 @@ public class MatchController : AbstarctController, IMatchController
                 GameEntry.UI.PushAsync<SelectHeroForm>();
             }
         }
+    }
+
+    private void OnLoad(GS2U_Load msg)
+    {
+        GameModel.LoadInfo.Modifly(list =>
+        {
+            list.Clear();
+            list.AddRange(msg.LoadInfo);
+        });
+    }
+
+    private void OnStartLoad(GS2U_StartLoad msg)
+    {
+        GameEntry.Procedure.TransitionImmediately(EGameState.LoadingGame);
+        GameModel.LoadInfo.Modifly(list =>
+        {
+            list.AddRange(msg.LoadInfo);
+        });
+    }
+
+    public void LoadChange(int progress)
+    {
+        U2GS_Load msg = new U2GS_Load
+        {
+            RoomID = GameModel.RoomID,
+            Progress = progress,
+        };
+
+        GameEntry.Net.SendMsg(msg);
+    }
+
+    private void OnStartBattle(GS2U_Battle battle)
+    {
+        GameEntry.Procedure.TransitionImmediately(EGameState.Combat);
     }
 }

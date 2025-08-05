@@ -24,12 +24,13 @@ namespace Protocol {
     static UserDataReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "Cg5Vc2VyRGF0YS5wcm90bxIIUHJvdG9jb2wiKQoIVXNlckRhdGESCwoDdUlk",
-            "GAEgASgNEhAKCGhlcm9MaXN0GAIgAygFYgZwcm90bzM="));
+            "Cg5Vc2VyRGF0YS5wcm90bxIIUHJvdG9jb2wiNwoIVXNlckRhdGESCwoDdUlk",
+            "GAEgASgNEgwKBG5hbWUYAiABKAkSEAoIaGVyb0xpc3QYAyADKAViBnByb3Rv",
+            "Mw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.UserData), global::Protocol.UserData.Parser, new[]{ "UId", "HeroList" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.UserData), global::Protocol.UserData.Parser, new[]{ "UId", "Name", "HeroList" }, null, null, null, null)
           }));
     }
     #endregion
@@ -72,6 +73,7 @@ namespace Protocol {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public UserData(UserData other) : this() {
       uId_ = other.uId_;
+      name_ = other.name_;
       heroList_ = other.heroList_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -94,10 +96,22 @@ namespace Protocol {
       }
     }
 
+    /// <summary>Field number for the "name" field.</summary>
+    public const int NameFieldNumber = 2;
+    private string name_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Name {
+      get { return name_; }
+      set {
+        name_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     /// <summary>Field number for the "heroList" field.</summary>
-    public const int HeroListFieldNumber = 2;
+    public const int HeroListFieldNumber = 3;
     private static readonly pb::FieldCodec<int> _repeated_heroList_codec
-        = pb::FieldCodec.ForInt32(18);
+        = pb::FieldCodec.ForInt32(26);
     private readonly pbc::RepeatedField<int> heroList_ = new pbc::RepeatedField<int>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -121,6 +135,7 @@ namespace Protocol {
         return true;
       }
       if (UId != other.UId) return false;
+      if (Name != other.Name) return false;
       if(!heroList_.Equals(other.heroList_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -130,6 +145,7 @@ namespace Protocol {
     public override int GetHashCode() {
       int hash = 1;
       if (UId != 0) hash ^= UId.GetHashCode();
+      if (Name.Length != 0) hash ^= Name.GetHashCode();
       hash ^= heroList_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -153,6 +169,10 @@ namespace Protocol {
         output.WriteRawTag(8);
         output.WriteUInt32(UId);
       }
+      if (Name.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(Name);
+      }
       heroList_.WriteTo(output, _repeated_heroList_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -168,6 +188,10 @@ namespace Protocol {
         output.WriteRawTag(8);
         output.WriteUInt32(UId);
       }
+      if (Name.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(Name);
+      }
       heroList_.WriteTo(ref output, _repeated_heroList_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -181,6 +205,9 @@ namespace Protocol {
       int size = 0;
       if (UId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(UId);
+      }
+      if (Name.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
       }
       size += heroList_.CalculateSize(_repeated_heroList_codec);
       if (_unknownFields != null) {
@@ -197,6 +224,9 @@ namespace Protocol {
       }
       if (other.UId != 0) {
         UId = other.UId;
+      }
+      if (other.Name.Length != 0) {
+        Name = other.Name;
       }
       heroList_.Add(other.heroList_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -222,8 +252,12 @@ namespace Protocol {
             UId = input.ReadUInt32();
             break;
           }
-          case 18:
-          case 16: {
+          case 18: {
+            Name = input.ReadString();
+            break;
+          }
+          case 26:
+          case 24: {
             heroList_.AddEntriesFrom(input, _repeated_heroList_codec);
             break;
           }
@@ -250,8 +284,12 @@ namespace Protocol {
             UId = input.ReadUInt32();
             break;
           }
-          case 18:
-          case 16: {
+          case 18: {
+            Name = input.ReadString();
+            break;
+          }
+          case 26:
+          case 24: {
             heroList_.AddEntriesFrom(ref input, _repeated_heroList_codec);
             break;
           }

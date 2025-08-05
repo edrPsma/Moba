@@ -56,7 +56,7 @@ public class MatchForm : UIForm
         GameObject[] rightArr = this.GetArray<GameObject>("right");
 
         SetIconState(leftArr, 0, variable);
-        SetIconState(rightArr, 5, variable);
+        SetIconState(rightArr, variable.Count / 2, variable);
 
         int count = 0;
         for (int i = 0; i < variable.Count; i++)
@@ -78,7 +78,7 @@ public class MatchForm : UIForm
             {
                 arr[i].SetActive(true);
                 arr[i].GetComponent<Image>().LoadSprite($"Assets/GameAssets/ResImages/MatchWnd/icon_{startIndex + i}.png");
-                if (variable[num + i].ComfirmDone)
+                if (variable[startIndex + i].ComfirmDone)
                 {
                     arr[i].transform.GetChild(0).SetActive(true);
                 }

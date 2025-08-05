@@ -1805,6 +1805,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3447906061882150748}
+  - component: {fileID: 5177164554600800618}
   m_Layer: 5
   m_Name: LoadWnd
   m_TagString: Untagged
@@ -1836,6 +1837,53 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5177164554600800618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3224583728481307128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ca176853fd77b54186b9aba6028c9bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ArrayDatas:
+  - Name: blue
+    Type: GameObject
+    Reference:
+    - {fileID: 4756948119142545545}
+    - {fileID: 4351680845404734114}
+    - {fileID: 7011539731877962948}
+    - {fileID: 4638220080287253177}
+    - {fileID: 6445569807034919693}
+    BindReference:
+    - {fileID: 4756948119142545545}
+    - {fileID: 4351680845404734114}
+    - {fileID: 7011539731877962948}
+    - {fileID: 4638220080287253177}
+    - {fileID: 6445569807034919693}
+  - Name: red
+    Type: GameObject
+    Reference:
+    - {fileID: 2320553052099625990}
+    - {fileID: 1131542777168134309}
+    - {fileID: 3328219960609817383}
+    - {fileID: 4333594726734489576}
+    - {fileID: 4799553686283021614}
+    BindReference:
+    - {fileID: 2320553052099625990}
+    - {fileID: 1131542777168134309}
+    - {fileID: 3328219960609817383}
+    - {fileID: 4333594726734489576}
+    - {fileID: 4799553686283021614}
+  AssetDatas: []
+  ComponentDatas: []
+  StateDatas: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &3247068976532332766
 GameObject:
   m_ObjectHideFlags: 0

@@ -28,6 +28,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// KCPNetwork.KCPClient.<ClientRecive>d__7<object>
 	// KCPNetwork.KCPClient<object>
 	// KCPNetwork.KCPNet<object>
+	// System.Action<EventSelectHero>
 	// System.Action<OBB.CollisionData>
 	// System.Action<Task.TaskInfo>
 	// System.Action<Utility.Random.WeightedItem<object>>
@@ -40,6 +41,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Action<object,object>
 	// System.Action<object>
 	// System.Action<uint>
+	// System.ByReference<ushort>
 	// System.Collections.Generic.ArraySortHelper<OBB.CollisionData>
 	// System.Collections.Generic.ArraySortHelper<int>
 	// System.Collections.Generic.ArraySortHelper<object>
@@ -170,9 +172,11 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Linq.Enumerable.WhereSelectEnumerableIterator<object,object>
 	// System.Linq.Enumerable.WhereSelectListIterator<object,object>
 	// System.Linq.Expressions.Expression<object>
+	// System.Nullable<float>
 	// System.Predicate<OBB.CollisionData>
 	// System.Predicate<int>
 	// System.Predicate<object>
+	// System.ReadOnlySpan<ushort>
 	// System.Runtime.CompilerServices.AsyncTaskMethodBuilder<byte>
 	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable.ConfiguredTaskAwaiter<System.Net.Sockets.UdpReceiveResult>
 	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable.ConfiguredTaskAwaiter<byte>
@@ -183,6 +187,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Runtime.CompilerServices.TaskAwaiter<System.Net.Sockets.UdpReceiveResult>
 	// System.Runtime.CompilerServices.TaskAwaiter<byte>
 	// System.Runtime.CompilerServices.TrueReadOnlyCollection<object>
+	// System.Span<ushort>
 	// System.Threading.Tasks.ContinuationTaskFromResultTask<System.Net.Sockets.UdpReceiveResult>
 	// System.Threading.Tasks.ContinuationTaskFromResultTask<byte>
 	// System.Threading.Tasks.Task<System.Net.Sockets.UdpReceiveResult>
@@ -214,6 +219,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// object[] System.Array.Empty<object>()
 		// System.Void System.Array.ForEach<Utility.Random.WeightedItem<object>>(Utility.Random.WeightedItem<object>[],System.Action<Utility.Random.WeightedItem<object>>)
 		// System.Collections.ObjectModel.ReadOnlyCollection<object> System.Dynamic.Utils.CollectionExtensions.ToReadOnly<object>(System.Collections.Generic.IEnumerable<object>)
+		// bool System.Linq.Enumerable.Any<object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,bool>)
 		// int System.Linq.Enumerable.Count<object>(System.Collections.Generic.IEnumerable<object>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.OfType<object>(System.Collections.IEnumerable)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.OfTypeIterator<object>(System.Collections.IEnumerable)
