@@ -24,3 +24,9 @@ message U2GS_Comfirm
 {
     int32 roomID = 1;// 房间ID
 }
+
+message U2GS_SelectHero
+{
+    int32 roomID = 1;
+    int32 heroID = 2;
+}

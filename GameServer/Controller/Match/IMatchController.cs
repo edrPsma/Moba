@@ -15,7 +15,7 @@ namespace GameServer.Controller
         TypeEventSource EventSource { get; }
     }
 
-    [Reflection]
+    [Reflection(typeof(IMatchController))]
     public class MatchController : AbstractController, IMatchController
     {
         [Inject] public INetService NetService;
@@ -52,11 +52,11 @@ namespace GameServer.Controller
                 room.Sessions = sessions;
 
                 PvpFSM pvpFSM = new PvpFSM(room);
-
-                _fsms.Add(pvpFSM);
                 pvpFSM.Initialize();
                 pvpFSM.Enter();
+
                 _roomMap.Add(room.RoomID, room);
+                _fsms.Add(pvpFSM);
             }
 
             for (int i = _fsms.Count - 1; i >= 0; i--)

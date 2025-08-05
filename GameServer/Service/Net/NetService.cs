@@ -72,6 +72,7 @@ namespace GameServer.Service
         {
             short msgID = MessageBuilder.QueryMessageID(package.Message.GetType());
             _eventSource.Trigger(msgID, package);
+            Console.WriteLine($"Sid:{package.Session.SessionID}, ID: {msgID} , Type :{package.Message.GetType()}");
         }
 
         public void Close()
@@ -83,6 +84,8 @@ namespace GameServer.Service
         public void Register<T>(Action<ServerSession, T> onMsgReceive)
         {
             short msgID = MessageBuilder.QueryMessageID(typeof(T));
+
+            Console.WriteLine($"注册网络事件, ID: {msgID} , Type :{typeof(T)}");
             _eventSource.Register<MessagePackage>(msgID, package => onMsgReceive?.Invoke(package.Session, (T)package.Message));
         }
     }

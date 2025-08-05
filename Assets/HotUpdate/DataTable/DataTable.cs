@@ -22,7 +22,6 @@ public static partial class DataTable
         _initDone = true;
         _configDic = new Dictionary<Type, object>();
         Progress = new FloatVariable();
-
         Register();
     }
 
@@ -134,13 +133,13 @@ public static partial class DataTable
                 _configDic.Add(type, obj);
                 handler.Release();
                 _count++;
-                Progress.Value = _count * 100f / _totalCount;
+                Progress.Value = _count / _totalCount;
             };
         }
         else
         {
             _count++;
-            Progress.Value = _count * 100f / _totalCount;
+            Progress.Value = _count / _totalCount;
             Debug.LogError($"DataTable 加载失败,未找到配置表: {type.Name}");
         }
     }

@@ -38,6 +38,13 @@ namespace GameServer.Controller
             if (_comfirmDatas[comfirm.Index].ComfirmDone) return;
 
             _comfirmDatas[comfirm.Index].ComfirmDone = true;
+
+            if (CheckComfirmDone())
+            {
+                TimeService.DeleteTask(_checkTaskID);
+                Debug.ColorLog(LogColor.Green, $"所有玩家确认完成,进入英雄选择,RoomID: {FSM.Room.RoomID}");
+                FSM.TransitionImmediately(EPvpState.SelectHero);
+            }
             SyncData(false);
         }
 
@@ -49,6 +56,7 @@ namespace GameServer.Controller
             }
             else
             {
+                Debug.ColorLog(LogColor.Green, $"超时 房间解散");
                 SyncData(true);
                 FSM.TransitionImmediately(EPvpState.End);
             }
@@ -66,16 +74,8 @@ namespace GameServer.Controller
                     ComfirmDone = false
                 };
             }
-            if (CheckComfirmDone())
-            {
-                TimeService.DeleteTask(_checkTaskID);
-                Debug.ColorLog(LogColor.Green, $"所有玩家确认完成,进入英雄选择,RoomID: {FSM.Room.RoomID}");
-                FSM.TransitionImmediately(EPvpState.SelectHero);
-            }
-            else
-            {
-                SyncData(false);
-            }
+
+            SyncData(false);
         }
 
         private void SyncData(bool dismiss)

@@ -206,7 +206,7 @@ public static class ExcelLoader
 
                 StringBuilder content = new StringBuilder();
                 content.Append("{");
-                for (int j = 1; j < excelInfo.Columns.Count; j++)
+                for (int j = 0; j < excelInfo.Columns.Count; j++)
                 {
                     string name = excelInfo.Names[j];
                     string type = excelInfo.Types[j];

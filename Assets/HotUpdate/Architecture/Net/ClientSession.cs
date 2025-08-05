@@ -21,7 +21,6 @@ public class ClientSession : KCPSession
 
     protected override void OnReciveMsg(IMessage msg)
     {
-        Debug.Log(string.Format("Thread:{0} Sid;{1},RcvClient:{2}", Thread.CurrentThread.ManagedThreadId, SessionID, msg));
         if (msg is Protocol.Ping)
         {
             Protocol.Ping ping = (Protocol.Ping)msg;
@@ -38,6 +37,7 @@ public class ClientSession : KCPSession
         }
         else
         {
+            Debug.Log(string.Format("Thread:{0} Sid;{1},RcvClient:{2}", Thread.CurrentThread.ManagedThreadId, SessionID, msg));
             NetManager.Instance.Enqueue(msg);
         }
     }
@@ -72,8 +72,6 @@ public class ClientSession : KCPSession
         // 前两位写入消息ID
         Type type = msg.GetType();
         short msgId = MessageBuilder.QueryMessageID(type);
-
-        Debug.Log($"{type.Name} {msgId}");
 
         using (CodedOutputStream codedOutputStream = new CodedOutputStream(bytes))
         {

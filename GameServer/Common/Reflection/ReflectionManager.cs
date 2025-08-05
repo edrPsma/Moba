@@ -49,7 +49,6 @@ namespace GameServer.Common
             else
             {
                 object instance = Activator.CreateInstance(item);
-                Console.WriteLine(item.Name);
                 for (int i = 0; i < attribute.Types.Count; i++)
                 {
                     _map.Add(attribute.Types[i], instance);

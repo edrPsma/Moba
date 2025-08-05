@@ -40,7 +40,7 @@ public class LobbyForm : UIForm
         if (show)
         {
             this.Get<Text>("txtPredictTime").text = $"预计匹配时间 00:50";
-            this.Get<Text>("txtCountTime").text = $"{00}:{00}";
+            this.Get<Text>("txtCountTime").text = $"00:00";
 
             _countTask = GameEntry.Task.AddTask(taskInfo =>
             {

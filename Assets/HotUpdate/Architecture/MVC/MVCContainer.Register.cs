@@ -8,9 +8,9 @@ public partial class MVCContainer
 {
     static partial void BindController()
     {
-		_container.BindInterfacesAndSelfTo<MatchController>().AsSingle();
-
 		_container.BindInterfacesAndSelfTo<LoginController>().AsSingle();
+
+		_container.BindInterfacesAndSelfTo<MatchController>().AsSingle();
 
 
     }
@@ -18,6 +18,8 @@ public partial class MVCContainer
     static partial void BindModel()
     {
 		_container.BindInterfacesAndSelfTo<PlayerModel>().AsSingle();
+
+		_container.BindInterfacesAndSelfTo<GameModel>().AsSingle();
 
 
     }

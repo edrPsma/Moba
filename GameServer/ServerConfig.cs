@@ -4,9 +4,9 @@ namespace GameServer
 {
     public class ServerConfig
     {
-        public const string ServerIP = "127.0.0.1";
+        public const string ServerIP = "192.168.0.110";
         public const int ServerPort = 17666;
 
-        public const int ConfirmCountDown = 10;
+        public const int ConfirmCountDown = 15;
     }
 }

@@ -300,7 +300,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e3b45a37f683ef74795b1a2b3084f4fe, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0c213e1125af1284ca0f74da2c5799df, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -674,7 +674,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e3b45a37f683ef74795b1a2b3084f4fe, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0c213e1125af1284ca0f74da2c5799df, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -827,7 +827,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e3b45a37f683ef74795b1a2b3084f4fe, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0c213e1125af1284ca0f74da2c5799df, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -980,7 +980,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e3b45a37f683ef74795b1a2b3084f4fe, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0c213e1125af1284ca0f74da2c5799df, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1075,6 +1075,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5509449856889242809}
+  - component: {fileID: 9046603854597527732}
   m_Layer: 5
   m_Name: MatchWnd
   m_TagString: Untagged
@@ -1108,6 +1109,65 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &9046603854597527732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5722974442140795421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ca176853fd77b54186b9aba6028c9bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ArrayDatas:
+  - Name: left
+    Type: GameObject
+    Reference:
+    - {fileID: 4003041821519283478}
+    - {fileID: 9118439130912943974}
+    - {fileID: 4441872532617987712}
+    - {fileID: 3649168864320255368}
+    - {fileID: 1324904669979898600}
+    BindReference:
+    - {fileID: 4003041821519283478}
+    - {fileID: 9118439130912943974}
+    - {fileID: 4441872532617987712}
+    - {fileID: 3649168864320255368}
+    - {fileID: 1324904669979898600}
+  - Name: right
+    Type: GameObject
+    Reference:
+    - {fileID: 1207588683523671202}
+    - {fileID: 5779851169087620411}
+    - {fileID: 7619357185992204978}
+    - {fileID: 2103447864069939018}
+    - {fileID: 7347327157358460291}
+    BindReference:
+    - {fileID: 1207588683523671202}
+    - {fileID: 5779851169087620411}
+    - {fileID: 7619357185992204978}
+    - {fileID: 2103447864069939018}
+    - {fileID: 7347327157358460291}
+  AssetDatas: []
+  ComponentDatas:
+  - Name: txtConfirm
+    Type: Text
+    Reference: {fileID: 420369878139770144}
+    BindReference: {fileID: 7557946296644131827}
+  - Name: btnConfirm
+    Type: Button
+    Reference: {fileID: 5723185283361336471}
+    BindReference: {fileID: 5691649597964553709}
+  - Name: txtTime
+    Type: Text
+    Reference: {fileID: 5980244486231941117}
+    BindReference: {fileID: 3357709523548407083}
+  StateDatas: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &5723185283361336471
 GameObject:
   m_ObjectHideFlags: 0
@@ -2160,7 +2220,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e3b45a37f683ef74795b1a2b3084f4fe, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0c213e1125af1284ca0f74da2c5799df, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

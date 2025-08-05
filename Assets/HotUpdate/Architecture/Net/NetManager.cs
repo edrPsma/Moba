@@ -35,7 +35,7 @@ public class NetManager : MonoSingleton<INetManager, NetManager>, INetManager
         _client?.CloseClient();
         _client = new KCPClient<ClientSession>();
         _queue = new Queue<IMessage>();
-        _client.StartAsClient("127.0.0.1", 17666);
+        _client.StartAsClient("192.168.0.110", 17666);
     }
 
     public void Connect(Action<bool> callBack)

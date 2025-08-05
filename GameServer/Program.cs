@@ -14,7 +14,6 @@ namespace GameServer
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
             Debug.InitSettings();
             ReflectionManager.Instance.Init();
 
@@ -42,9 +41,17 @@ namespace GameServer
                     {
                         break;
                     }
-                    foreach (var item in gameLoops)
+
+                    try
                     {
-                        item.Update();
+                        foreach (var item in gameLoops)
+                        {
+                            item.Update();
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.Error(e);
                     }
                     Thread.Sleep(10);
                 }

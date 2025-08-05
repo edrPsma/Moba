@@ -11,6 +11,7 @@ public class GameFSM : BaseGameFSM
         base.OnInitialize();
 
         AddState(EGameState.Login, new LoginState());
+        AddState(EGameState.LoadConfig, new LoadConfigState());
         AddState(EGameState.Lobby, new LobbyState());
     }
 

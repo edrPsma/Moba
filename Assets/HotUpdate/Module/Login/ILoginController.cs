@@ -65,7 +65,7 @@ public class LoginController : AbstarctController, ILoginController
             PlayerModel.UID = login.UserData.UId;
             PlayerModel.HeroList.AddRange(login.UserData.HeroList);
             TipsForm.ShowTips("登陆成功");
-            GameEntry.Procedure.TransitionImmediately(EGameState.Lobby);
+            GameEntry.Procedure.TransitionImmediately(EGameState.LoadConfig);
         }
     }
 }

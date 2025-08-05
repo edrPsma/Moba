@@ -21,7 +21,6 @@ namespace GameServer.Service
 
         protected override void OnReciveMsg(IMessage msg)
         {
-            Console.WriteLine("Sid:{0},RcvClient,CMD:{1}", SessionID, msg.GetType());
             if (msg is Ping)
             {
                 Ping ping = (Ping)msg;
@@ -87,7 +86,6 @@ namespace GameServer.Service
         public override IMessage DeSerialize(byte[] bytes)
         {
             short messageID = (short)((bytes[0] << 8) | bytes[1]);
-            Console.WriteLine($"收到消息,ID: {messageID}");
 
             IMessage message = MessageBuilder.Build(messageID);
             return message.Descriptor.Parser.ParseFrom(bytes, 2, bytes.Length - 2);

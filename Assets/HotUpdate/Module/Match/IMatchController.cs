@@ -1,0 +1,89 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using Protocol;
+using UnityEngine;
+using Zenject;
+
+public interface IMatchController
+{
+    void Match();
+
+    void Comfirm();
+
+    void SelectHero(int heroID, bool comfirm);
+}
+
+[Controller]
+public class MatchController : AbstarctController, IMatchController
+{
+    [Inject] public IGameModel GameModel;
+
+    protected override void OnInitialize()
+    {
+        base.OnInitialize();
+        GameEntry.Net.Register<GS2U_Comfirm>(OnComfirm);
+    }
+
+    public void Match()
+    {
+        U2GS_Match msg = new U2GS_Match();
+
+        GameEntry.Net.SendMsg(msg);
+    }
+
+    public void Comfirm()
+    {
+        U2GS_Comfirm msg = new U2GS_Comfirm
+        {
+            RoomID = GameModel.RoomID
+        };
+
+        GameEntry.Net.SendMsg(msg);
+    }
+
+    public void SelectHero(int heroID, bool comfirm)
+    {
+        if (comfirm)
+        {
+            U2GS_SelectHero msg = new U2GS_SelectHero
+            {
+                RoomID = GameModel.RoomID,
+                HeroID = heroID,
+            };
+
+            GameEntry.Net.SendMsg(msg);
+        }
+        GameModel.SelectHeroID = heroID;
+        GameEntry.Event.Trigger(new EventSelectHero(heroID, comfirm));
+    }
+
+    private void OnComfirm(GS2U_Comfirm comfirm)
+    {
+        GameModel.RoomID = comfirm.RoomID;
+
+        GameModel.ComfirmDatas.Modifly(list =>
+        {
+            list.Clear();
+            list.AddRange(comfirm.ComfirmArr);
+        });
+        GameModel.RoomDismiss.Value = comfirm.Dismiss;
+
+        if (comfirm.Dismiss)
+        {
+            GameEntry.UI.Pop<MatchForm>();
+        }
+        else
+        {
+            if (comfirm.ComfirmArr.Any(item => !item.ComfirmDone))
+            {
+                GameEntry.UI.PushAsync<MatchForm>();
+            }
+            else
+            {
+                GameEntry.UI.PushAsync<SelectHeroForm>();
+            }
+        }
+    }
+}

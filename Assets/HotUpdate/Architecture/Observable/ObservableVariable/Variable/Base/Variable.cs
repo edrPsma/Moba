@@ -18,7 +18,7 @@ namespace Observable
             set => SetValue(value);
         }
 
-        public IUnRegister Register(Action<TValue> action, bool runInFirst)
+        public IUnRegister Register(Action<TValue> action, bool runInFirst = true)
         {
             _onValueChange += action;
 
