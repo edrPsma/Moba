@@ -28,23 +28,25 @@ namespace Protocol {
             "aXJtRGF0YRIRCglpY29uSW5kZXgYASABKAUSEwoLY29tZmlybURvbmUYAiAB",
             "KAgiWgoMR1MyVV9Db21maXJtEg4KBnJvb21JRBgBIAEoBRIPCgdkaXNtaXNz",
             "GAIgASgIEikKCmNvbWZpcm1BcnIYAyADKAsyFS5Qcm90b2NvbC5Db21maXJt",
-            "RGF0YSIeCgxVMkdTX0NvbWZpcm0SDgoGcm9vbUlEGAEgASgFIjEKD1UyR1Nf",
-            "U2VsZWN0SGVybxIOCgZyb29tSUQYASABKAUSDgoGaGVyb0lEGAIgASgFIjYK",
-            "DkdTMlVfU3RhcnRMb2FkEiQKCGxvYWRJbmZvGAIgAygLMhIuUHJvdG9jb2wu",
-            "TG9hZEluZm8iMQoJR1MyVV9Mb2FkEiQKCGxvYWRJbmZvGAEgAygLMhIuUHJv",
-            "dG9jb2wuTG9hZEluZm8iLQoJVTJHU19Mb2FkEg4KBnJvb21JRBgBIAEoBRIQ",
-            "Cghwcm9ncmVzcxgCIAEoBSJWCghMb2FkSW5mbxILCgN1SWQYASABKA0SDQoF",
-            "aW5kZXgYAiABKAUSDAoEbmFtZRgDIAEoCRIQCghwcm9ncmVzcxgEIAEoBRIO",
-            "CgZoZXJvSUQYBSABKAUiDQoLR1MyVV9CYXR0bGViBnByb3RvMw=="));
+            "RGF0YSIRCg9VMkdTX1RyeVJlY292ZXIiHgoMVTJHU19Db21maXJtEg4KBnJv",
+            "b21JRBgBIAEoBSIxCg9VMkdTX1NlbGVjdEhlcm8SDgoGcm9vbUlEGAEgASgF",
+            "Eg4KBmhlcm9JRBgCIAEoBSJGCg5HUzJVX1N0YXJ0TG9hZBIOCgZyb29tSUQY",
+            "ASABKAUSJAoIbG9hZEluZm8YAiADKAsyEi5Qcm90b2NvbC5Mb2FkSW5mbyIx",
+            "CglHUzJVX0xvYWQSJAoIbG9hZEluZm8YASADKAsyEi5Qcm90b2NvbC5Mb2Fk",
+            "SW5mbyItCglVMkdTX0xvYWQSDgoGcm9vbUlEGAEgASgFEhAKCHByb2dyZXNz",
+            "GAIgASgFIlYKCExvYWRJbmZvEgsKA3VJZBgBIAEoDRINCgVpbmRleBgCIAEo",
+            "BRIMCgRuYW1lGAMgASgJEhAKCHByb2dyZXNzGAQgASgFEg4KBmhlcm9JRBgF",
+            "IAEoBSINCgtHUzJVX0JhdHRsZWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.U2GS_Match), global::Protocol.U2GS_Match.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.ComfirmData), global::Protocol.ComfirmData.Parser, new[]{ "IconIndex", "ComfirmDone" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.GS2U_Comfirm), global::Protocol.GS2U_Comfirm.Parser, new[]{ "RoomID", "Dismiss", "ComfirmArr" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.U2GS_TryRecover), global::Protocol.U2GS_TryRecover.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.U2GS_Comfirm), global::Protocol.U2GS_Comfirm.Parser, new[]{ "RoomID" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.U2GS_SelectHero), global::Protocol.U2GS_SelectHero.Parser, new[]{ "RoomID", "HeroID" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.GS2U_StartLoad), global::Protocol.GS2U_StartLoad.Parser, new[]{ "LoadInfo" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.GS2U_StartLoad), global::Protocol.GS2U_StartLoad.Parser, new[]{ "RoomID", "LoadInfo" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.GS2U_Load), global::Protocol.GS2U_Load.Parser, new[]{ "LoadInfo" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.U2GS_Load), global::Protocol.U2GS_Load.Parser, new[]{ "RoomID", "Progress" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.LoadInfo), global::Protocol.LoadInfo.Parser, new[]{ "UId", "Index", "Name", "Progress", "HeroID" }, null, null, null, null),
@@ -728,6 +730,167 @@ namespace Protocol {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class U2GS_TryRecover : pb::IMessage<U2GS_TryRecover>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<U2GS_TryRecover> _parser = new pb::MessageParser<U2GS_TryRecover>(() => new U2GS_TryRecover());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<U2GS_TryRecover> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Protocol.MatchReflection.Descriptor.MessageTypes[3]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public U2GS_TryRecover() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public U2GS_TryRecover(U2GS_TryRecover other) : this() {
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public U2GS_TryRecover Clone() {
+      return new U2GS_TryRecover(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as U2GS_TryRecover);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(U2GS_TryRecover other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(U2GS_TryRecover other) {
+      if (other == null) {
+        return;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class U2GS_Comfirm : pb::IMessage<U2GS_Comfirm>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -742,7 +905,7 @@ namespace Protocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Protocol.MatchReflection.Descriptor.MessageTypes[3]; }
+      get { return global::Protocol.MatchReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -943,7 +1106,7 @@ namespace Protocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Protocol.MatchReflection.Descriptor.MessageTypes[4]; }
+      get { return global::Protocol.MatchReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1178,7 +1341,7 @@ namespace Protocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Protocol.MatchReflection.Descriptor.MessageTypes[5]; }
+      get { return global::Protocol.MatchReflection.Descriptor.MessageTypes[6]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1198,6 +1361,7 @@ namespace Protocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public GS2U_StartLoad(GS2U_StartLoad other) : this() {
+      roomID_ = other.roomID_;
       loadInfo_ = other.loadInfo_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -1206,6 +1370,18 @@ namespace Protocol {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public GS2U_StartLoad Clone() {
       return new GS2U_StartLoad(this);
+    }
+
+    /// <summary>Field number for the "roomID" field.</summary>
+    public const int RoomIDFieldNumber = 1;
+    private int roomID_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int RoomID {
+      get { return roomID_; }
+      set {
+        roomID_ = value;
+      }
     }
 
     /// <summary>Field number for the "loadInfo" field.</summary>
@@ -1234,6 +1410,7 @@ namespace Protocol {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (RoomID != other.RoomID) return false;
       if(!loadInfo_.Equals(other.loadInfo_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -1242,6 +1419,7 @@ namespace Protocol {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
+      if (RoomID != 0) hash ^= RoomID.GetHashCode();
       hash ^= loadInfo_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -1261,6 +1439,10 @@ namespace Protocol {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
+      if (RoomID != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(RoomID);
+      }
       loadInfo_.WriteTo(output, _repeated_loadInfo_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -1272,6 +1454,10 @@ namespace Protocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (RoomID != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(RoomID);
+      }
       loadInfo_.WriteTo(ref output, _repeated_loadInfo_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -1283,6 +1469,9 @@ namespace Protocol {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
+      if (RoomID != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(RoomID);
+      }
       size += loadInfo_.CalculateSize(_repeated_loadInfo_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1295,6 +1484,9 @@ namespace Protocol {
     public void MergeFrom(GS2U_StartLoad other) {
       if (other == null) {
         return;
+      }
+      if (other.RoomID != 0) {
+        RoomID = other.RoomID;
       }
       loadInfo_.Add(other.loadInfo_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -1316,6 +1508,10 @@ namespace Protocol {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
+          case 8: {
+            RoomID = input.ReadInt32();
+            break;
+          }
           case 18: {
             loadInfo_.AddEntriesFrom(input, _repeated_loadInfo_codec);
             break;
@@ -1339,6 +1535,10 @@ namespace Protocol {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
+          case 8: {
+            RoomID = input.ReadInt32();
+            break;
+          }
           case 18: {
             loadInfo_.AddEntriesFrom(ref input, _repeated_loadInfo_codec);
             break;
@@ -1365,7 +1565,7 @@ namespace Protocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Protocol.MatchReflection.Descriptor.MessageTypes[6]; }
+      get { return global::Protocol.MatchReflection.Descriptor.MessageTypes[7]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1552,7 +1752,7 @@ namespace Protocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Protocol.MatchReflection.Descriptor.MessageTypes[7]; }
+      get { return global::Protocol.MatchReflection.Descriptor.MessageTypes[8]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1787,7 +1987,7 @@ namespace Protocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Protocol.MatchReflection.Descriptor.MessageTypes[8]; }
+      get { return global::Protocol.MatchReflection.Descriptor.MessageTypes[9]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2133,7 +2333,7 @@ namespace Protocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Protocol.MatchReflection.Descriptor.MessageTypes[9]; }
+      get { return global::Protocol.MatchReflection.Descriptor.MessageTypes[10]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

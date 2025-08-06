@@ -17,7 +17,11 @@ namespace GameServer.Controller
             base.OnEnter();
 
             InitLoadingInfo();
+
+            FSM.Room.OnRecover += OnRecover;
+
             GS2U_StartLoad msg = new GS2U_StartLoad();
+            msg.RoomID = FSM.Room.RoomID;
             msg.LoadInfo.AddRange(_loadingInfos);
             FSM.Room.BroadcastMsg(msg);
 
@@ -28,7 +32,19 @@ namespace GameServer.Controller
         {
             base.OnExit();
 
+            FSM.Room.OnRecover -= OnRecover;
             FSM.Room.EventSource.UnRegister<EventLoading>(OnLoading);
+        }
+
+        private void OnRecover(uint uid)
+        {
+            GS2U_StartLoad msg = new GS2U_StartLoad();
+            msg.RoomID = FSM.Room.RoomID;
+            int index = FSM.Room.GetIndex(uid);
+            _loadingInfos[index].Progress = 0;
+            msg.LoadInfo.AddRange(_loadingInfos);
+
+            FSM.Room.Send(uid, msg);
         }
 
         private void OnLoading(EventLoading e)
@@ -46,15 +62,15 @@ namespace GameServer.Controller
 
         void InitLoadingInfo()
         {
-            int len = FSM.Room.Sessions.Length;
+            int len = FSM.Room.Players.Length;
             _loadingInfos = new LoadInfo[len];
             for (int i = 0; i < len; i++)
             {
                 _loadingInfos[i] = new LoadInfo
                 {
-                    UId = FSM.Room.Sessions[i].SessionID,
+                    UId = FSM.Room.Players[i],
                     Index = i,
-                    Name = CacheService.GetPlayerName(FSM.Room.Sessions[i]),
+                    Name = CacheService.GetPlayerName(FSM.Room.Players[i]),
                     Progress = 0,
                     HeroID = FSM.Room.HeroArr[i].HeroID,
                 };

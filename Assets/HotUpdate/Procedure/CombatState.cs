@@ -12,7 +12,7 @@ public class CombatState : BaseState
         base.OnEnter();
         Debug.Log("Procedure 进入战斗流程");
 
-        GameEntry.UI.HideGroup(UIGroup.Middle);
+        GameEntry.UI.HideGroup(UIGroup.Rear);
         GameEntry.UI.Pop<LoadingGameForm>();
     }
 
@@ -21,6 +21,6 @@ public class CombatState : BaseState
         base.OnExit();
         Debug.Log("Procedure 退出战斗流程");
 
-        GameEntry.UI.ShowGroup(UIGroup.Middle);
+        GameEntry.UI.ShowGroup(UIGroup.Rear);
     }
 }

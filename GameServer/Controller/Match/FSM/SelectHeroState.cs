@@ -1,6 +1,7 @@
 using System;
 using GameServer.Common;
 using GameServer.Service;
+using Protocol;
 
 namespace GameServer.Controller
 {
@@ -8,6 +9,7 @@ namespace GameServer.Controller
     {
         [Inject] public ITimeService TimeService;
         [Inject] public IMatchController MatchController;
+        [Inject] public ICacheService CacheService;
         int _checkTaskID;
 
         public SelectHeroState(PvpFSM fsm, bool hasExitTime = true) : base(fsm, hasExitTime) { }
@@ -17,6 +19,9 @@ namespace GameServer.Controller
             base.OnEnter();
 
             InitSelectData();
+
+            FSM.Room.OnRecover += OnRecover;
+
             _checkTaskID = TimeService.AddTask(ServerConfig.SelectHeroCountDown * 1000, ReachTimeLimit);
             FSM.Room.EventSource.Register<EventSelectHero>(OnSelectHero);
         }
@@ -24,9 +29,35 @@ namespace GameServer.Controller
         protected override void OnExit()
         {
             base.OnExit();
+            FSM.Room.OnRecover -= OnRecover;
             FSM.Room.EventSource.UnRegister<EventSelectHero>(OnSelectHero);
             TimeService.DeleteTask(_checkTaskID);
             _checkTaskID = 0;
+        }
+
+        private void OnRecover(uint uid)
+        {
+            // 断线重连处理
+
+            int len = FSM.Room.Players.Length;
+            var comfirmDatas = new ComfirmData[len];
+            for (int i = 0; i < len; i++)
+            {
+                comfirmDatas[i] = new ComfirmData
+                {
+                    IconIndex = i,
+                    ComfirmDone = true
+                };
+            }
+
+            GS2U_Comfirm msg = new GS2U_Comfirm
+            {
+                RoomID = FSM.Room.RoomID,
+                Dismiss = false,
+            };
+            msg.ComfirmArr.AddRange(comfirmDatas);
+
+            FSM.Room.Send(uid, msg);
         }
 
         private void OnSelectHero(EventSelectHero e)
@@ -68,7 +99,7 @@ namespace GameServer.Controller
 
         private void InitSelectData()
         {
-            int len = FSM.Room.Sessions.Length;
+            int len = FSM.Room.Players.Length;
             FSM.Room.HeroArr = new HeroSelectInfo[len];
             for (int i = 0; i < len; i++)
             {

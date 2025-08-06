@@ -87,7 +87,6 @@ public class ClientSession : KCPSession
     public override IMessage DeSerialize(byte[] bytes)
     {
         short messageID = (short)((bytes[0] << 8) | bytes[1]);
-        Debug.Log($"收到消息,ID: {messageID}");
 
         IMessage message = MessageBuilder.Build(messageID);
 

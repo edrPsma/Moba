@@ -9,7 +9,7 @@ namespace GameServer.Service
     {
         public INetService NetService => Builder.Get<INetService>();
         public ICacheService CacheService => Builder.Get<ICacheService>();
-        // public string Acct;
+        public uint UId;
 
         protected override void OnConnected()
         {
@@ -18,7 +18,9 @@ namespace GameServer.Service
 
         protected override void OnDisConnected()
         {
-            Console.WriteLine("Client Offline,Sid:{0}", SessionID);
+            Console.WriteLine($"Client Offline,Sid: {SessionID},UId: {UId}");
+            CacheService.Offline(UId);
+            UId = 0;
         }
 
         protected override void OnReciveMsg(IMessage msg)
@@ -91,6 +93,28 @@ namespace GameServer.Service
 
             IMessage message = MessageBuilder.Build(messageID);
             return message.Descriptor.Parser.ParseFrom(bytes, 2, bytes.Length - 2);
+        }
+    }
+
+    public static class ServerSessionExtra
+    {
+        public static byte[] Serialize<T>(this T msg) where T : IMessage
+        {
+            int size = msg.CalculateSize();
+            byte[] bytes = new byte[size + 2];
+            // 前两位写入消息ID
+            Type type = msg.GetType();
+            short msgId = MessageBuilder.QueryMessageID(type);
+
+            using (CodedOutputStream codedOutputStream = new CodedOutputStream(bytes))
+            {
+                codedOutputStream.WriteRawTag((byte)((msgId >> 8) & 0xFF));
+                codedOutputStream.WriteRawTag((byte)(msgId & 0xFF));
+                msg.WriteTo(codedOutputStream);
+                codedOutputStream.CheckNoSpaceLeft();
+            }
+
+            return bytes;
         }
     }
 }

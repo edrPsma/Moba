@@ -9,6 +9,7 @@ namespace GameServer.Controller
     {
         [Inject] public ITimeService TimeService;
         [Inject] public IMatchController MatchController;
+        [Inject] public ICacheService CacheService;
         ComfirmData[] _comfirmDatas;
         int _checkTaskID;
 
@@ -44,6 +45,12 @@ namespace GameServer.Controller
             {
                 TimeService.DeleteTask(_checkTaskID);
                 Debug.ColorLog(LogColor.Green, $"所有玩家确认完成,进入英雄选择,RoomID: {FSM.Room.RoomID}");
+
+                for (int i = 0; i < FSM.Room.Players.Length; i++)
+                {
+                    CacheService.SetRoom(FSM.Room.Players[i], FSM.Room.RoomID);
+                }
+
                 FSM.TransitionImmediately(EPvpState.SelectHero);
             }
         }
@@ -64,7 +71,7 @@ namespace GameServer.Controller
 
         private void InitComfirmData()
         {
-            int len = FSM.Room.Sessions.Length;
+            int len = FSM.Room.Players.Length;
             _comfirmDatas = new ComfirmData[len];
             for (int i = 0; i < len; i++)
             {

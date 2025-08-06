@@ -19,7 +19,8 @@ namespace GameServer.Controller
     public class MatchController : AbstractController, IMatchController
     {
         [Inject] public INetService NetService;
-        Queue<ServerSession> _sessions;
+        [Inject] public ICacheService CacheService;
+        Queue<uint> _players;
         List<PvpFSM> _fsms;
         Dictionary<int, PvpRoom> _roomMap;
         int _roomID = 0;
@@ -29,27 +30,28 @@ namespace GameServer.Controller
             base.OnInitialize();
 
             _roomMap = new Dictionary<int, PvpRoom>();
-            _sessions = new Queue<ServerSession>();
+            _players = new Queue<uint>();
             _fsms = new List<PvpFSM>();
             NetService.Register<U2GS_Match>(OnMatchReceive);
             NetService.Register<U2GS_Comfirm>(OnComfirm);
             NetService.Register<U2GS_SelectHero>(OnSelectHero);
             NetService.Register<U2GS_Load>(OnLoadChange);
+            NetService.Register<U2GS_TryRecover>(OnTryRecover);
         }
 
         protected override void OnUpdate()
         {
             base.OnUpdate();
 
-            if (_sessions.Count >= 2)
+            if (_players.Count >= 2)
             {
-                ServerSession[] sessions = new ServerSession[2];
-                sessions[0] = _sessions.Dequeue();
-                sessions[1] = _sessions.Dequeue();
+                uint[] sessions = new uint[2];
+                sessions[0] = _players.Dequeue();
+                sessions[1] = _players.Dequeue();
 
                 PvpRoom room = Builder.NewAndInject<PvpRoom>();
-                room.RoomID = _roomID++;
-                room.Sessions = sessions;
+                room.RoomID = GetRoomID();
+                room.Players = sessions;
                 room.EventSource = new TypeEventSource();
 
                 PvpFSM pvpFSM = new PvpFSM(room);
@@ -79,14 +81,14 @@ namespace GameServer.Controller
 
         private void OnMatchReceive(ServerSession session, U2GS_Match match)
         {
-            _sessions.Enqueue(session);
+            _players.Enqueue(session.UId);
         }
 
         private void OnComfirm(ServerSession session, U2GS_Comfirm msg)
         {
             if (_roomMap.TryGetValue(msg.RoomID, out PvpRoom room))
             {
-                room.Comfirm(session);
+                room.Comfirm(session.UId);
             }
             else
             {
@@ -98,7 +100,7 @@ namespace GameServer.Controller
         {
             if (_roomMap.TryGetValue(msg.RoomID, out PvpRoom room))
             {
-                room.SelectHero(session, msg.HeroID);
+                room.SelectHero(session.UId, msg.HeroID);
             }
             else
             {
@@ -110,55 +112,102 @@ namespace GameServer.Controller
         {
             if (_roomMap.TryGetValue(msg.RoomID, out PvpRoom room))
             {
-                room.ChangeProgress(session, msg.Progress);
+                room.ChangeProgress(session.UId, msg.Progress);
             }
             else
             {
                 Debug.Warn($"该房间不存在,RoomID: {msg.RoomID}");
             }
         }
+
+        private void OnTryRecover(ServerSession session, U2GS_TryRecover msg)
+        {
+            int roomID = CacheService.GetRoom(session.UId);
+            if (_roomMap.TryGetValue(roomID, out PvpRoom room))
+            {
+                room.Recover(session.UId);
+            }
+            else
+            {
+                Debug.Warn($"该房间不存在,RoomID: {roomID}");
+            }
+        }
+
+        private int GetRoomID()
+        {
+            _roomID++;
+            if (_roomID == 0)
+            {
+                _roomID++;
+            }
+
+            return _roomID;
+        }
     }
 
     public class PvpRoom
     {
         public int RoomID;
-        public ServerSession[] Sessions;
+        public uint[] Players;
         public bool IsComplete;
         [Inject] public IMatchController MatchController;
+        [Inject] public ICacheService CacheService;
         public HeroSelectInfo[] HeroArr;
         public TypeEventSource EventSource;
+        public event Action<uint> OnRecover;
 
-        public void BroadcastMsg(IMessage message)
+        public void Recover(uint uid)
         {
-            byte[] bytes = Sessions[0].Serialize(message);
+            OnRecover?.Invoke(uid);
+        }
 
-            for (int i = 0; i < Sessions.Length; i++)
+        public void Send(uint uid, IMessage message)
+        {
+            if (CacheService.TryGetSession(uid, out ServerSession session))
             {
-                Sessions[i].Send(bytes);
+                session.Send(message);
             }
         }
 
-        public void Comfirm(ServerSession session)
+        public void Send(uint uid, byte[] bytes)
         {
-            int index = GetIndex(session);
+            if (CacheService.TryGetSession(uid, out ServerSession session))
+            {
+                session.Send(bytes);
+            }
+        }
+
+        public void BroadcastMsg(IMessage message)
+        {
+            byte[] bytes = message.Serialize();
+
+            for (int i = 0; i < Players.Length; i++)
+            {
+                Send(Players[i], bytes);
+            }
+        }
+
+        public void Comfirm(uint uid)
+        {
+            int index = GetIndex(uid);
             if (index != -1)
             {
                 EventSource.Trigger(new EventComfirm(RoomID, index));
             }
         }
 
-        public void SelectHero(ServerSession session, int heroID)
+        public void SelectHero(uint uid, int heroID)
         {
-            int index = GetIndex(session);
+            int index = GetIndex(uid);
             if (index != -1)
             {
                 EventSource.Trigger(new EventSelectHero(RoomID, index, heroID));
             }
         }
 
-        public void ChangeProgress(ServerSession session, int progress)
+        public void ChangeProgress(uint uid, int progress)
         {
-            int index = GetIndex(session);
+            int index = GetIndex(uid);
             if (index != -1)
             {
                 EventSource.Trigger(new EventLoading(RoomID, index, progress));
@@ -171,11 +220,11 @@ namespace GameServer.Controller
             BroadcastMsg(msg);
         }
 
-        private int GetIndex(ServerSession session)
+        public int GetIndex(uint uid)
         {
-            for (int i = 0; i < Sessions.Length; i++)
+            for (int i = 0; i < Players.Length; i++)
             {
-                if (Sessions[i] == session)
+                if (Players[i] == uid)
                 {
                     return i;
                 }

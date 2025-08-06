@@ -9,5 +9,6 @@ namespace GameServer
 
         public const int ConfirmCountDown = 15;
         public const int SelectHeroCountDown = 32;
+        public const int FightCountDown = 600;
     }
 }

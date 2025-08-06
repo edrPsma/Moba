@@ -14,6 +14,9 @@ public class LoadingGameForm : UIForm
     public override string Location => "Assets/GameAssets/UIPrefab/LoadWnd.prefab";
 
     [Inject] public IGameModel GameModel;
+    [Inject] public IPlayerModel PlayerModel;
+
+    Text _progress;
 
     protected override void OnStart()
     {
@@ -21,6 +24,7 @@ public class LoadingGameForm : UIForm
 
         GameEntry.UI.Pop<SelectHeroForm>();
         GameModel.LoadInfo.Register(OnProgressChange).Bind(Panel);
+        Panel.StartCoroutine(ShowProgress());
     }
 
 
@@ -56,6 +60,26 @@ public class LoadingGameForm : UIForm
         gameObject.Find<Image>("imgHero").LoadSprite($"Assets/GameAssets/ResImages/LoadWnd/{table.Pic}.png");
         gameObject.Find<Text>("txtHeroName").text = table.Name;
         gameObject.Find<Text>("txtPlayerName").text = loadInfo.Name;
-        gameObject.Find<Text>("txtProgress").text = $"{loadInfo.Progress}%";
+
+        if (PlayerModel.UID != loadInfo.UId)
+        {
+            gameObject.Find<Text>("txtProgress").text = $"{loadInfo.Progress}%";
+        }
+        else
+        {
+            if (_progress == null)
+            {
+                _progress = gameObject.Find<Text>("txtProgress");
+            }
+        }
+    }
+
+    IEnumerator ShowProgress()
+    {
+        while (true)
+        {
+            _progress.text = $"{GameEntry.Scene.GetSceneState<GameScene>().Progress}%";
+            yield return null;
+        }
     }
 }

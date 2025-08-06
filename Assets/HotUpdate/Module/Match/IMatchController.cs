@@ -8,6 +8,8 @@ using Zenject;
 
 public interface IMatchController
 {
+    void Recover();
+
     void Match();
 
     void Comfirm();
@@ -29,6 +31,13 @@ public class MatchController : AbstarctController, IMatchController
         GameEntry.Net.Register<GS2U_Load>(OnLoad);
         GameEntry.Net.Register<GS2U_StartLoad>(OnStartLoad);
         GameEntry.Net.Register<GS2U_Battle>(OnStartBattle);
+    }
+
+    public void Recover()
+    {
+        U2GS_TryRecover msg = new U2GS_TryRecover();
+
+        GameEntry.Net.SendMsg(msg);
     }
 
     public void Match()
@@ -104,6 +113,7 @@ public class MatchController : AbstarctController, IMatchController
     private void OnStartLoad(GS2U_StartLoad msg)
     {
         GameEntry.Procedure.TransitionImmediately(EGameState.LoadingGame);
+        GameModel.RoomID = msg.RoomID;
         GameModel.LoadInfo.Modifly(list =>
         {
             list.AddRange(msg.LoadInfo);

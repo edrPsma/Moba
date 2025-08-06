@@ -9,7 +9,7 @@ using Zenject;
 
 public class LobbyForm : UIForm
 {
-    public override UIGroup DefultGroup => UIGroup.Middle;
+    public override UIGroup DefultGroup => UIGroup.Rear;
     public override string Location => "Assets/GameAssets/UIPrefab/LobbyWnd.prefab";
 
     [Inject] public IMatchController MatchController;

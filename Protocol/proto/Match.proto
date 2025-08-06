@@ -20,6 +20,11 @@ message GS2U_Comfirm
     repeated ComfirmData comfirmArr = 3;// 确认数据数组
 }
 
+message U2GS_TryRecover
+{
+    
+}
+
 message U2GS_Comfirm
 {
     int32 roomID = 1;// 房间ID
@@ -33,6 +38,7 @@ message U2GS_SelectHero
 
 message GS2U_StartLoad
 {
+    int32 roomID = 1;
     repeated LoadInfo loadInfo = 2;
 }
 
