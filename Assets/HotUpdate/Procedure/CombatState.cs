@@ -7,6 +7,8 @@ using Zenject;
 public class CombatState : BaseState
 {
     [Inject] public IAssetSystem AssetSystem;
+    [Inject] public IActorManager ActorManager;
+    [Inject] public IGameModel GameModel;
 
     public CombatState(bool hasExitTime = false) : base(hasExitTime) { }
 
@@ -17,6 +19,21 @@ public class CombatState : BaseState
 
         GameEntry.UI.HideGroup(UIGroup.Rear);
         GameEntry.UI.Pop<LoadingGameForm>();
+
+        int len = GameModel.LoadInfo.Count;
+        int half = len / 2;
+        for (int i = 0; i < GameModel.LoadInfo.Count; i++)
+        {
+            int heroID = GameModel.LoadInfo[i].HeroID;
+            if (i < half)
+            {
+                ActorManager.SpawnHero(heroID, EActorLayer.Blue);
+            }
+            else
+            {
+                ActorManager.SpawnHero(heroID, EActorLayer.Red);
+            }
+        }
     }
 
     protected override void OnExit()
