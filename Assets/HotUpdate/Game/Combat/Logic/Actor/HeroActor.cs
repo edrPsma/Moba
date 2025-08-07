@@ -12,17 +12,23 @@ public class HeroActor : LogicActor<HeroRenderingActor>
     public OBBCapsuleCollider HitBox { get; private set; }
 
     public override FixIntVector3 Position => GetPosition();
-    public override FixIntVector3 EurAngle => FixIntVector3.zero;
     public FixIntVector3 Velocity
     {
         get => HitBox.Velocity;
-        set => HitBox.Velocity = value;
+        set
+        {
+            HitBox.Velocity = value;
+            RenderingActor?.UpdatePosition();
+        }
     }
+
+    public FixInt MoveSpeed = 3;
 
 
     public HeroActor(int actorID, EActorLayer layer, HeroRenderingActor renderingActor) : base(actorID, layer, renderingActor)
     {
         HitBox = new OBBCapsuleCollider(renderingActor.ColliderInfo.Radius, renderingActor.ColliderInfo.Height, FixIntVector3.up);
+        HitBox.IsUseAdjustPos = true;
     }
 
     FixIntVector3 GetPosition()
@@ -35,5 +41,6 @@ public class HeroActor : LogicActor<HeroRenderingActor>
     public void SetPosition(FixIntVector3 pos)
     {
         HitBox.Position = pos + new FixIntVector3(0, HitBox.Height / 2, 0);
+        RenderingActor.UpdatePositionForce();
     }
 }

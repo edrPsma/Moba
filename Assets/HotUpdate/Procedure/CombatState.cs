@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using HFSM;
@@ -9,6 +10,7 @@ public class CombatState : BaseState
     [Inject] public IAssetSystem AssetSystem;
     [Inject] public IActorManager ActorManager;
     [Inject] public IGameModel GameModel;
+    [Inject] public ICombatSystem CombatSystem;
 
     public CombatState(bool hasExitTime = false) : base(hasExitTime) { }
 
@@ -25,15 +27,21 @@ public class CombatState : BaseState
         for (int i = 0; i < GameModel.LoadInfo.Count; i++)
         {
             int heroID = GameModel.LoadInfo[i].HeroID;
+            uint uid = GameModel.LoadInfo[i].UId;
             if (i < half)
             {
-                ActorManager.SpawnHero(heroID, EActorLayer.Blue);
+                ActorManager.SpawnHero(uid, heroID, EActorLayer.Blue);
             }
             else
             {
-                ActorManager.SpawnHero(heroID, EActorLayer.Red);
+                ActorManager.SpawnHero(uid, heroID, EActorLayer.Red);
             }
         }
+
+        GameEntry.Task.AddTask(_ =>
+        {
+            CombatSystem.LogicUpdate(0.06667);
+        }).Delay(TimeSpan.FromSeconds(0.06667)).SetRepeatTimes(-1).Run();
     }
 
     protected override void OnExit()

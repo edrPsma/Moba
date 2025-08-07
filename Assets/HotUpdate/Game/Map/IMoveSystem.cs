@@ -75,9 +75,7 @@ public class MoveSystem : AbstarctController, IMoveSystem
 
     void AdjustPos(OBBCollider collider, FixInt deltaTime)
     {
-        if (!collider.IsUseAdjustPos) return;
-
-        if (_cacheCollisionDatas.Count == 0)
+        if (_cacheCollisionDatas.Count == 0 || !collider.IsUseAdjustPos)
         {
             collider.Position += collider.Velocity * deltaTime;
             return;

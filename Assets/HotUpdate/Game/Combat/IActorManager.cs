@@ -6,7 +6,9 @@ using Zenject;
 
 public interface IActorManager : ILogicController
 {
-    HeroActor SpawnHero(int heroID, EActorLayer layer);
+    HeroActor SpawnHero(uint uid, int heroID, EActorLayer layer);
+
+    HeroActor GetHero(uint uid);
 }
 
 [Controller]
@@ -14,7 +16,9 @@ public class ActorManager : AbstarctController, IActorManager
 {
     [Inject] public IAssetSystem AssetSystem;
     [Inject] public IMoveSystem MoveSystem;
+    [Inject] public IPlayerModel PlayerModel;
     Dictionary<int, LogicActor> _actorDic;
+    Dictionary<uint, LogicActor> _heroDic;
     List<LogicActor> _actorList;
     int _actorID;
 
@@ -24,6 +28,7 @@ public class ActorManager : AbstarctController, IActorManager
 
         _actorDic = new Dictionary<int, LogicActor>();
         _actorList = new List<LogicActor>();
+        _heroDic = new Dictionary<uint, LogicActor>();
     }
 
     public void LogicUpdate(FixInt deltaTime)
@@ -34,7 +39,7 @@ public class ActorManager : AbstarctController, IActorManager
         }
     }
 
-    public HeroActor SpawnHero(int heroID, EActorLayer layer)
+    public HeroActor SpawnHero(uint uid, int heroID, EActorLayer layer)
     {
         int actorID = GetActorID();
 
@@ -47,7 +52,28 @@ public class ActorManager : AbstarctController, IActorManager
         heroActor.SetPosition(scene.GetSpawnPosition(layer));
         MoveSystem.AddUnit(heroActor.HitBox);
 
+        // 设置相机跟随
+        if (PlayerModel.UID == uid)
+        {
+            scene.CameraFollow.Target = renderingActor.transform;
+        }
+
+        _actorList.Add(heroActor);
+        _actorDic.Add(actorID, heroActor);
+        _heroDic.Add(uid, heroActor);
         return heroActor;
+    }
+
+    public HeroActor GetHero(uint uid)
+    {
+        if (_heroDic.ContainsKey(uid))
+        {
+            return _heroDic[uid] as HeroActor;
+        }
+        else
+        {
+            return null;
+        }
     }
 
     int GetActorID()

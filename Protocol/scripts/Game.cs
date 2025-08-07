@@ -24,23 +24,24 @@ namespace Protocol {
     static GameReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "CgpHYW1lLnByb3RvEghQcm90b2NvbCJoCgxVMkdTX09wZXJhdGUSKgoLbW92",
-            "ZU9wZXJhdGUYASABKAsyFS5Qcm90b2NvbC5Nb3ZlT3BlcmF0ZRIsCgxza2ls",
-            "bE9wZXJhdGUYAiABKAsyFi5Qcm90b2NvbC5Ta2lsbE9wZXJhdGUiRAoMR1My",
-            "VV9PcGVyYXRlEg8KB2ZyYW1lSUQYASABKAUSIwoIb3BlcmF0ZXMYAiADKAsy",
-            "ES5Qcm90b2NvbC5PcGVyYXRlInAKB09wZXJhdGUSCwoDdUlkGAEgASgNEioK",
-            "C21vdmVPcGVyYXRlGAIgASgLMhUuUHJvdG9jb2wuTW92ZU9wZXJhdGUSLAoM",
-            "c2tpbGxPcGVyYXRlGAMgASgLMhYuUHJvdG9jb2wuU2tpbGxPcGVyYXRlIlMK",
-            "DFNraWxsT3BlcmF0ZRIPCgdza2lsbElEGAEgASgFEiIKCGRpck9yUG9zGAIg",
-            "ASgLMhAuUHJvdG9jb2wuVmVjdG9yEg4KBnRhcmdldBgDIAEoBSIxCgtNb3Zl",
-            "T3BlcmF0ZRIiCgh2ZWxvY2l0eRgBIAEoCzIQLlByb3RvY29sLlZlY3RvciIe",
-            "CgZWZWN0b3ISCQoBWBgBIAEoAxIJCgFaGAIgASgDYgZwcm90bzM="));
+            "CgpHYW1lLnByb3RvEghQcm90b2NvbCJ2CgxVMkdTX09wZXJhdGUSDAoEdHlw",
+            "ZRgBIAEoBRIqCgttb3ZlT3BlcmF0ZRgCIAEoCzIVLlByb3RvY29sLk1vdmVP",
+            "cGVyYXRlEiwKDHNraWxsT3BlcmF0ZRgDIAEoCzIWLlByb3RvY29sLlNraWxs",
+            "T3BlcmF0ZSJECgxHUzJVX09wZXJhdGUSDwoHZnJhbWVJRBgBIAEoBRIjCghv",
+            "cGVyYXRlcxgCIAMoCzIRLlByb3RvY29sLk9wZXJhdGUifgoHT3BlcmF0ZRIL",
+            "CgN1SWQYASABKA0SDAoEdHlwZRgCIAEoBRIqCgttb3ZlT3BlcmF0ZRgDIAEo",
+            "CzIVLlByb3RvY29sLk1vdmVPcGVyYXRlEiwKDHNraWxsT3BlcmF0ZRgEIAEo",
+            "CzIWLlByb3RvY29sLlNraWxsT3BlcmF0ZSJTCgxTa2lsbE9wZXJhdGUSDwoH",
+            "c2tpbGxJRBgBIAEoBRIiCghkaXJPclBvcxgCIAEoCzIQLlByb3RvY29sLlZl",
+            "Y3RvchIOCgZ0YXJnZXQYAyABKAUiMQoLTW92ZU9wZXJhdGUSIgoIdmVsb2Np",
+            "dHkYASABKAsyEC5Qcm90b2NvbC5WZWN0b3IiHgoGVmVjdG9yEgkKAVgYASAB",
+            "KAMSCQoBWhgCIAEoA2IGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.U2GS_Operate), global::Protocol.U2GS_Operate.Parser, new[]{ "MoveOperate", "SkillOperate" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.U2GS_Operate), global::Protocol.U2GS_Operate.Parser, new[]{ "Type", "MoveOperate", "SkillOperate" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.GS2U_Operate), global::Protocol.GS2U_Operate.Parser, new[]{ "FrameID", "Operates" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.Operate), global::Protocol.Operate.Parser, new[]{ "UId", "MoveOperate", "SkillOperate" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.Operate), global::Protocol.Operate.Parser, new[]{ "UId", "Type", "MoveOperate", "SkillOperate" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.SkillOperate), global::Protocol.SkillOperate.Parser, new[]{ "SkillID", "DirOrPos", "Target" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.MoveOperate), global::Protocol.MoveOperate.Parser, new[]{ "Velocity" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.Vector), global::Protocol.Vector.Parser, new[]{ "X", "Z" }, null, null, null, null)
@@ -85,6 +86,7 @@ namespace Protocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public U2GS_Operate(U2GS_Operate other) : this() {
+      type_ = other.type_;
       moveOperate_ = other.moveOperate_ != null ? other.moveOperate_.Clone() : null;
       skillOperate_ = other.skillOperate_ != null ? other.skillOperate_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -96,8 +98,20 @@ namespace Protocol {
       return new U2GS_Operate(this);
     }
 
+    /// <summary>Field number for the "type" field.</summary>
+    public const int TypeFieldNumber = 1;
+    private int type_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Type {
+      get { return type_; }
+      set {
+        type_ = value;
+      }
+    }
+
     /// <summary>Field number for the "moveOperate" field.</summary>
-    public const int MoveOperateFieldNumber = 1;
+    public const int MoveOperateFieldNumber = 2;
     private global::Protocol.MoveOperate moveOperate_;
     /// <summary>
     /// 移动操作
@@ -112,7 +126,7 @@ namespace Protocol {
     }
 
     /// <summary>Field number for the "skillOperate" field.</summary>
-    public const int SkillOperateFieldNumber = 2;
+    public const int SkillOperateFieldNumber = 3;
     private global::Protocol.SkillOperate skillOperate_;
     /// <summary>
     /// 技能操作
@@ -141,6 +155,7 @@ namespace Protocol {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (Type != other.Type) return false;
       if (!object.Equals(MoveOperate, other.MoveOperate)) return false;
       if (!object.Equals(SkillOperate, other.SkillOperate)) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -150,6 +165,7 @@ namespace Protocol {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
+      if (Type != 0) hash ^= Type.GetHashCode();
       if (moveOperate_ != null) hash ^= MoveOperate.GetHashCode();
       if (skillOperate_ != null) hash ^= SkillOperate.GetHashCode();
       if (_unknownFields != null) {
@@ -170,12 +186,16 @@ namespace Protocol {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
+      if (Type != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(Type);
+      }
       if (moveOperate_ != null) {
-        output.WriteRawTag(10);
+        output.WriteRawTag(18);
         output.WriteMessage(MoveOperate);
       }
       if (skillOperate_ != null) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(26);
         output.WriteMessage(SkillOperate);
       }
       if (_unknownFields != null) {
@@ -188,12 +208,16 @@ namespace Protocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (Type != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(Type);
+      }
       if (moveOperate_ != null) {
-        output.WriteRawTag(10);
+        output.WriteRawTag(18);
         output.WriteMessage(MoveOperate);
       }
       if (skillOperate_ != null) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(26);
         output.WriteMessage(SkillOperate);
       }
       if (_unknownFields != null) {
@@ -206,6 +230,9 @@ namespace Protocol {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
+      if (Type != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Type);
+      }
       if (moveOperate_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(MoveOperate);
       }
@@ -223,6 +250,9 @@ namespace Protocol {
     public void MergeFrom(U2GS_Operate other) {
       if (other == null) {
         return;
+      }
+      if (other.Type != 0) {
+        Type = other.Type;
       }
       if (other.moveOperate_ != null) {
         if (moveOperate_ == null) {
@@ -255,14 +285,18 @@ namespace Protocol {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
+          case 8: {
+            Type = input.ReadInt32();
+            break;
+          }
+          case 18: {
             if (moveOperate_ == null) {
               MoveOperate = new global::Protocol.MoveOperate();
             }
             input.ReadMessage(MoveOperate);
             break;
           }
-          case 18: {
+          case 26: {
             if (skillOperate_ == null) {
               SkillOperate = new global::Protocol.SkillOperate();
             }
@@ -288,14 +322,18 @@ namespace Protocol {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 10: {
+          case 8: {
+            Type = input.ReadInt32();
+            break;
+          }
+          case 18: {
             if (moveOperate_ == null) {
               MoveOperate = new global::Protocol.MoveOperate();
             }
             input.ReadMessage(MoveOperate);
             break;
           }
-          case 18: {
+          case 26: {
             if (skillOperate_ == null) {
               SkillOperate = new global::Protocol.SkillOperate();
             }
@@ -575,6 +613,7 @@ namespace Protocol {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public Operate(Operate other) : this() {
       uId_ = other.uId_;
+      type_ = other.type_;
       moveOperate_ = other.moveOperate_ != null ? other.moveOperate_.Clone() : null;
       skillOperate_ = other.skillOperate_ != null ? other.skillOperate_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -598,8 +637,20 @@ namespace Protocol {
       }
     }
 
+    /// <summary>Field number for the "type" field.</summary>
+    public const int TypeFieldNumber = 2;
+    private int type_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Type {
+      get { return type_; }
+      set {
+        type_ = value;
+      }
+    }
+
     /// <summary>Field number for the "moveOperate" field.</summary>
-    public const int MoveOperateFieldNumber = 2;
+    public const int MoveOperateFieldNumber = 3;
     private global::Protocol.MoveOperate moveOperate_;
     /// <summary>
     /// 移动操作
@@ -614,7 +665,7 @@ namespace Protocol {
     }
 
     /// <summary>Field number for the "skillOperate" field.</summary>
-    public const int SkillOperateFieldNumber = 3;
+    public const int SkillOperateFieldNumber = 4;
     private global::Protocol.SkillOperate skillOperate_;
     /// <summary>
     /// 技能操作
@@ -644,6 +695,7 @@ namespace Protocol {
         return true;
       }
       if (UId != other.UId) return false;
+      if (Type != other.Type) return false;
       if (!object.Equals(MoveOperate, other.MoveOperate)) return false;
       if (!object.Equals(SkillOperate, other.SkillOperate)) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -654,6 +706,7 @@ namespace Protocol {
     public override int GetHashCode() {
       int hash = 1;
       if (UId != 0) hash ^= UId.GetHashCode();
+      if (Type != 0) hash ^= Type.GetHashCode();
       if (moveOperate_ != null) hash ^= MoveOperate.GetHashCode();
       if (skillOperate_ != null) hash ^= SkillOperate.GetHashCode();
       if (_unknownFields != null) {
@@ -678,12 +731,16 @@ namespace Protocol {
         output.WriteRawTag(8);
         output.WriteUInt32(UId);
       }
+      if (Type != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(Type);
+      }
       if (moveOperate_ != null) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(26);
         output.WriteMessage(MoveOperate);
       }
       if (skillOperate_ != null) {
-        output.WriteRawTag(26);
+        output.WriteRawTag(34);
         output.WriteMessage(SkillOperate);
       }
       if (_unknownFields != null) {
@@ -700,12 +757,16 @@ namespace Protocol {
         output.WriteRawTag(8);
         output.WriteUInt32(UId);
       }
+      if (Type != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(Type);
+      }
       if (moveOperate_ != null) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(26);
         output.WriteMessage(MoveOperate);
       }
       if (skillOperate_ != null) {
-        output.WriteRawTag(26);
+        output.WriteRawTag(34);
         output.WriteMessage(SkillOperate);
       }
       if (_unknownFields != null) {
@@ -720,6 +781,9 @@ namespace Protocol {
       int size = 0;
       if (UId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(UId);
+      }
+      if (Type != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Type);
       }
       if (moveOperate_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(MoveOperate);
@@ -741,6 +805,9 @@ namespace Protocol {
       }
       if (other.UId != 0) {
         UId = other.UId;
+      }
+      if (other.Type != 0) {
+        Type = other.Type;
       }
       if (other.moveOperate_ != null) {
         if (moveOperate_ == null) {
@@ -777,14 +844,18 @@ namespace Protocol {
             UId = input.ReadUInt32();
             break;
           }
-          case 18: {
+          case 16: {
+            Type = input.ReadInt32();
+            break;
+          }
+          case 26: {
             if (moveOperate_ == null) {
               MoveOperate = new global::Protocol.MoveOperate();
             }
             input.ReadMessage(MoveOperate);
             break;
           }
-          case 26: {
+          case 34: {
             if (skillOperate_ == null) {
               SkillOperate = new global::Protocol.SkillOperate();
             }
@@ -814,14 +885,18 @@ namespace Protocol {
             UId = input.ReadUInt32();
             break;
           }
-          case 18: {
+          case 16: {
+            Type = input.ReadInt32();
+            break;
+          }
+          case 26: {
             if (moveOperate_ == null) {
               MoveOperate = new global::Protocol.MoveOperate();
             }
             input.ReadMessage(MoveOperate);
             break;
           }
-          case 26: {
+          case 34: {
             if (skillOperate_ == null) {
               SkillOperate = new global::Protocol.SkillOperate();
             }

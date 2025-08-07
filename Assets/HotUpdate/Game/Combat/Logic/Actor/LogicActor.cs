@@ -9,7 +9,6 @@ public abstract class LogicActor
     public int ActorID { get; }
     public EActorLayer ActorLayer { get; set; }
     public abstract FixIntVector3 Position { get; }
-    public abstract FixIntVector3 EurAngle { get; }
 
     public LogicActor(int actorID, EActorLayer layer)
     {

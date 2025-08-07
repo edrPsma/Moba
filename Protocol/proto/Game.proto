@@ -4,8 +4,9 @@ package Protocol;
 
 message U2GS_Operate
 {
-    MoveOperate moveOperate = 1; // 移动操作
-    SkillOperate skillOperate = 2; // 技能操作
+    int32 type = 1;
+    MoveOperate moveOperate = 2; // 移动操作
+    SkillOperate skillOperate = 3; // 技能操作
 }
 
 message GS2U_Operate
@@ -17,8 +18,9 @@ message GS2U_Operate
 message Operate
 {
     uint32 uId = 1;
-    MoveOperate moveOperate = 2; // 移动操作
-    SkillOperate skillOperate = 3; // 技能操作
+    int32 type = 2;
+    MoveOperate moveOperate = 3; // 移动操作
+    SkillOperate skillOperate = 4; // 技能操作
 }
 
 message SkillOperate

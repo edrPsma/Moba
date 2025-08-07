@@ -11,6 +11,7 @@ public class GameScene : BaseSceneState
 
     public Vector3 BlueSpawnPoint;
     public Vector3 RedSpawnPoint;
+    public CameraFollow CameraFollow;
 
     protected override void OnSceneLoaded()
     {
@@ -18,6 +19,7 @@ public class GameScene : BaseSceneState
 
         BlueSpawnPoint = FindRootObject("SpawnPoint").transform.Find("Blue").position;
         RedSpawnPoint = FindRootObject("SpawnPoint").transform.Find("Red").position;
+        CameraFollow = FindRootObject("CameraRoot").GetComponent<CameraFollow>();
     }
 
     public FixIntVector3 GetSpawnPosition(EActorLayer layer)
