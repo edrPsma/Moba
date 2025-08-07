@@ -124,6 +124,14 @@ MonoBehaviour:
         FilterRuleName: CollectAll
         AssetTags: 
         UserData: 
+      - CollectPath: Assets/GameAssets/So
+        CollectorGUID: 5e642f8bb9e20914c8e37058c1216dbd
+        CollectorType: 0
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackSeparately
+        FilterRuleName: CollectAll
+        AssetTags: 
+        UserData: 
     - GroupName: image
       GroupDesc: 
       AssetTags: 

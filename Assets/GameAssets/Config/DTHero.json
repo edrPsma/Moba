@@ -1,5 +1,5 @@
 {
-	"101":{"ID":101,"Name":"亚瑟","Icon":"arthur_head","Skills":[1001,1002,1003,1004],"Model":"Arthur","Pic":"arthur_load"},
-	"102":{"ID":102,"Name":"后羿","Icon":"houyi_head","Skills":[2001,2002,2003,2004],"Model":"Houyi","Pic":"houyi_load"}
+	"101":{"ID":101,"Name":"亚瑟","Icon":"arthur_head","ShowSkills":[1001,1002,1003,1004],"Model":"Arthur","Pic":"arthur_load","Asset":"Arthur","Skills":[1001,1002,1003,1004]},
+	"102":{"ID":102,"Name":"后羿","Icon":"houyi_head","ShowSkills":[2001,2002,2003,2004],"Model":"Houyi","Pic":"houyi_load","Asset":"Houyi","Skills":[2001,2002,2003,2004]}
 
 }

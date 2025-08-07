@@ -8,6 +8,10 @@ public partial class MVCContainer
 {
     static partial void BindController()
     {
+		_container.BindInterfacesAndSelfTo<CommandSystem>().AsSingle();
+
+		_container.BindInterfacesAndSelfTo<AssetSystem>().AsSingle();
+
 		_container.BindInterfacesAndSelfTo<CombatSystem>().AsSingle();
 
 		_container.BindInterfacesAndSelfTo<MoveSystem>().AsSingle();

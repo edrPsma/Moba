@@ -46,6 +46,7 @@ public class SelectHeroForm : UIForm, IEnhancedScrollerDelegate
     {
         base.OnClose();
         GameEntry.Task.CancelTask(ref _taskID);
+        _assetHandle?.Release();
     }
 
     private void OnSelectHero(EventSelectHero e)
@@ -76,7 +77,7 @@ public class SelectHeroForm : UIForm, IEnhancedScrollerDelegate
         Image[] images = this.GetArray<Image>("skills");
         for (int i = 0; i < images.Length; i++)
         {
-            DTSkill dTSkill = DataTable.GetItem<DTSkill>(table.Skills[i]);
+            DTSkill dTSkill = DataTable.GetItem<DTSkill>(table.ShowSkills[i]);
             images[i].LoadSprite($"Assets/GameAssets/ResImages/PlayWnd/{dTSkill.Icon}.png");
         }
     }

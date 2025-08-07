@@ -21,6 +21,7 @@ public class CombatState : BaseState
         base.OnExit();
         Debug.Log("Procedure 退出战斗流程");
 
+        GameEntry.UI.Pop<PlayForm>();
         GameEntry.UI.ShowGroup(UIGroup.Rear);
     }
 }

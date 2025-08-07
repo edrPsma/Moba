@@ -112,12 +112,12 @@ public class MatchController : AbstarctController, IMatchController
 
     private void OnStartLoad(GS2U_StartLoad msg)
     {
-        GameEntry.Procedure.TransitionImmediately(EGameState.LoadingGame);
         GameModel.RoomID = msg.RoomID;
         GameModel.LoadInfo.Modifly(list =>
         {
             list.AddRange(msg.LoadInfo);
         });
+        GameEntry.Procedure.TransitionImmediately(EGameState.LoadingGame);
     }
 
     public void LoadChange(int progress)
