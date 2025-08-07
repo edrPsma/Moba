@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using HFSM;
 using UnityEngine;
+using Zenject;
 
 public class CombatState : BaseState
 {
+    [Inject] public IAssetSystem AssetSystem;
+
     public CombatState(bool hasExitTime = false) : base(hasExitTime) { }
 
     protected override void OnEnter()
@@ -21,7 +24,9 @@ public class CombatState : BaseState
         base.OnExit();
         Debug.Log("Procedure 退出战斗流程");
 
-        GameEntry.UI.Pop<PlayForm>();
         GameEntry.UI.ShowGroup(UIGroup.Rear);
+        AssetSystem.Dispose();
+        GameEntry.UI.Pop<PlayForm>();
+        GameEntry.Scene.UnloadChildScene<GameScene>();
     }
 }
