@@ -11,15 +11,12 @@ namespace Task
 {
     public class TaskManager : MonoSingleton<ITaskManager, TaskManager>, ITaskManager
     {
-        const float WAIT_FOR_SECOND_STEP = 0.1f;
         const int MAXITERATIONS = 1000;
         [ShowInInspector] Dictionary<int, TaskSource> _taskDic;
         ObjectPool<TaskSource> _taskInfoPool;
         List<TaskSource> _addTaskCache;
         List<int> _removeList;
         int _newtaskId = 0;
-        WaitForSeconds _waitForSeconds;
-        WaitForEndOfFrame _waitForEndOfFrame;
 
         protected override void OnInit()
         {
@@ -29,9 +26,6 @@ namespace Task
             _removeList = new List<int>();
             _taskInfoPool = new ObjectPool<TaskSource>(EPoolType.Scalable, 30);
             _taskInfoPool.OnReleaseEvent += taskInfo => taskInfo.Reset();
-
-            _waitForSeconds = new WaitForSeconds(WAIT_FOR_SECOND_STEP);
-            _waitForEndOfFrame = new WaitForEndOfFrame();
         }
 
         private void LateUpdate()
@@ -215,48 +209,6 @@ namespace Task
         public bool ExistTask(int taskId)
         {
             return _taskDic.ContainsKey(taskId);
-        }
-
-        public IEnumerator WaitForSeconds(float second)
-        {
-            if (second < WAIT_FOR_SECOND_STEP)
-            {
-                yield return null;
-            }
-            else
-            {
-                for (float i = 0; i < second; i += WAIT_FOR_SECOND_STEP)
-                {
-                    yield return _waitForSeconds;
-                }
-            }
-        }
-
-        public WaitForEndOfFrame WaitForEndOfFrame()
-        {
-            return _waitForEndOfFrame;
-        }
-
-        public Coroutine RunCoroutine(string methodName)
-        {
-            return StartCoroutine(methodName);
-        }
-
-        public Coroutine RunCoroutine(IEnumerator routine)
-        {
-            return StartCoroutine(routine);
-        }
-
-        public Coroutine RunCoroutine(string methodName, [DefaultValue("null")] object value)
-        {
-            return StartCoroutine(methodName, value);
-        }
-
-        public void EndCoroutine(Coroutine routine)
-        {
-            if (routine == null) return;
-
-            StopCoroutine(routine);
         }
     }
 }

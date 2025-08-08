@@ -13,7 +13,7 @@ public class HeroActor : LogicActor<HeroRenderingActor>
     public OBBCapsuleCollider HitBox { get; private set; }
 
     public override FixIntVector3 Position => GetPosition();
-    public FixIntVector3 Velocity
+    public override FixIntVector3 Velocity
     {
         get => HitBox.Velocity;
         set
@@ -23,7 +23,7 @@ public class HeroActor : LogicActor<HeroRenderingActor>
         }
     }
 
-    public FixIntVector3 Direction
+    public override FixIntVector3 Direction
     {
         get => _dir;
         set
@@ -37,7 +37,7 @@ public class HeroActor : LogicActor<HeroRenderingActor>
     }
     FixIntVector3 _dir;
 
-    public FixInt MoveSpeed = 3;
+    public override FixInt MoveSpeed { get; set; } = 3;
 
 
     public HeroActor(int actorID, EActorLayer layer, HeroRenderingActor renderingActor) : base(actorID, layer, renderingActor)
