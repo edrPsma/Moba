@@ -28,8 +28,8 @@ public class CombatSystem : AbstarctController, ICombatSystem
     [Inject] public IOperateSystem OperateSystem;
     [Inject] public IMoveSystem MoveSystem;
     [Inject] public IActorManager ActorManager;
+    [Inject] public IPlayerModel PlayerModel;
 
-    public event Action<FixInt> OnLogicUpdate;
     public int FrameID { get; private set; }
     public bool InCombat { get; private set; }
     public BoolVariable CanOperate { get; private set; }
@@ -38,6 +38,8 @@ public class CombatSystem : AbstarctController, ICombatSystem
 
     Queue<GS2U_Operate> _missOperates;// 因断线而丢失的指令列表
     Queue<GS2U_Operate> _operates;// 服务器下发的指令列表
+
+    int _testModelTaslID;
 
     protected override void OnInitialize()
     {
@@ -71,6 +73,19 @@ public class CombatSystem : AbstarctController, ICombatSystem
         _operates.Clear();
         InCombat = true;
         CanOperate.Value = false;
+
+        if (PlayerModel.GameConfig.TestMode)
+        {
+            CanOperate.Value = true;
+            _testModelTaslID = GameEntry.Task.AddTask(_ =>
+            {
+                LogicUpdate(new FixInt(0.0667));
+            })
+            .Delay(TimeSpan.FromSeconds(0.0667))
+            .SetRepeatTimes(-1)
+            .SetLauncherType(TaskSource.ELauncherType.FixedUpdate)
+            .Run();
+        }
     }
 
     public void StopCombat()
@@ -81,6 +96,7 @@ public class CombatSystem : AbstarctController, ICombatSystem
         _operates.Clear();
         InCombat = false;
         CanOperate.Value = false;
+        GameEntry.Task.CancelTask(ref _testModelTaslID);
     }
 
     void ProcressOperate()

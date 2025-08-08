@@ -24,6 +24,7 @@ public class MatchController : AbstarctController, IMatchController
 {
     [Inject] public IGameModel GameModel;
     [Inject] public ICombatSystem CombatSystem;
+    [Inject] public IPlayerModel PlayerModel;
 
     protected override void OnInitialize()
     {
@@ -43,9 +44,31 @@ public class MatchController : AbstarctController, IMatchController
 
     public void Match()
     {
-        U2GS_Match msg = new U2GS_Match();
+        if (PlayerModel.GameConfig.TestMode)
+        {
+            GS2U_Comfirm msg = new GS2U_Comfirm();
+            msg.RoomID = 0;
+            ComfirmData comfirmData1 = new ComfirmData
+            {
+                ComfirmDone = true,
+                IconIndex = 0
+            };
+            ComfirmData comfirmData2 = new ComfirmData
+            {
+                ComfirmDone = true,
+                IconIndex = 1
+            };
+            msg.ComfirmArr.Add(comfirmData1);
+            msg.ComfirmArr.Add(comfirmData2);
 
-        GameEntry.Net.SendMsg(msg);
+            OnComfirm(msg);
+        }
+        else
+        {
+            U2GS_Match msg = new U2GS_Match();
+
+            GameEntry.Net.SendMsg(msg);
+        }
     }
 
     public void Comfirm()
@@ -62,16 +85,63 @@ public class MatchController : AbstarctController, IMatchController
     {
         if (comfirm)
         {
-            U2GS_SelectHero msg = new U2GS_SelectHero
+            if (PlayerModel.GameConfig.TestMode)
+            {
+                GS2U_StartLoad msg = new GS2U_StartLoad();
+                msg.RoomID = 0;
+                LoadInfo loadInfo1 = new LoadInfo
+                {
+                    UId = PlayerModel.UID,
+                    Name = PlayerModel.Name.Value,
+                    Progress = 0,
+                    HeroID = GameModel.SelectHeroID
+                };
+                LoadInfo loadInfo2 = new LoadInfo
+                {
+                    UId = 666666,
+                    Name = "人机",
+                    Progress = 100,
+                    HeroID = 101
+                };
+                msg.LoadInfo.Add(loadInfo1);
+                msg.LoadInfo.Add(loadInfo2);
+                OnStartLoad(msg);
+            }
+            else
+            {
+                U2GS_SelectHero msg = new U2GS_SelectHero
+                {
+                    RoomID = GameModel.RoomID,
+                    HeroID = heroID,
+                };
+
+                GameEntry.Net.SendMsg(msg);
+            }
+        }
+        GameModel.SelectHeroID = heroID;
+        GameEntry.Event.Trigger(new EventSelectHero(heroID, comfirm));
+    }
+
+    public void LoadChange(int progress)
+    {
+        if (PlayerModel.GameConfig.TestMode)
+        {
+            if (progress >= 100)
+            {
+                GS2U_Battle msg = new GS2U_Battle();
+                OnStartBattle(msg);
+            }
+        }
+        else
+        {
+            U2GS_Load msg = new U2GS_Load
             {
                 RoomID = GameModel.RoomID,
-                HeroID = heroID,
+                Progress = progress,
             };
 
             GameEntry.Net.SendMsg(msg);
         }
-        GameModel.SelectHeroID = heroID;
-        GameEntry.Event.Trigger(new EventSelectHero(heroID, comfirm));
     }
 
     private void OnComfirm(GS2U_Comfirm comfirm)
@@ -119,17 +189,6 @@ public class MatchController : AbstarctController, IMatchController
             list.AddRange(msg.LoadInfo);
         });
         GameEntry.Procedure.TransitionImmediately(EGameState.LoadingGame);
-    }
-
-    public void LoadChange(int progress)
-    {
-        U2GS_Load msg = new U2GS_Load
-        {
-            RoomID = GameModel.RoomID,
-            Progress = progress,
-        };
-
-        GameEntry.Net.SendMsg(msg);
     }
 
     private void OnStartBattle(GS2U_Battle battle)

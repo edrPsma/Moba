@@ -30,12 +30,12 @@ public class NetManager : MonoSingleton<INetManager, NetManager>, INetManager
         GameObject.DontDestroyOnLoad(gameObject);
     }
 
-    public void InitNet()
+    public void InitNet(string ip, int port)
     {
         _client?.CloseClient();
         _client = new KCPClient<ClientSession>();
         _queue = new Queue<IMessage>();
-        _client.StartAsClient("192.168.0.110", 17666);
+        _client.StartAsClient(ip, port);
     }
 
     public void Connect(Action<bool> callBack)

@@ -6,7 +6,7 @@ using UnityEngine;
 
 public interface INetManager
 {
-    void InitNet();
+    void InitNet(string ip, int port);
 
     void Connect(Action<bool> callBack);
 

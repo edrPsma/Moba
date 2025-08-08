@@ -49,29 +49,34 @@ public class OperateSystem : AbstarctController, IOperateSystem
         if (!CombatSystem.InCombat) return;
         if (!CombatSystem.CanOperate.Value) return;
 
-        U2GS_Operate operate = new U2GS_Operate();
-        operate.Type = 1;
-        Vector vector = new Vector();
-        vector.X = dir.x.Value;
-        vector.Z = dir.z.Value;
-        operate.MoveOperate = new MoveOperate
+        if (PlayerModel.GameConfig.TestMode)
         {
-            Velocity = vector
-        };
-        GameEntry.Net.SendMsg(operate);
+            Operate operate = new Operate();
+            operate.Type = 1;
+            operate.UId = PlayerModel.UID;
+            Vector vector = new Vector();
+            vector.X = dir.x.Value;
+            vector.Z = dir.z.Value;
+            operate.MoveOperate = new MoveOperate
+            {
+                Velocity = vector
+            };
 
-        // Operate operate = new Operate();
-        // operate.Type = 1;
-        // operate.UId = PlayerModel.UID;
-        // Vector vector = new Vector();
-        // vector.X = dir.x.Value;
-        // vector.Z = dir.z.Value;
-        // operate.MoveOperate = new MoveOperate
-        // {
-        //     Velocity = vector
-        // };
-
-        // CommandSystem.Input(operate);
+            Input(operate);
+        }
+        else
+        {
+            U2GS_Operate operate = new U2GS_Operate();
+            operate.Type = 1;
+            Vector vector = new Vector();
+            vector.X = dir.x.Value;
+            vector.Z = dir.z.Value;
+            operate.MoveOperate = new MoveOperate
+            {
+                Velocity = vector
+            };
+            GameEntry.Net.SendMsg(operate);
+        }
     }
 
     public void Input(Operate operate)
