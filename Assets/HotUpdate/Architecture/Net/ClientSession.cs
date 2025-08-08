@@ -37,7 +37,7 @@ public class ClientSession : KCPSession
         }
         else
         {
-            Debug.Log(string.Format("Thread:{0} Sid;{1},RcvClient:{2}", Thread.CurrentThread.ManagedThreadId, SessionID, msg));
+            // Debug.Log(string.Format("Thread:{0} Sid;{1},RcvClient:{2}", Thread.CurrentThread.ManagedThreadId, SessionID, msg));
             NetManager.Instance.Enqueue(msg);
         }
     }

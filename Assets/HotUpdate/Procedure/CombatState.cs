@@ -20,7 +20,7 @@ public class CombatState : BaseState
         Debug.Log("Procedure 进入战斗流程");
 
         GameEntry.UI.HideGroup(UIGroup.Rear);
-        GameEntry.UI.Pop<LoadingGameForm>();
+
 
         int len = GameModel.LoadInfo.Count;
         int half = len / 2;
@@ -38,10 +38,7 @@ public class CombatState : BaseState
             }
         }
 
-        GameEntry.Task.AddTask(_ =>
-        {
-            CombatSystem.LogicUpdate(0.06667);
-        }).Delay(TimeSpan.FromSeconds(0.06667)).SetRepeatTimes(-1).Run();
+        CombatSystem.CanOperate.Register(OnCanOperateChange);
     }
 
     protected override void OnExit()
@@ -53,5 +50,14 @@ public class CombatState : BaseState
         AssetSystem.Dispose();
         GameEntry.UI.Pop<PlayForm>();
         GameEntry.Scene.UnloadChildScene<GameScene>();
+        CombatSystem.CanOperate.UnRegister(OnCanOperateChange);
+    }
+
+    private void OnCanOperateChange(bool value)
+    {
+        if (value)
+        {
+            GameEntry.UI.Pop<LoadingGameForm>();
+        }
     }
 }

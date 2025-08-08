@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using FixedPointNumber;
 using UnityEngine;
 using Zenject;
@@ -14,6 +15,7 @@ public interface IActorManager : ILogicController
 [Controller]
 public class ActorManager : AbstarctController, IActorManager
 {
+    [Inject] public ICombatSystem CombatSystem;
     [Inject] public IAssetSystem AssetSystem;
     [Inject] public IMoveSystem MoveSystem;
     [Inject] public IPlayerModel PlayerModel;

@@ -8,7 +8,19 @@ namespace OBB
 {
     public abstract class OBBCollider
     {
-        public FixIntVector3 Position { get; set; }
+        public FixIntVector3 Position
+        {
+            get => _position;
+            set
+            {
+                if (value != _position)
+                {
+                    _position = value;
+                    OnPositionChange?.Invoke();
+                }
+            }
+        }
+        FixIntVector3 _position;
         public FixIntVector3 Scale { get; protected set; } = FixIntVector3.one;
         public abstract EOBBColliderType ColliderType { get; }
 
@@ -19,6 +31,7 @@ namespace OBB
         public Action<OBBCollider, CollisionData> OnCollisionStayAction;
         public Action<OBBCollider> OnCollisionExitAction;
         public Action OnCollisionEmptyAction;
+        public Action OnPositionChange;
 
         protected List<OBBCollider> _alreayOccurCollisionList = new List<OBBCollider>();
 

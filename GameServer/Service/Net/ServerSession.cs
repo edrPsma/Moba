@@ -10,6 +10,7 @@ namespace GameServer.Service
         public INetService NetService => Builder.Get<INetService>();
         public ICacheService CacheService => Builder.Get<ICacheService>();
         public uint UId;
+        public event Action<uint> OnDisConnectedEvent;
 
         protected override void OnConnected()
         {
@@ -19,6 +20,7 @@ namespace GameServer.Service
         protected override void OnDisConnected()
         {
             Console.WriteLine($"Client Offline,Sid: {SessionID},UId: {UId}");
+            OnDisConnectedEvent?.Invoke(UId);
             CacheService.Offline(UId);
             UId = 0;
         }

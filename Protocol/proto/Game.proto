@@ -15,6 +15,17 @@ message GS2U_Operate
     repeated Operate operates = 2;// 操作数组
 }
 
+message U2GS_MissOperate
+{
+    int32 startID = 1;
+    int32 Count = 2;
+}
+
+message GS2U_MissOperate
+{
+    repeated GS2U_Operate operates = 1;
+}
+
 message Operate
 {
     uint32 uId = 1;

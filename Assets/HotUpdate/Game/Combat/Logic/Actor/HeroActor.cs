@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using FixedPointNumber;
@@ -18,9 +19,23 @@ public class HeroActor : LogicActor<HeroRenderingActor>
         set
         {
             HitBox.Velocity = value;
-            RenderingActor?.UpdatePosition();
+            Direction = value;
         }
     }
+
+    public FixIntVector3 Direction
+    {
+        get => _dir;
+        set
+        {
+            if (_dir != value && value != FixIntVector3.zero)
+            {
+                _dir = value;
+                RenderingActor.UpdateRotate();
+            }
+        }
+    }
+    FixIntVector3 _dir;
 
     public FixInt MoveSpeed = 3;
 
@@ -29,6 +44,12 @@ public class HeroActor : LogicActor<HeroRenderingActor>
     {
         HitBox = new OBBCapsuleCollider(renderingActor.ColliderInfo.Radius, renderingActor.ColliderInfo.Height, FixIntVector3.up);
         HitBox.IsUseAdjustPos = true;
+        HitBox.OnPositionChange += OnPositionChange;
+    }
+
+    private void OnPositionChange()
+    {
+        RenderingActor.UpdatePosition();
     }
 
     FixIntVector3 GetPosition()

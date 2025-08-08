@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using GameServer.Common;
 using GameServer.Service;
 using Protocol;
@@ -9,7 +10,10 @@ namespace GameServer.Controller
     {
         [Inject] public ITimeService TimeService;
         [Inject] public ICacheService CacheService;
+
         int _checkTaskID;
+        int _gameTaskID;
+        int _frameID = 0;
 
         public FightState(PvpFSM fsm, bool hasExitTime = true) : base(fsm, hasExitTime) { }
 
@@ -20,8 +24,30 @@ namespace GameServer.Controller
             FSM.Room.OnRecover += OnRecover;
             _checkTaskID = TimeService.AddTask(ServerConfig.FightCountDown * 1000, ReachTimeLimit);
             FSM.Room.Fight();
-
+            _frameID = 0;
+            _gameTaskID = TimeService.AddTask(ServerConfig.LogicFrameInterval, LogicUpdate, null, 0);
             FSM.Room.EventSource.Register<EventLoading>(OnLoading);
+        }
+
+        private void LogicUpdate(int obj)
+        {
+            GS2U_Operate msg = new GS2U_Operate();
+
+            msg.FrameID = _frameID;
+            msg.Operates.AddRange(FSM.Room.Operates);
+            FSM.Room.AllOperate.Add(msg);
+
+            byte[] bytes = msg.Serialize();
+            for (int i = 0; i < FSM.Room.Players.Length; i++)
+            {
+                uint uid = FSM.Room.Players[i];
+                if (FSM.Room.IsActive(uid))
+                {
+                    FSM.Room.Send(uid, bytes);
+                }
+            }
+            FSM.Room.Operates.Clear();
+            _frameID++;
         }
 
         protected override void OnExit()
@@ -30,6 +56,8 @@ namespace GameServer.Controller
             FSM.Room.OnRecover -= OnRecover;
             FSM.Room.EventSource.UnRegister<EventLoading>(OnLoading);
             TimeService.DeleteTask(_checkTaskID);
+            TimeService.DeleteTask(_gameTaskID);
+            _gameTaskID = 0;
             _checkTaskID = 0;
         }
 

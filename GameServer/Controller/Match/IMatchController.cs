@@ -37,6 +37,8 @@ namespace GameServer.Controller
             NetService.Register<U2GS_SelectHero>(OnSelectHero);
             NetService.Register<U2GS_Load>(OnLoadChange);
             NetService.Register<U2GS_TryRecover>(OnTryRecover);
+            NetService.Register<U2GS_Operate>(OnOperate);
+            NetService.Register<U2GS_MissOperate>(OnMissOperate);
         }
 
         protected override void OnUpdate()
@@ -53,6 +55,7 @@ namespace GameServer.Controller
                 room.RoomID = GetRoomID();
                 room.Players = sessions;
                 room.EventSource = new TypeEventSource();
+                room.Initialize();
 
                 PvpFSM pvpFSM = new PvpFSM(room);
                 pvpFSM.Initialize();
@@ -127,6 +130,45 @@ namespace GameServer.Controller
             {
                 room.Recover(session.UId);
             }
+        }
+
+        private void OnOperate(ServerSession session, U2GS_Operate operate)
+        {
+            int roomID = CacheService.GetRoom(session.UId);
+            if (_roomMap.TryGetValue(roomID, out PvpRoom room))
+            {
+                room.AddOperate(session.UId, operate);
+            }
+            else
+            {
+                Debug.Warn($"该房间不存在,RoomID: {roomID}");
+            }
+        }
+
+        private void OnMissOperate(ServerSession session, U2GS_MissOperate msg)
+        {
+            int roomID = CacheService.GetRoom(session.UId);
+            if (_roomMap.TryGetValue(roomID, out PvpRoom room))
+            {
+                GS2U_MissOperate operate = new GS2U_MissOperate();
+                int count = 0;
+                for (int i = msg.StartID; i < msg.Count; i++)
+                {
+                    operate.Operates.Add(room.AllOperate[i]);
+                    ++count;
+                    if (count >= ServerConfig.ChaseFrameCount)
+                    {
+                        session.Send(operate);
+                        count = 0;
+                        operate.Operates.Clear();
+                    }
+                }
+                if (operate.Operates.Count > 0)
+                {
+                    session.Send(operate);
+                }
+                Debug.ColorLog(LogColor.Green, $"向客户端发送丢失的帧,StartID: {msg.StartID} Count: {msg.Count} MaxCount:{room.AllOperate.Count}");
+            }
             else
             {
                 Debug.Warn($"该房间不存在,RoomID: {roomID}");
@@ -155,10 +197,40 @@ namespace GameServer.Controller
         public HeroSelectInfo[] HeroArr;
         public TypeEventSource EventSource;
         public event Action<uint> OnRecover;
+        public List<Operate> Operates = new List<Operate>();
+        public List<GS2U_Operate> AllOperate = new List<GS2U_Operate>();
+        HashSet<uint> _offlinePlayers = new HashSet<uint>();
+
+        public void Initialize()
+        {
+            for (int i = 0; i < Players.Length; i++)
+            {
+                if (CacheService.TryGetSession(Players[i], out ServerSession session))
+                {
+                    session.OnDisConnectedEvent += uid =>
+                    {
+                        _offlinePlayers.Add(uid);
+                    };
+                }
+            }
+        }
 
         public void Recover(uint uid)
         {
             OnRecover?.Invoke(uid);
+            if (CacheService.TryGetSession(uid, out ServerSession session))
+            {
+                session.OnDisConnectedEvent += _ =>
+                {
+                    _offlinePlayers.Add(uid);
+                };
+            }
+            _offlinePlayers.Remove(uid);
+        }
+
+        public bool IsActive(uint uid)
+        {
+            return !_offlinePlayers.Contains(uid);
         }
 
         public void Send(uint uid, IMessage message)
@@ -218,6 +290,16 @@ namespace GameServer.Controller
         {
             GS2U_Battle msg = new GS2U_Battle();
             BroadcastMsg(msg);
+        }
+
+        public void AddOperate(uint uid, U2GS_Operate msg)
+        {
+            Operate operate = new Operate();
+            operate.Type = msg.Type;
+            operate.MoveOperate = msg.MoveOperate;
+            operate.SkillOperate = msg.SkillOperate;
+            operate.UId = uid;
+            Operates.Add(operate);
         }
 
         public int GetIndex(uint uid)

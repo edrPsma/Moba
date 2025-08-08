@@ -23,6 +23,7 @@ public interface IMatchController
 public class MatchController : AbstarctController, IMatchController
 {
     [Inject] public IGameModel GameModel;
+    [Inject] public ICombatSystem CombatSystem;
 
     protected override void OnInitialize()
     {
@@ -133,6 +134,7 @@ public class MatchController : AbstarctController, IMatchController
 
     private void OnStartBattle(GS2U_Battle battle)
     {
+        CombatSystem.StartCombat();
         GameEntry.Procedure.TransitionImmediately(EGameState.Combat);
     }
 }

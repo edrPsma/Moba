@@ -72,7 +72,7 @@ namespace GameServer.Service
         {
             short msgID = MessageBuilder.QueryMessageID(package.Message.GetType());
             _eventSource.Trigger(msgID, package);
-            Console.WriteLine($"Sid:{package.Session.SessionID}, ID: {msgID} , Type :{package.Message.GetType()}");
+            // Console.WriteLine($"Sid:{package.Session.SessionID}, ID: {msgID} , Type :{package.Message.GetType()}");
         }
 
         public void Close()
