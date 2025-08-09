@@ -13,6 +13,10 @@ public class SkillIndicator : MonoBehaviour
     void Start()
     {
         GameEntry.Event.Register<EventShowSkillIndicator>(OnShowIndicator);
+        _area.SetActive(false);
+        _area2.SetActive(false);
+        _arrow.SetActive(false);
+        _sector.SetActive(false);
     }
 
     private void OnShowIndicator(EventShowSkillIndicator e)

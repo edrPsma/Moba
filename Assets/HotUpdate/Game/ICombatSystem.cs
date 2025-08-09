@@ -26,7 +26,7 @@ public interface ICombatSystem : ILogicController
 public class CombatSystem : AbstarctController, ICombatSystem
 {
     [Inject] public IOperateSystem OperateSystem;
-    [Inject] public IMoveSystem MoveSystem;
+    [Inject] public IPhysicsSystem MoveSystem;
     [Inject] public IActorManager ActorManager;
     [Inject] public IPlayerModel PlayerModel;
 

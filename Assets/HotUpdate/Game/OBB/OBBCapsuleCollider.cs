@@ -55,5 +55,25 @@ namespace OBB
         {
 
         }
+
+        public CapsuleColliderData GetData()
+        {
+            FixInt scaleR = FixIntMath.Max(Scale.x, Scale.z);
+            FixInt scaleH = Scale.y;
+
+            FixInt h = scaleH * Height;
+            FixInt r = scaleR * Radius;
+
+            FixInt realH = FixIntMath.Clamp(h - r * 2, 0, h);
+            CapsuleColliderData capsule = new CapsuleColliderData
+            {
+                Center = Position,
+                Direction = Direction,
+                Radius = r,
+                Height = realH,
+            };
+
+            return capsule;
+        }
     }
 }

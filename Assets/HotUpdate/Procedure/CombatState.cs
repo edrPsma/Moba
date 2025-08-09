@@ -30,11 +30,11 @@ public class CombatState : BaseState
             uint uid = GameModel.LoadInfo[i].UId;
             if (i < half)
             {
-                ActorManager.SpawnHero(uid, heroID, EActorLayer.Blue);
+                ActorManager.SpawnHero(uid, heroID, ECamp.Blue);
             }
             else
             {
-                ActorManager.SpawnHero(uid, heroID, EActorLayer.Red);
+                ActorManager.SpawnHero(uid, heroID, ECamp.Red);
             }
         }
 

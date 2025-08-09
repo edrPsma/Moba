@@ -50,5 +50,18 @@ namespace OBB
         {
 
         }
+
+        public SphereColliderData GetData()
+        {
+            FixInt scale = FixIntMath.Max(Scale.x, Scale.y);
+            scale = FixIntMath.Max(Scale.z, scale);
+            SphereColliderData sphere = new SphereColliderData
+            {
+                Center = Position,
+                Radius = scale * Radius
+            };
+
+            return sphere;
+        }
     }
 }

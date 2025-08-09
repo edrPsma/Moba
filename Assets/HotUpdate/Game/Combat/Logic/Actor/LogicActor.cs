@@ -1,21 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using FixedPointNumber;
+using OBB;
 using UnityEngine;
 
 
 public abstract class LogicActor
 {
     public int ActorID { get; }
-    public EActorLayer ActorLayer { get; set; }
+    public ECamp Camp { get; set; }
+    public ELayer Layer { get; set; }
     public abstract FixIntVector3 Position { get; }
     public abstract FixIntVector3 Velocity { get; set; }
     public abstract FixInt MoveSpeed { get; set; }
+    public abstract OBBCollider Collider { get; }
 
-    public LogicActor(int actorID, EActorLayer layer)
+    public LogicActor(int actorID, ECamp camp, ELayer layer)
     {
         ActorID = actorID;
-        ActorLayer = layer;
+        Camp = camp;
+        Layer = layer;
     }
 
     public virtual void LogicUpdate(FixInt deltaTime)
@@ -29,7 +33,7 @@ public abstract class LogicActor<T> : LogicActor where T : RenderingActor
 {
     public T RenderingActor { get; }
 
-    public LogicActor(int actorID, EActorLayer layer, T renderingActor) : base(actorID, layer)
+    public LogicActor(int actorID, ECamp camp, ELayer layer, T renderingActor) : base(actorID, camp, layer)
     {
         RenderingActor = renderingActor;
         renderingActor.Initialize(this);
@@ -41,9 +45,9 @@ public abstract class LogicActor<T> : LogicActor where T : RenderingActor
     }
 }
 
-public enum EActorLayer
+public enum ECamp
 {
-    Red,
+    Red = 1,
 
-    Blue
+    Blue = 2,
 }

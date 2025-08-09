@@ -10,7 +10,7 @@ using Zenject;
 
 public class BoxObstacle : Obstacle
 {
-    [Inject] public IMoveSystem MoveSystem;
+    [Inject] public IPhysicsSystem MoveSystem;
 
     [SerializeField] Vector3 _size;
     OBBBoxCollider _boxCollider;

@@ -14,7 +14,7 @@ public partial class MVCContainer
 
 		_container.BindInterfacesAndSelfTo<CombatSystem>().AsSingle();
 
-		_container.BindInterfacesAndSelfTo<MoveSystem>().AsSingle();
+		_container.BindInterfacesAndSelfTo<PhysicsSystem>().AsSingle();
 
 		_container.BindInterfacesAndSelfTo<OperateSystem>().AsSingle();
 

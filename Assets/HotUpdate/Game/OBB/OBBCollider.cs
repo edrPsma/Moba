@@ -81,21 +81,8 @@ namespace OBB
 
         public bool DetectCollider(OBBBoxCollider boxCollider, OBBBoxCollider target, OBBCollider impactor, out CollisionData collisionData)
         {
-            BoxColliderData box1 = new BoxColliderData
-            {
-                Vertexts = boxCollider.Vertexts,
-                Axes = boxCollider.Axes,
-                Center = boxCollider.Position,
-                Size = boxCollider.Size
-            };
-
-            BoxColliderData box2 = new BoxColliderData
-            {
-                Vertexts = target.Vertexts,
-                Axes = target.Axes,
-                Center = target.Position,
-                Size = target.Size
-            };
+            BoxColliderData box1 = boxCollider.GetData();
+            BoxColliderData box2 = target.GetData();
 
             bool isColliding = OBBCollisionTools.CollisionDetect(box1, box2, out collisionData);
             if (target == impactor)
@@ -108,22 +95,8 @@ namespace OBB
 
         public bool DetectCollider(OBBBoxCollider boxCollider, OBBSphereCollider target, OBBCollider impactor, out CollisionData collisionData)
         {
-            BoxColliderData box = new BoxColliderData
-            {
-                Vertexts = boxCollider.Vertexts,
-                Axes = boxCollider.Axes,
-                Center = boxCollider.Position,
-                Size = boxCollider.Size
-            };
-
-            FixInt scale = FixIntMath.Max(target.Scale.x, target.Scale.y);
-            scale = FixIntMath.Max(target.Scale.z, scale);
-
-            SphereColliderData sphere = new SphereColliderData
-            {
-                Center = target.Position,
-                Radius = scale * target.Radius
-            };
+            BoxColliderData box = boxCollider.GetData();
+            SphereColliderData sphere = target.GetData();
 
             bool isColliding = OBBCollisionTools.CollisionDetect(box, sphere, out collisionData);
             if (target == impactor)
@@ -136,23 +109,8 @@ namespace OBB
 
         public bool DetectCollider(OBBSphereCollider sphereCollider, OBBSphereCollider target, OBBCollider impactor, out CollisionData collisionData)
         {
-            FixInt scale1 = FixIntMath.Max(sphereCollider.Scale.x, sphereCollider.Scale.y);
-            scale1 = FixIntMath.Max(sphereCollider.Scale.z, scale1);
-
-            SphereColliderData sphere1 = new SphereColliderData
-            {
-                Center = sphereCollider.Position,
-                Radius = scale1 * sphereCollider.Radius
-            };
-
-            FixInt scale2 = FixIntMath.Max(target.Scale.x, target.Scale.y);
-            scale2 = FixIntMath.Max(target.Scale.z, scale2);
-
-            SphereColliderData sphere2 = new SphereColliderData
-            {
-                Center = target.Position,
-                Radius = scale2 * target.Radius
-            };
+            SphereColliderData sphere1 = sphereCollider.GetData();
+            SphereColliderData sphere2 = target.GetData();
 
             bool isColliding = OBBCollisionTools.CollisionDetect(sphere1, sphere2, out collisionData);
             if (target == impactor)
@@ -165,28 +123,8 @@ namespace OBB
 
         public bool DetectCollider(OBBSphereCollider sphereCollider, OBBCapsuleCollider target, OBBCollider impactor, out CollisionData collisionData)
         {
-            FixInt scale = FixIntMath.Max(sphereCollider.Scale.x, sphereCollider.Scale.y);
-            scale = FixIntMath.Max(sphereCollider.Scale.z, scale);
-            SphereColliderData sphere = new SphereColliderData
-            {
-                Center = sphereCollider.Position,
-                Radius = scale * sphereCollider.Radius
-            };
-
-            FixInt scaleR = FixIntMath.Max(target.Scale.x, target.Scale.z);
-            FixInt scaleH = target.Scale.y;
-
-            FixInt h = scaleH * target.Height;
-            FixInt r = scaleR * target.Radius;
-
-            FixInt realH = FixIntMath.Clamp(h - r * 2, 0, h);
-            CapsuleColliderData capsule = new CapsuleColliderData
-            {
-                Center = target.Position,
-                Direction = target.Direction,
-                Radius = r,
-                Height = realH,
-            };
+            SphereColliderData sphere = sphereCollider.GetData();
+            CapsuleColliderData capsule = target.GetData();
 
             bool isColliding = OBBCollisionTools.CollisionDetect(sphere, capsule, out collisionData);
             if (target == impactor)
@@ -199,28 +137,8 @@ namespace OBB
 
         public bool DetectCollider(OBBBoxCollider boxCollider, OBBCapsuleCollider target, OBBCollider impactor, out CollisionData collisionData)
         {
-            BoxColliderData box = new BoxColliderData
-            {
-                Vertexts = boxCollider.Vertexts,
-                Axes = boxCollider.Axes,
-                Center = boxCollider.Position,
-                Size = boxCollider.Size
-            };
-
-            FixInt scaleR = FixIntMath.Max(target.Scale.x, target.Scale.z);
-            FixInt scaleH = target.Scale.y;
-
-            FixInt h = scaleH * target.Height;
-            FixInt r = scaleR * target.Radius;
-
-            FixInt realH = FixIntMath.Clamp(h - r * 2, 0, h);
-            CapsuleColliderData capsule = new CapsuleColliderData
-            {
-                Center = target.Position,
-                Direction = target.Direction,
-                Radius = r,
-                Height = realH,
-            };
+            BoxColliderData box = boxCollider.GetData();
+            CapsuleColliderData capsule = target.GetData();
 
             bool isColliding = OBBCollisionTools.CollisionDetect(box, capsule, out collisionData);
             if (target == impactor)

@@ -9,7 +9,7 @@ using Zenject;
 
 public class CapsuleObstacle : Obstacle
 {
-    [Inject] public IMoveSystem MoveSystem;
+    [Inject] public IPhysicsSystem MoveSystem;
 
     [SerializeField] float _radius;
     [SerializeField] float _height;

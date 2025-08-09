@@ -22,13 +22,13 @@ public class GameScene : BaseSceneState
         CameraFollow = FindRootObject("CameraRoot").GetComponent<CameraFollow>();
     }
 
-    public FixIntVector3 GetSpawnPosition(EActorLayer layer)
+    public FixIntVector3 GetSpawnPosition(ECamp layer)
     {
-        if (layer == EActorLayer.Red)
+        if (layer == ECamp.Red)
         {
             return new FixIntVector3(RedSpawnPoint);
         }
-        else if (layer == EActorLayer.Blue)
+        else if (layer == ECamp.Blue)
         {
             return new FixIntVector3(BlueSpawnPoint);
         }

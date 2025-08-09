@@ -7,7 +7,7 @@ using Zenject;
 
 public interface IActorManager : ILogicController
 {
-    HeroActor SpawnHero(uint uid, int heroID, EActorLayer layer);
+    HeroActor SpawnHero(uint uid, int heroID, ECamp layer);
 
     HeroActor GetHero(uint uid);
 }
@@ -17,7 +17,7 @@ public class ActorManager : AbstarctController, IActorManager
 {
     [Inject] public ICombatSystem CombatSystem;
     [Inject] public IAssetSystem AssetSystem;
-    [Inject] public IMoveSystem MoveSystem;
+    [Inject] public IPhysicsSystem MoveSystem;
     [Inject] public IPlayerModel PlayerModel;
     Dictionary<int, LogicActor> _actorDic;
     Dictionary<uint, LogicActor> _heroDic;
@@ -41,7 +41,7 @@ public class ActorManager : AbstarctController, IActorManager
         }
     }
 
-    public HeroActor SpawnHero(uint uid, int heroID, EActorLayer layer)
+    public HeroActor SpawnHero(uint uid, int heroID, ECamp camp)
     {
         int actorID = GetActorID();
 
@@ -49,10 +49,10 @@ public class ActorManager : AbstarctController, IActorManager
 
         GameObject clone = AssetSystem.Get<GameObject>($"Assets/GameAssets/Prefab/Chars/{table.Model}.prefab");
         HeroRenderingActor renderingActor = GameObject.Instantiate(clone).AddComponent<HeroRenderingActor>();
-        HeroActor heroActor = new HeroActor(actorID, layer, renderingActor);
+        HeroActor heroActor = new HeroActor(actorID, camp, camp == ECamp.Red ? ELayer.Layer1 : ELayer.Layer2, renderingActor);
         GameScene scene = GameEntry.Scene.GetSceneState<GameScene>();
-        heroActor.SetPosition(scene.GetSpawnPosition(layer));
-        MoveSystem.AddUnit(heroActor.HitBox);
+        heroActor.SetPosition(scene.GetSpawnPosition(camp));
+        MoveSystem.AddUnit(heroActor);
 
         // 设置相机跟随
         if (PlayerModel.UID == uid)

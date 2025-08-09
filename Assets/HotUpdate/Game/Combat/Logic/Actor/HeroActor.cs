@@ -10,6 +10,7 @@ public class HeroActor : LogicActor<HeroRenderingActor>
 {
     public FixIntVector3 BodyPosition => new FixIntVector3(RenderingActor.BodyTrans.position);
     public FixIntVector3 HeadPosition => new FixIntVector3(RenderingActor.HeadTrans.position);
+    public override OBBCollider Collider => HitBox;
     public OBBCapsuleCollider HitBox { get; private set; }
 
     public override FixIntVector3 Position => GetPosition();
@@ -40,7 +41,7 @@ public class HeroActor : LogicActor<HeroRenderingActor>
     public override FixInt MoveSpeed { get; set; } = 3;
 
 
-    public HeroActor(int actorID, EActorLayer layer, HeroRenderingActor renderingActor) : base(actorID, layer, renderingActor)
+    public HeroActor(int actorID, ECamp camp, ELayer layer, HeroRenderingActor renderingActor) : base(actorID, camp, layer, renderingActor)
     {
         HitBox = new OBBCapsuleCollider(renderingActor.ColliderInfo.Radius, renderingActor.ColliderInfo.Height, FixIntVector3.up);
         HitBox.IsUseAdjustPos = true;

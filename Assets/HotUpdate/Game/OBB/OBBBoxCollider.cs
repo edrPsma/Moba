@@ -79,5 +79,18 @@ namespace OBB
 
             return result;
         }
+
+        public BoxColliderData GetData()
+        {
+            BoxColliderData box = new BoxColliderData
+            {
+                Vertexts = Vertexts,
+                Axes = Axes,
+                Center = Position,
+                Size = Size
+            };
+
+            return box;
+        }
     }
 }
