@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using FixedPointNumber;
 using UnityEngine;
 
 public class RenderingActor : MonoBehaviour
@@ -98,6 +99,15 @@ public class RenderingActor : MonoBehaviour
         else
         {
             transform.position = LogicActor.Position.ToVector3();
+        }
+
+        if (LogicActor.Velocity != FixIntVector3.zero)
+        {
+            PlayAnimation("run");
+        }
+        else
+        {
+            PlayAnimation("idle");
         }
     }
 
