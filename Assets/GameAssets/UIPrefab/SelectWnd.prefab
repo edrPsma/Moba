@@ -687,7 +687,7 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 4
+  m_ChildAlignment: 3
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
@@ -2248,6 +2248,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6410371123870410338, guid: 83b0743a2e8a7224aa88a6e4a4c5ae5c, type: 3}
       propertyPath: m_Name
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6410371123870410338, guid: 83b0743a2e8a7224aa88a6e4a4c5ae5c, type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

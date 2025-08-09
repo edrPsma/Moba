@@ -29,7 +29,7 @@ public class AssetSystem : AbstarctController, IAssetSystem
 
     public void Preload<T>(string location, Action callBack) where T : UnityEngine.Object
     {
-        if (GameEntry.Resource.CheckLocationValid(location))
+        if (GameEntry.Resource.CheckLocationValid(location) && !_handleDic.ContainsKey(location))
         {
             AssetHandle assetHandle = GameEntry.Resource.LoadAssetAsync<T>(location);
             _handleDic.Add(location, assetHandle);

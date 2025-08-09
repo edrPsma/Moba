@@ -14,3 +14,19 @@ public readonly struct EventSelectHero
         Comfirm = comfirm;
     }
 }
+
+public readonly struct EventShowSkillIndicator
+{
+    public ESkillReleaseType SkillReleaseType { get; }
+    public Vector2 Vector { get; }
+    public float Area { get; }
+    public float Area2 { get; }
+
+    public EventShowSkillIndicator(ESkillReleaseType type, Vector2 vector, float area, float area2)
+    {
+        SkillReleaseType = type;
+        Vector = vector;
+        Area = area;
+        Area2 = area2;
+    }
+}

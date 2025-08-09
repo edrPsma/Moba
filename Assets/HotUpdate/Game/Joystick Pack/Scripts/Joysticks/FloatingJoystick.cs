@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class FloatingJoystick : Joystick
+public class FloatingJoystick : Joystick, IBeginDragHandler
 {
     protected override void Start()
     {
@@ -22,5 +22,11 @@ public class FloatingJoystick : Joystick
     {
         background.gameObject.SetActive(false);
         base.OnPointerUp(eventData);
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        background.anchoredPosition = ScreenPointToAnchoredPosition(eventData.position);
+        background.gameObject.SetActive(true);
     }
 }

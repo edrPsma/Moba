@@ -21,9 +21,9 @@ public class SelectHeroTuple : EnhancedScrollerCellView
     public void Refresh(DTHero[] arr, int index)
     {
         int startIndex = index * 2;
+        _item1.Refresh(arr[startIndex]);
         if (arr.Length > startIndex + 1)
         {
-            _item1.Refresh(arr[startIndex]);
             _item2.SetActive(true);
             _item2.Refresh(arr[startIndex + 1]);
         }

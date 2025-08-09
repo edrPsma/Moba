@@ -111,6 +111,14 @@ MonoBehaviour:
         FilterRuleName: CollectAll
         AssetTags: 
         UserData: 
+      - CollectPath: Assets/GameAssets/character
+        CollectorGUID: 6c507fc3cdec20042a25e45ee1508142
+        CollectorType: 1
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackSeparately
+        FilterRuleName: CollectAll
+        AssetTags: 
+        UserData: 
     - GroupName: config
       GroupDesc: 
       AssetTags: 

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -24,6 +25,9 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
     public AxisOptions AxisOptions { get { return AxisOptions; } set { axisOptions = value; } }
     public bool SnapX { get { return snapX; } set { snapX = value; } }
     public bool SnapY { get { return snapY; } set { snapY = value; } }
+    public event Action<Vector2> OnDragEndEvent;
+    public event Action<Vector2> OnDragEvent;
+    public event Action<Vector2> OnDragStartEvent;
 
     [SerializeField] private float handleRange = 1;
     [SerializeField] private float deadZone = 0;
@@ -60,9 +64,10 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
     public virtual void OnPointerDown(PointerEventData eventData)
     {
         OnDrag(eventData);
+        OnDragStartEvent?.Invoke(Direction);
     }
 
-    public void OnDrag(PointerEventData eventData)
+    public virtual void OnDrag(PointerEventData eventData)
     {
         cam = null;
         if (canvas.renderMode == RenderMode.ScreenSpaceCamera)
@@ -74,6 +79,8 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
         FormatInput();
         HandleInput(input.magnitude, input.normalized, radius, cam);
         handle.anchoredPosition = input * radius * handleRange;
+
+        OnDragEvent?.Invoke(Direction);
     }
 
     protected virtual void HandleInput(float magnitude, Vector2 normalised, Vector2 radius, Camera cam)
@@ -131,6 +138,7 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
 
     public virtual void OnPointerUp(PointerEventData eventData)
     {
+        OnDragEndEvent?.Invoke(Direction);
         input = Vector2.zero;
         handle.anchoredPosition = Vector2.zero;
     }

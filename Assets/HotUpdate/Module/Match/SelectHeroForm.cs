@@ -104,7 +104,8 @@ public class SelectHeroForm : UIForm, IEnhancedScrollerDelegate
 
     public int GetNumberOfCells(EnhancedScroller scroller)
     {
-        return Mathf.FloorToInt(_datas.Length / 2f);
+        int num = Mathf.CeilToInt(_datas.Length / 2f);
+        return num;
     }
 
     public float GetCellViewSize(EnhancedScroller scroller, int dataIndex)
