@@ -13,6 +13,8 @@ public interface IOperateSystem : ILogicController
     void Input(Operate operate);
 
     void SendMoveOperate(FixIntVector3 dir);
+
+    void SendSkillOperate(int skillID, FixIntVector3 vector3, int targetID);
 }
 
 [Controller]
@@ -79,6 +81,46 @@ public class OperateSystem : AbstarctController, IOperateSystem
         }
     }
 
+    public void SendSkillOperate(int skillID, FixIntVector3 vector3, int targetID)
+    {
+        if (!CombatSystem.InCombat) return;
+        if (!CombatSystem.CanOperate.Value) return;
+
+        if (PlayerModel.GameConfig.TestMode)
+        {
+            Operate operate = new Operate();
+            operate.Type = 2;
+            operate.UId = PlayerModel.UID;
+            Vector dirOrPos = new Vector();
+            dirOrPos.X = vector3.x.Value;
+            dirOrPos.Z = vector3.z.Value;
+            operate.SkillOperate = new SkillOperate
+            {
+                SkillID = skillID,
+                DirOrPos = dirOrPos,
+                Target = targetID
+            };
+
+            Input(operate);
+        }
+        else
+        {
+            U2GS_Operate operate = new U2GS_Operate();
+            operate.Type = 2;
+
+            Vector dirOrPos = new Vector();
+            dirOrPos.X = vector3.x.Value;
+            dirOrPos.Z = vector3.z.Value;
+            operate.SkillOperate = new SkillOperate
+            {
+                SkillID = skillID,
+                DirOrPos = dirOrPos,
+                Target = targetID
+            };
+            GameEntry.Net.SendMsg(operate);
+        }
+    }
+
     public void Input(Operate operate)
     {
         _operates.Add(operate);
@@ -86,7 +128,7 @@ public class OperateSystem : AbstarctController, IOperateSystem
 
     void ExcuteMoveOperate(Operate operate)
     {
-        HeroActor heroActor = ActorManager.GetHero(operate.UId);
+        HeroActor heroActor = ActorManager.GetSelfHero();
         FixInt x = operate.MoveOperate.Velocity.X;
         FixInt z = operate.MoveOperate.Velocity.Z;
 

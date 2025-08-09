@@ -10,6 +10,8 @@ public interface IActorManager : ILogicController
     HeroActor SpawnHero(uint uid, int heroID, ECamp layer);
 
     HeroActor GetHero(uint uid);
+
+    HeroActor GetSelfHero();
 }
 
 [Controller]
@@ -76,6 +78,11 @@ public class ActorManager : AbstarctController, IActorManager
         {
             return null;
         }
+    }
+
+    public HeroActor GetSelfHero()
+    {
+        return GetHero(PlayerModel.UID);
     }
 
     int GetActorID()

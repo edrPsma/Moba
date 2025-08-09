@@ -10,6 +10,7 @@ public class SkillConfig : ScriptableObject
     public ESkillRuleType RuleType;
     public int[] RuleValues;
 
+    public ESkillReleaseType ReleaseType;
     public int SelectArea;
     public EDamageAreaType DamageAreaType;
     public int DamageArea;

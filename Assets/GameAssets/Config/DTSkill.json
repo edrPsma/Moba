@@ -1,11 +1,11 @@
 {
-	"1001":{"ID":1001,"Icon":"arthur_sk0","Config":"","Magnification":1},
-	"1002":{"ID":1002,"Icon":"arthur_sk1","Config":"","Magnification":1},
-	"1003":{"ID":1003,"Icon":"arthur_sk2","Config":"","Magnification":1},
-	"1004":{"ID":1004,"Icon":"arthur_sk3","Config":"","Magnification":1},
-	"2001":{"ID":2001,"Icon":"houyi_sk0","Config":"","Magnification":1},
-	"2002":{"ID":2002,"Icon":"houyi_sk1","Config":"","Magnification":1},
-	"2003":{"ID":2003,"Icon":"houyi_sk2","Config":"","Magnification":1},
-	"2004":{"ID":2004,"Icon":"houyi_sk3","Config":"","Magnification":1}
+	"1001":{"ID":1001,"Icon":"arthur_sk0","Config":"1001","Magnification":1},
+	"1002":{"ID":1002,"Icon":"arthur_sk1","Config":"1002","Magnification":1},
+	"1003":{"ID":1003,"Icon":"arthur_sk2","Config":"1003","Magnification":1},
+	"1004":{"ID":1004,"Icon":"arthur_sk3","Config":"1004","Magnification":1},
+	"2001":{"ID":2001,"Icon":"houyi_sk0","Config":"2001","Magnification":1},
+	"2002":{"ID":2002,"Icon":"houyi_sk1","Config":"2002","Magnification":1},
+	"2003":{"ID":2003,"Icon":"houyi_sk2","Config":"2003","Magnification":1},
+	"2004":{"ID":2004,"Icon":"houyi_sk3","Config":"2004","Magnification":1}
 
 }

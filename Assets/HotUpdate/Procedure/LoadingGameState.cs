@@ -67,9 +67,8 @@ public class LoadingGameState : BaseState
             AssetSystem.Preload<HeroAsset>($"Assets/GameAssets/So/HeroAsset/{table.Asset}.asset", AddAssetCount);
             for (int j = 0; j < table.Skills.Length; j++)
             {
-                //TODO 加载技能配置
-                AddAssetCount();
-                // AssetSystem.Preload<HeroAsset>($"Assets/GameAssets/So/{table.Asset}.asset", AddAssetCount);
+                DTSkill dTSkill = DataTable.GetItem<DTSkill>(table.Skills[j]);
+                AssetSystem.Preload<SkillConfig>($"Assets/GameAssets/So/Skill/{dTSkill.Config}.asset", AddAssetCount);
             }
         }
     }
