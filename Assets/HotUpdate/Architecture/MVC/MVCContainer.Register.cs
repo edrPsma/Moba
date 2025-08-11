@@ -10,6 +10,8 @@ public partial class MVCContainer
     {
 		_container.BindInterfacesAndSelfTo<AssetSystem>().AsSingle();
 
+		_container.BindInterfacesAndSelfTo<DamageMarkFactory>().AsSingle();
+
 		_container.BindInterfacesAndSelfTo<ActorManager>().AsSingle();
 
 		_container.BindInterfacesAndSelfTo<CombatSystem>().AsSingle();

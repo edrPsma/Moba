@@ -18,8 +18,10 @@ MonoBehaviour:
   RuleValues: 
   ReleaseType: 2
   SelectArea: 5
+  BulletPlace: 0
   DamageAreaType: 1
   DamageArea: 0
+  DestoryType: 0
   Duration: 0
   Delay: 0
   Interval: 0

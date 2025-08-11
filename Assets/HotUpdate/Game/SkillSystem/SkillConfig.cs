@@ -12,9 +12,11 @@ public class SkillConfig : ScriptableObject
 
     public ESkillReleaseType ReleaseType;
     public int SelectArea;
+    public EBulletPlace BulletPlace;
     public EDamageAreaType DamageAreaType;
     public int DamageArea;
 
+    public EDestoryType DestoryType;
     public int Duration;
     public int Delay;
 

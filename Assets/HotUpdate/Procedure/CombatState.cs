@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using HFSM;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
 
@@ -11,6 +12,7 @@ public class CombatState : BaseState
     [Inject] public IActorManager ActorManager;
     [Inject] public IGameModel GameModel;
     [Inject] public ICombatSystem CombatSystem;
+    [Inject] public IDamageMarkFactory DamageMarkFactory;
 
     public CombatState(bool hasExitTime = false) : base(hasExitTime) { }
 
@@ -21,6 +23,7 @@ public class CombatState : BaseState
 
         GameEntry.UI.HideGroup(UIGroup.Rear);
 
+        DamageMarkFactory.InitPool();
 
         int len = GameModel.LoadInfo.Count;
         int half = len / 2;
@@ -46,6 +49,7 @@ public class CombatState : BaseState
         base.OnExit();
         Debug.Log("Procedure 退出战斗流程");
 
+        DamageMarkFactory.Dispose();
         GameEntry.UI.ShowGroup(UIGroup.Rear);
         AssetSystem.Dispose();
         GameEntry.UI.Pop<PlayForm>();

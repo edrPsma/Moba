@@ -12,6 +12,7 @@ public class GameScene : BaseSceneState
     public Vector3 BlueSpawnPoint;
     public Vector3 RedSpawnPoint;
     public CameraFollow CameraFollow;
+    public DamageMark DamageMark;
 
     protected override void OnSceneLoaded()
     {
@@ -20,6 +21,9 @@ public class GameScene : BaseSceneState
         BlueSpawnPoint = FindRootObject("SpawnPoint").transform.Find("Blue").position;
         RedSpawnPoint = FindRootObject("SpawnPoint").transform.Find("Red").position;
         CameraFollow = FindRootObject("CameraRoot").GetComponent<CameraFollow>();
+        DamageMark = FindRootObject("Assets").GetComponentInChildren<DamageMark>(true);
+
+        GameEntry.Scene.SetActiveScene<GameScene>();
     }
 
     public FixIntVector3 GetSpawnPosition(ECamp layer)

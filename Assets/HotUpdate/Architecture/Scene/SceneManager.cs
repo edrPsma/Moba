@@ -82,6 +82,26 @@ namespace Scene
             ISceneState state = _sceneDic[type];
             if (state.SceneState == ESceneLoadState.Loaded)
             {
+                state.AssetHandle.ActivateScene();
+            }
+            else
+            {
+                Debug.LogError($"Scene {type.Name} has not been loaded!");
+            }
+        }
+
+        public void UnSuspend<T>()
+        {
+            Type type = typeof(T);
+            if (!_sceneDic.ContainsKey(type))
+            {
+                Debug.LogError($"Scene {type.Name} has not been loaded!");
+                return;
+            }
+
+            ISceneState state = _sceneDic[type];
+            if (state.SceneState == ESceneLoadState.Loaded)
+            {
                 state.AssetHandle.UnSuspend();
             }
             else
@@ -208,5 +228,6 @@ namespace Scene
                 _childScenes.Add(state);
             }
         }
+
     }
 }

@@ -47,4 +47,9 @@ public partial class MVCContainer
             item.Initialize();
         }
     }
+
+    public static T Get<T>()
+    {
+        return _container.Resolve<T>();
+    }
 }

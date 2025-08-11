@@ -14,12 +14,15 @@ public abstract class LogicActor
     public abstract FixIntVector3 Velocity { get; set; }
     public abstract FixInt MoveSpeed { get; set; }
     public abstract OBBCollider Collider { get; }
+    public AttributeSet AttributeSet { get; }
 
     public LogicActor(int actorID, ECamp camp, ELayer layer)
     {
         ActorID = actorID;
         Camp = camp;
         Layer = layer;
+        AttributeSet = new AttributeSet();
+        AttributeSet.Initialize(this);
     }
 
     public virtual void LogicUpdate(FixInt deltaTime)

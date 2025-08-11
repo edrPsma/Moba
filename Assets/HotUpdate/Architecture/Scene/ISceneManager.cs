@@ -14,6 +14,8 @@ namespace Scene
 
         void SetActiveScene<T>();
 
+        void UnSuspend<T>();
+
         T GetSceneState<T>() where T : ISceneState, new();
     }
 }
