@@ -28,7 +28,7 @@ public class DamageMark : MonoView
 		if (damageInfo.IsSkill) configName = damageInfo.IsCriticalStrike ? nameof(EDamageMarkType.SkillCriticalStrike) : nameof(EDamageMarkType.Skill);
 		else configName = damageInfo.IsCriticalStrike ? nameof(EDamageMarkType.CriticalStrike) : nameof(EDamageMarkType.Defult);
 
-		Show(pos, dir, _bind.GetAsset<DamageMarkConfig>(configName), damageInfo.FinalDamageValue);
+		Show(pos, dir, _bind.GetAsset<DamageMarkConfig>(configName), damageInfo.FinalDamageValue.RawInt);
 	}
 
 	public void ShowRecover(Vector3 pos, float dir, long recover)
@@ -53,13 +53,13 @@ public class DamageMark : MonoView
 		Fade(config);
 		Scale(config);
 
-		CombatSystem.Timer.AddTask(DelayToRecycle)
+		GameEntry.Task.AddTask(DelayToRecycle)
 		  .SetName("DamageMark DelayToRecycle")
 		  .Delay(TimeSpan.FromSeconds(config.Duration))
 		  .Run();
 	}
 
-	private void DelayToRecycle(FixIntTimer.TaskInfo info)
+	private void DelayToRecycle(TaskInfo info)
 	{
 		foreach (var item in _tweenSeq)
 		{

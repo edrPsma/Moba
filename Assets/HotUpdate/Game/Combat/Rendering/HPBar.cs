@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using BindableUI.Runtime;
 using DG.Tweening;
+using FixedPointNumber;
 using UnityEngine;
 using Zenject;
 
@@ -23,9 +24,9 @@ public class HPBar : MonoBehaviour
         Actor = null;
     }
 
-    private void OnHpChange(long value)
+    private void OnHpChange(FixInt value)
     {
-        float percentage = value * 1f / Actor.AttributeSet.HPAttribute.Max;
-        _sprite.size = new Vector2(percentage, 1);
+        FixInt percentage = value * 1f / Actor.AttributeSet.HPAttribute.Max;
+        _sprite.size = new Vector2(percentage.RawFloat, 1);
     }
 }

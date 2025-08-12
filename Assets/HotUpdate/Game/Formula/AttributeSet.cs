@@ -9,7 +9,7 @@ public class AttributeSet
 {
     public const int HP_ID = 0;// 当前血量key值
     public const int Shield_ID = 2;// 当前护盾key值
-    public long HP => GetValue(HP_ID);
+    public FixInt HP => GetValue(HP_ID);
     public IAttribute HPAttribute => GetAttribute(HP_ID);
     public IAttribute ShieldAttribute => GetAttribute(Shield_ID);
     [ShowInInspector] Dictionary<int, IAttribute> _dic;
@@ -27,7 +27,7 @@ public class AttributeSet
         _dic.Add(Shield_ID, new AttributeItem());
     }
 
-    public void ResetAttribute(int key, long value, long min, long max)
+    public void ResetAttribute(int key, FixInt value, FixInt min, FixInt max)
     {
         if (!_dic.ContainsKey(key))
         {
@@ -41,12 +41,12 @@ public class AttributeSet
         _dic[key].Value = value;
     }
 
-    public void ResetAttribute(EAttributeKey key, long value, long min, long max)
+    public void ResetAttribute(EAttributeKey key, FixInt value, FixInt min, FixInt max)
     {
         ResetAttribute((int)key, value, min, max);
     }
 
-    public void SetValue(int key, long value)
+    public void SetValue(int key, FixInt value)
     {
         if (!_dic.ContainsKey(key))
         {
@@ -57,22 +57,24 @@ public class AttributeSet
         _dic[key].Value = value;
     }
 
-    public void SetValue(EAttributeKey key, long value)
+    public void SetValue(EAttributeKey key, FixInt value)
     {
         SetValue((int)key, value);
     }
 
-    public void AddValue(EAttributeKey key, long addValue)
+    public void AddValue(EAttributeKey key, FixInt addValue)
     {
         AddValue((int)key, addValue);
     }
 
-    public void AddValue(int key, long addValue)
+    public void AddValue(int key, FixInt addValue)
     {
-        SetValue(key, GetValue(key) + addValue);
+        FixInt cur = GetValue(key);
+        FixInt result = cur + addValue;
+        SetValue(key, result);
     }
 
-    public long GetValue(int key)
+    public FixInt GetValue(int key)
     {
         if (!_dic.ContainsKey(key))
         {
@@ -83,7 +85,7 @@ public class AttributeSet
         return _dic[key].Value;
     }
 
-    public long GetValue(EAttributeKey key)
+    public FixInt GetValue(EAttributeKey key)
     {
         return GetValue((int)key);
     }
@@ -114,14 +116,14 @@ public class AttributeSet
         ResetAttribute(Shield_ID, 0, 0, int.MaxValue);
     }
 
-    public void ResetHP(long value, long min, long max)
+    public void ResetHP(FixInt value, FixInt min, FixInt max)
     {
         HPAttribute.Min = min;
         HPAttribute.Max = max;
-        HPAttribute.Value = CombatUtility.Clamp(value, min, max);
+        HPAttribute.Value = FixIntMath.Clamp(value, min, max);
     }
 
-    public void AddHP(LogicActor source, long addValue)
+    public void AddHP(LogicActor source, FixInt addValue)
     {
         AddValue(HP_ID, addValue);
         //TODO 触发造成伤害事件
@@ -131,5 +133,5 @@ public class AttributeSet
         // }
     }
 
-    public void AddShield(long addValue) => AddValue(Shield_ID, addValue);
+    public void AddShield(FixInt addValue) => AddValue(Shield_ID, addValue);
 }

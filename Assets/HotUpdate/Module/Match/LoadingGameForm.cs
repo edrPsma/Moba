@@ -57,7 +57,7 @@ public class LoadingGameForm : UIForm
     void SetInfo(LoadInfo loadInfo, GameObject gameObject)
     {
         DTHero table = DataTable.GetItem<DTHero>(loadInfo.HeroID);
-        gameObject.Find<Image>("imgHero").LoadSprite($"Assets/GameAssets/ResImages/LoadWnd/{table.Pic}.png");
+        gameObject.Find<Image>("imgHero").LoadSprite($"Assets/GameAssets/ResImages/Head/{table.Pic}.png");
         gameObject.Find<Text>("txtHeroName").text = table.Name;
         gameObject.Find<Text>("txtPlayerName").text = loadInfo.Name;
 

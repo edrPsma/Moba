@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using FixedPointNumber;
 using UnityEngine;
 
 public struct DamageInfo
@@ -22,15 +23,15 @@ public struct DamageInfo
     /// <summary>
     /// 最终伤害数值
     /// </summary>
-    public long FinalDamageValue;
+    public FixInt FinalDamageValue;
 
     /// <summary>
     /// 伤害数值
     /// </summary>
-    public long DamageValue;
+    public FixInt DamageValue;
 
     /// <summary>
     /// 其他伤害数值
     /// </summary>
-    public long OtherValue;
+    public FixInt OtherValue;
 }

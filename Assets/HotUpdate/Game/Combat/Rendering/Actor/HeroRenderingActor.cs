@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class HeroRenderingActor : RenderingActor
 {
-    public Transform BodyTrans;
-    public Transform HeadTrans;
+    public override Transform BodyTrans { get; protected set; }
+
+    public override Transform HeadTrans { get; protected set; }
     public ActorColliderInfo ColliderInfo;
     public HeroActor _heroActor;
 

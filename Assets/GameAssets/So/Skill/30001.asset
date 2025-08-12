@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a2414ebc3262ce341ba06b97801b87ba, type: 3}
-  m_Name: 1001
+  m_Name: 30001
   m_EditorClassIdentifier: 
   AnimationName: 
   Times: 00000000
@@ -19,13 +19,13 @@ MonoBehaviour:
   TargetType: 2
   SelectArea: 10
   ReleaseType: 1
-  BulletPlace: 1
+  BulletPlace: 2
   DamageAreaType: 1
   DamageArea: 03000000
-  DestoryType: 0
-  Duration: 0
+  DestoryType: 1
+  Duration: 1000
   Delay: 0
-  Interval: 0
+  Interval: 200
   ActionPrefabPath: 
   SkillPrefabPath: 
   SkillPrefabModify: {x: 0, y: 0, z: 1}

@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using FixedPointNumber;
 using UnityEngine;
 
-public class RenderingActor : MonoBehaviour
+public abstract class RenderingActor : MonoBehaviour
 {
     public LogicActor LogicActor { get; private set; }
+
+    public abstract Transform BodyTrans { get; protected set; }
+    public abstract Transform HeadTrans { get; protected set; }
 
     const int PredicMaxCount = 15;
     [SerializeField] bool _predictPos = true;

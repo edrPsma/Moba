@@ -143,12 +143,11 @@ public class OperateSystem : AbstarctController, IOperateSystem
 
     void ExcuteSkillOperate(Operate operate)
     {
-        HeroActor heroActor = ActorManager.GetSelfHero();
+        HeroActor heroActor = ActorManager.GetHero(operate.UId);
         int skillID = operate.SkillOperate.SkillID;
         FixIntVector3 vector = new FixIntVector3(operate.SkillOperate.DirOrPos.X, operate.SkillOperate.DirOrPos.Y, operate.SkillOperate.DirOrPos.Z);
         int targetID = operate.SkillOperate.Target;
 
-        //TODO 获取SkillInfo 并释放技能
-        // SkillSystem.ExcuteSkill(skillID,vector,ActorManager.GetActor(targetID));
+        SkillSystem.ExcuteSkill(heroActor.SkillOwner.GetSkillInfo(skillID), vector, ActorManager.GetActor(targetID));
     }
 }

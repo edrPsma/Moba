@@ -69,7 +69,6 @@ public class SkillReleaseItem : MonoView, IPointerDownHandler, IPointerUpHandler
 
     private void OnDragEnd(Vector2 vector)
     {
-        Debug.Log($"释放技能, Vet:{vector}");
         _bgObj.SetActive(false);
         _handleObj.SetActive(false);
 
@@ -140,6 +139,7 @@ public class SkillReleaseItem : MonoView, IPointerDownHandler, IPointerUpHandler
             if (_cacheArr.Count != 0)
             {
                 FixIntVector3 dir = new FixIntVector3(_joystick.Direction.x, 0, _joystick.Direction.y);
+
                 FixIntVector3 targetDir = RotateY45(dir);
                 FixIntVector3 pos = targetDir * _skillConfig.SelectArea + heroActor.Position;
 
@@ -148,6 +148,8 @@ public class SkillReleaseItem : MonoView, IPointerDownHandler, IPointerUpHandler
                 LogicActor target = null;
                 foreach (var item in _cacheArr)
                 {
+                    if (item == heroActor) continue;
+
                     FixIntVector3 curDir = item.Position - heroActor.Position;
                     FixInt angle = FixIntVector3.Angle(targetDir, curDir);
                     if (angle <= _minAngle)
@@ -180,8 +182,6 @@ public class SkillReleaseItem : MonoView, IPointerDownHandler, IPointerUpHandler
 
     private void OnDrag(Vector2 vector)
     {
-        Debug.Log($"调整技能方向, Vet:{vector}");
-
         _lockTarget = null;
         GameEntry.Event.Trigger(new EventShowSkillIndicator(_type, vector, _skillConfig.SelectArea, _skillConfig.DamageArea[0], _lockTarget));
     }

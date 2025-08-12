@@ -1,50 +1,11 @@
 {
-	"1001": {
-		"ID": 1001,
-		"Type": 1,
-		"TriggerTimeing": 1,
-		"EffectValue": []
-	},
-	"1002": {
-		"ID": 1002,
-		"Type": 1,
-		"TriggerTimeing": 1,
-		"EffectValue": []
-	},
-	"1003": {
-		"ID": 1003,
-		"Type": 1,
-		"TriggerTimeing": 1,
-		"EffectValue": []
-	},
-	"1004": {
-		"ID": 1004,
-		"Type": 1,
-		"TriggerTimeing": 1,
-		"EffectValue": []
-	},
-	"2001": {
-		"ID": 2001,
-		"Type": 1,
-		"TriggerTimeing": 1,
-		"EffectValue": []
-	},
-	"2002": {
-		"ID": 2002,
-		"Type": 1,
-		"TriggerTimeing": 1,
-		"EffectValue": []
-	},
-	"2003": {
-		"ID": 2003,
-		"Type": 1,
-		"TriggerTimeing": 1,
-		"EffectValue": []
-	},
-	"2004": {
-		"ID": 2004,
-		"Type": 1,
-		"TriggerTimeing": 1,
-		"EffectValue": []
-	}
+	"1001":{"ID":1001,"Type":1,"TriggerTimeing":1,"EffectValue":[]},
+	"1002":{"ID":1002,"Type":1,"TriggerTimeing":1,"EffectValue":[]},
+	"1003":{"ID":1003,"Type":1,"TriggerTimeing":1,"EffectValue":[]},
+	"1004":{"ID":1004,"Type":1,"TriggerTimeing":1,"EffectValue":[]},
+	"2001":{"ID":2001,"Type":1,"TriggerTimeing":1,"EffectValue":[]},
+	"2002":{"ID":2002,"Type":1,"TriggerTimeing":1,"EffectValue":[]},
+	"2003":{"ID":2003,"Type":1,"TriggerTimeing":1,"EffectValue":[]},
+	"2004":{"ID":2004,"Type":1,"TriggerTimeing":1,"EffectValue":[]}
+
 }

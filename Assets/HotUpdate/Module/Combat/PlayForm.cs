@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using FixedPointNumber;
+using Observable;
 using UI;
 using UnityEngine;
 using Zenject;
@@ -12,6 +13,8 @@ public class PlayForm : UIForm
     public override string Location => "Assets/GameAssets/UIPrefab/PlayWnd.prefab";
 
     [Inject] public IOperateSystem OperateSystem;
+    [Inject] public IGameModel GameModel;
+    [Inject] public IPlayerModel PlayerModel;
 
     FloatingJoystick _joystick;
     Vector3 _lastDir;
@@ -21,6 +24,31 @@ public class PlayForm : UIForm
         base.OnStart();
         _joystick = this.Get<FloatingJoystick>("Joystick");
         OperateSystem.OnLogicUpdate += OnLogicUpdate;
+
+        GameEntry.Event.Register<EventStartCombat>(OnCombatStart).Bind(Panel);
+    }
+
+    private void OnCombatStart(EventStartCombat combat)
+    {
+        InitSkillItem();
+    }
+
+    void InitSkillItem()
+    {
+        int heroID = 101;
+        foreach (var item in GameModel.LoadInfo)
+        {
+            if (PlayerModel.UID == item.UId)
+            {
+                heroID = item.HeroID;
+            }
+        }
+        DTHero table = DataTable.GetItem<DTHero>(heroID);
+        SkillReleaseItem[] skillReleaseItems = this.GetArray<SkillReleaseItem>("skillArr");
+        for (int i = 0; i < skillReleaseItems.Length; i++)
+        {
+            skillReleaseItems[i].Refresh(table.ShowSkills[i]);
+        }
     }
 
     private void OnLogicUpdate(FixInt deltaTime)

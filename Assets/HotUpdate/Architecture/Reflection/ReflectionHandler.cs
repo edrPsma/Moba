@@ -21,6 +21,9 @@ namespace Reflection
         public void Register()
         {
 			// InitDic
+			RefDic.Add(typeof(ISkillExcutor), new Dictionary<object, object>());
+			DelegateDic.Add(typeof(ISkillExcutor), new Dictionary<object, Delegate>());
+
 			RefDic.Add(typeof(ISelector), new Dictionary<object, object>());
 			DelegateDic.Add(typeof(ISelector), new Dictionary<object, Delegate>());
 
@@ -28,6 +31,11 @@ namespace Reflection
 
 
 			// Register
+			ReflectionAttribute CommonRule_Attr = typeof(CommonRule).GetCustomAttribute<ReflectionAttribute>();
+			CommonRule CommonRule_Ins = new CommonRule();
+			CommonRule_Attr.OnReflect(CommonRule_Ins);
+			RefDic[CommonRule_Attr.BaseType].SetValue(CommonRule_Attr.Key, CommonRule_Ins);
+
 			ReflectionAttribute OffsetRectangleSelector_Attr = typeof(OffsetRectangleSelector).GetCustomAttribute<ReflectionAttribute>();
 			OffsetRectangleSelector OffsetRectangleSelector_Ins = new OffsetRectangleSelector();
 			OffsetRectangleSelector_Attr.OnReflect(OffsetRectangleSelector_Ins);

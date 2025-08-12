@@ -32,3 +32,8 @@ public readonly struct EventShowSkillIndicator
         Target = actor;
     }
 }
+
+public readonly struct EventStartCombat
+{
+
+}

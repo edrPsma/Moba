@@ -26,7 +26,7 @@ public class SelectHeroItem : MonoView
     public void Refresh(DTHero table)
     {
         _heroID = table.ID;
-        transform.Find<Image>("imgIcon").LoadSprite($"Assets/GameAssets/ResImages/SelectWnd/{table.Icon}.png");
+        transform.Find<Image>("imgIcon").LoadSprite($"Assets/GameAssets/ResImages/Head/{table.Icon}.png");
         transform.Find<Text>("txtName").text = table.Name;
         _select.SetActive(GameModel.SelectHeroID == _heroID);
     }

@@ -78,7 +78,7 @@ public class SelectHeroForm : UIForm, IEnhancedScrollerDelegate
         for (int i = 0; i < images.Length; i++)
         {
             DTSkill dTSkill = DataTable.GetItem<DTSkill>(table.ShowSkills[i]);
-            images[i].LoadSprite($"Assets/GameAssets/ResImages/PlayWnd/{dTSkill.Icon}.png");
+            images[i].LoadSprite($"Assets/GameAssets/ResImages/SkillIcon/{dTSkill.Icon}.png");
         }
     }
 

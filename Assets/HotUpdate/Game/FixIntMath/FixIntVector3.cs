@@ -618,7 +618,7 @@ namespace FixedPointNumber
         public static FixInt Angle(FixIntVector3 from, FixIntVector3 to)
         {
             FixInt num = (FixInt)FixIntMath.Sqrt(from.sqrMagnitude * to.sqrMagnitude);
-            if (num < 1E-15f)
+            if (num < 1e-3f)
             {
                 return 0f;
             }

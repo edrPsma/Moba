@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FixedPointNumber;
 using UnityEngine;
 
 public interface IAttribute
@@ -8,17 +9,17 @@ public interface IAttribute
     /// <summary>
     /// 最小值
     /// </summary>
-    long Min { get; set; }
+    FixInt Min { get; set; }
 
     /// <summary>
     /// 最大值
     /// </summary>
-    long Max { get; set; }
+    FixInt Max { get; set; }
 
     /// <summary>
     /// 当前值
     /// </summary>
-    long Value { get; set; }
+    FixInt Value { get; set; }
 
     /// <summary>
     /// 能否修改
@@ -30,13 +31,13 @@ public interface IAttribute
     /// </summary>
     /// <param name="onValueChange">值变化回调</param>
     /// <param name="runInFirst">一开始执行</param>
-    void Subscribe(Action<long> onValueChange, bool runInFirst = true);
+    void Subscribe(Action<FixInt> onValueChange, bool runInFirst = true);
 
     /// <summary>
     /// 取消订阅值变化事件
     /// </summary>
     /// <param name="onValueChange"></param>
-    void Unsubscribe(Action<long> onValueChange);
+    void Unsubscribe(Action<FixInt> onValueChange);
 
     /// <summary>
     /// 取消订阅所有值变化事件

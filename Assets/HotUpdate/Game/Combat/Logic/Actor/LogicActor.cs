@@ -16,6 +16,7 @@ public abstract class LogicActor
     public abstract OBBCollider Collider { get; }
     public AttributeSet AttributeSet { get; }
     public abstract RenderingActor Rendering { get; }
+    public SkillOwner SkillOwner { get; }
 
     public LogicActor(int actorID, ECamp camp, ELayer layer)
     {
@@ -24,11 +25,13 @@ public abstract class LogicActor
         Layer = layer;
         AttributeSet = new AttributeSet();
         AttributeSet.Initialize(this);
+        SkillOwner = new SkillOwner();
+        SkillOwner.Initialize(this);
     }
 
     public virtual void LogicUpdate(FixInt deltaTime)
     {
-
+        SkillOwner.LogicUpdate(deltaTime);
     }
 
     public abstract FixIntVector3 Direction { get; set; }

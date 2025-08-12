@@ -1,6 +1,6 @@
 {
-	"101":{"ID":101,"Name":"死神","Icon":"arthur_head","ShowSkills":[1001,1002,1003,1004],"Model":"hero_001","Pic":"arthur_load","Asset":"Arthur","Skills":[1001,1002,1003,1004]},
-	"102":{"ID":102,"Name":"食尸鬼","Icon":"houyi_head","ShowSkills":[2001,2002,2003,2004],"Model":"hero_002","Pic":"houyi_load","Asset":"Houyi","Skills":[2001,2002,2003,2004]},
-	"103":{"ID":103,"Name":"仙人掌","Icon":"houyi_head","ShowSkills":[2001,2002,2003,2004],"Model":"hero_003","Pic":"houyi_load","Asset":"Houyi","Skills":[2001,2002,2003,2004]}
+	"101":{"ID":101,"Name":"死神","Icon":"GrimReaper","ShowSkills":[40001,40002,10002],"Model":"hero_001","Pic":"GrimReaper","Asset":"Arthur","Skills":[40001,40002,10002]},
+	"102":{"ID":102,"Name":"食尸鬼","Icon":"Ghoul","ShowSkills":[40001,40002,20002],"Model":"hero_002","Pic":"Ghoul","Asset":"Houyi","Skills":[40001,40002,20002]},
+	"103":{"ID":103,"Name":"仙人掌","Icon":"Cactus","ShowSkills":[40001,40002,30002],"Model":"hero_003","Pic":"Cactus","Asset":"Houyi","Skills":[40001,40002,30002]}
 
 }

@@ -1,58 +1,11 @@
 {
-	"1001": {
-		"ID": 1001,
-		"Icon": "arthur_sk0",
-		"Config": "1001",
-		"Magnification": 1,
-		"Effects": []
-	},
-	"1002": {
-		"ID": 1002,
-		"Icon": "arthur_sk1",
-		"Config": "1002",
-		"Magnification": 1,
-		"Effects": []
-	},
-	"1003": {
-		"ID": 1003,
-		"Icon": "arthur_sk2",
-		"Config": "1003",
-		"Magnification": 1,
-		"Effects": []
-	},
-	"1004": {
-		"ID": 1004,
-		"Icon": "arthur_sk3",
-		"Config": "1004",
-		"Magnification": 1,
-		"Effects": []
-	},
-	"2001": {
-		"ID": 2001,
-		"Icon": "houyi_sk0",
-		"Config": "2001",
-		"Magnification": 1,
-		"Effects": []
-	},
-	"2002": {
-		"ID": 2002,
-		"Icon": "houyi_sk1",
-		"Config": "2002",
-		"Magnification": 1,
-		"Effects": []
-	},
-	"2003": {
-		"ID": 2003,
-		"Icon": "houyi_sk2",
-		"Config": "2003",
-		"Magnification": 1,
-		"Effects": []
-	},
-	"2004": {
-		"ID": 2004,
-		"Icon": "houyi_sk3",
-		"Config": "2004",
-		"Magnification": 1,
-		"Effects": []
-	}
+	"10001":{"ID":10001,"Icon":"","Config":"10001","Magnification":10000,"Effects":[]},
+	"10002":{"ID":10002,"Icon":"UI_Skill_Icon_Claw","Config":"10002","Magnification":30000,"Effects":[]},
+	"20001":{"ID":20001,"Icon":"","Config":"20001","Magnification":10000,"Effects":[]},
+	"20002":{"ID":20002,"Icon":"UI_Skill_Icon_Buff","Config":"20002","Magnification":30000,"Effects":[]},
+	"30001":{"ID":30001,"Icon":"","Config":"30001","Magnification":10000,"Effects":[]},
+	"30002":{"ID":30002,"Icon":"UI_Skill_Icon_SpiritArrows","Config":"30002","Magnification":30000,"Effects":[]},
+	"40001":{"ID":40001,"Icon":"UI_Skill_Icon_Heal","Config":"40001","Magnification":10000,"Effects":[]},
+	"40002":{"ID":40002,"Icon":"UI_Skill_Icon_Slide","Config":"40002","Magnification":10000,"Effects":[]}
+
 }

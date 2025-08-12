@@ -36,6 +36,7 @@ public class CombatSystem : AbstarctController, ICombatSystem
     [Inject] public IActorManager ActorManager;
     [Inject] public IPlayerModel PlayerModel;
     [Inject] public GameModel GameModel;
+    [Inject] public ISkillSystem SkillSystem;
 
     const int MaxSpeed = 20;
     public int FrameID { get; private set; }
@@ -76,6 +77,7 @@ public class CombatSystem : AbstarctController, ICombatSystem
         OperateSystem.LogicUpdate(deltaTime);// 操作处理
         MoveSystem.LogicUpdate(deltaTime);// 移动
         ActorManager.LogicUpdate(deltaTime);
+        SkillSystem.LogicUpdate(deltaTime);
     }
 
     public void StartCombat()
@@ -87,6 +89,7 @@ public class CombatSystem : AbstarctController, ICombatSystem
         _operates.Clear();
         InCombat = true;
         CanOperate.Value = false;
+        GameSpeed.Value = 1;
 
         if (PlayerModel.GameConfig.TestMode)
         {
@@ -95,11 +98,13 @@ public class CombatSystem : AbstarctController, ICombatSystem
             {
                 LogicUpdate(new FixInt(0.0667));
             })
-            .Delay(TimeSpan.FromSeconds(0.0667))
+            .Delay(TimeSpan.FromSeconds(0.0667f))
             .SetRepeatTimes(-1)
             .SetLauncherType(TaskSource.ELauncherType.FixedUpdate)
             .Run();
         }
+
+        GameEntry.Event.Trigger<EventStartCombat>();
     }
 
     public void StopCombat()

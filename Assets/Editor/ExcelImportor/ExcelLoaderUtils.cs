@@ -51,7 +51,7 @@ public static class ExcelLoaderUtils
         }
         else if (IsArray(type))
         {
-            return "";
+            return "[]";
         }
         else
         {

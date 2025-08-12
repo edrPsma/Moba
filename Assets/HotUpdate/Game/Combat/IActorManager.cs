@@ -62,7 +62,9 @@ public class ActorManager : AbstarctController, IActorManager
         heroActor.AttributeSet.SetValue(EAttributeKey.AttackPower, 5);
         heroActor.AttributeSet.SetValue(EAttributeKey.MovementSpeed, 5);
         heroActor.AttributeSet.SetValue(EAttributeKey.MovementSpeedBonus, 0);
-        heroActor.AttributeSet.ResetHP(100, 0, 100);
+        heroActor.AttributeSet.ResetHP(1000, 0, 1000);
+
+        heroActor.SkillOwner.BindSkill(table.Skills);
 
         if (CombatSystem.SelfCamp == heroActor.Camp)
         {
