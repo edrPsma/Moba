@@ -14,4 +14,5 @@ public class DTSkill : IDataTable
 	[ShowInInspector] public readonly string Icon;// 图标
 	[ShowInInspector] public readonly string Config;// 技能配置
 	[ShowInInspector] public readonly int Magnification;// 技能倍率(万分比)
+	[ShowInInspector] public readonly int[] Effects;// 效果器
 }

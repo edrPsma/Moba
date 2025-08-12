@@ -15,7 +15,13 @@ public interface ICombatSystem : ILogicController
 
     bool InCombat { get; }
 
+    ECamp SelfCamp { get; }
+
+    IntVariable GameSpeed { get; }
+
     BoolVariable CanOperate { get; }
+
+    FixIntTimer Timer { get; }
 
     void StartCombat();
 
@@ -29,13 +35,17 @@ public class CombatSystem : AbstarctController, ICombatSystem
     [Inject] public IPhysicsSystem MoveSystem;
     [Inject] public IActorManager ActorManager;
     [Inject] public IPlayerModel PlayerModel;
+    [Inject] public GameModel GameModel;
 
+    const int MaxSpeed = 20;
     public int FrameID { get; private set; }
     public bool InCombat { get; private set; }
     public BoolVariable CanOperate { get; private set; }
+    public FixIntTimer Timer { get; private set; }
+    public IntVariable GameSpeed { get; private set; }
+    public ECamp SelfCamp { get; private set; }
 
     public int TargetFrameID { get; private set; } = -1;
-
     Queue<GS2U_Operate> _missOperates;// 因断线而丢失的指令列表
     Queue<GS2U_Operate> _operates;// 服务器下发的指令列表
 
@@ -48,6 +58,8 @@ public class CombatSystem : AbstarctController, ICombatSystem
         _missOperates = new Queue<GS2U_Operate>();
         _operates = new Queue<GS2U_Operate>();
         CanOperate = new BoolVariable();
+        GameSpeed = new IntVariable(1);
+        Timer = new FixIntTimer();
 
         GameEntry.Net.Register<GS2U_Operate>(OnOperate);
         GameEntry.Net.Register<GS2U_MissOperate>(OnMissOperate);
@@ -60,6 +72,7 @@ public class CombatSystem : AbstarctController, ICombatSystem
 
         ProcressOperate();
 
+        Timer.Tick(deltaTime);
         OperateSystem.LogicUpdate(deltaTime);// 操作处理
         MoveSystem.LogicUpdate(deltaTime);// 移动
         ActorManager.LogicUpdate(deltaTime);
@@ -67,6 +80,7 @@ public class CombatSystem : AbstarctController, ICombatSystem
 
     public void StartCombat()
     {
+        GetSelfCamp();
         TargetFrameID = -1;
         FrameID = 0;
         _missOperates.Clear();
@@ -96,6 +110,7 @@ public class CombatSystem : AbstarctController, ICombatSystem
         _operates.Clear();
         InCombat = false;
         CanOperate.Value = false;
+        Timer.Dispose();
         GameEntry.Task.CancelTask(ref _testModelTaslID);
     }
 
@@ -104,7 +119,7 @@ public class CombatSystem : AbstarctController, ICombatSystem
         if (_missOperates.Count > 0)
         {
             CanOperate.Value = false;
-            ProcressMissOperate(_missOperates);
+            ProcressOperate(_missOperates);
         }
         else if (_operates.Count > 0)
         {
@@ -112,7 +127,7 @@ public class CombatSystem : AbstarctController, ICombatSystem
             if (msg.FrameID == FrameID)
             {
                 CanOperate.Value = true;
-                ProcressMissOperate(_operates);
+                ProcressOperate(_operates);
             }
             else
             {
@@ -125,11 +140,12 @@ public class CombatSystem : AbstarctController, ICombatSystem
         }
     }
 
-    void ProcressMissOperate(Queue<GS2U_Operate> que)
+    void ProcressOperate(Queue<GS2U_Operate> que)
     {
         int count = 0;
         while (que.Count > 0)
         {
+            GameSpeed.Value = Mathf.Clamp(que.Count, 1, MaxSpeed);
             GS2U_Operate msg = que.Dequeue();
             for (int i = 0; i < msg.Operates.Count; i++)
             {
@@ -138,7 +154,7 @@ public class CombatSystem : AbstarctController, ICombatSystem
             FrameID++;
 
             ++count;
-            if (count > 20)
+            if (count > MaxSpeed)
             {
                 break;
             }
@@ -186,5 +202,26 @@ public class CombatSystem : AbstarctController, ICombatSystem
         }
 
         LogicUpdate(new FixInt(0.0667));
+    }
+
+    void GetSelfCamp()
+    {
+        int len = GameModel.LoadInfo.Count;
+        int half = len / 2;
+        for (int i = 0; i < len; i++)
+        {
+            uint uid = GameModel.LoadInfo[i].UId;
+            if (uid == PlayerModel.UID)
+            {
+                if (i < half)
+                {
+                    SelfCamp = ECamp.Blue;
+                }
+                else
+                {
+                    SelfCamp = ECamp.Red;
+                }
+            }
+        }
     }
 }

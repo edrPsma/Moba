@@ -37,7 +37,8 @@ namespace Protocol {
             "cmF0ZSJTCgxTa2lsbE9wZXJhdGUSDwoHc2tpbGxJRBgBIAEoBRIiCghkaXJP",
             "clBvcxgCIAEoCzIQLlByb3RvY29sLlZlY3RvchIOCgZ0YXJnZXQYAyABKAUi",
             "MQoLTW92ZU9wZXJhdGUSIgoIdmVsb2NpdHkYASABKAsyEC5Qcm90b2NvbC5W",
-            "ZWN0b3IiHgoGVmVjdG9yEgkKAVgYASABKAMSCQoBWhgCIAEoA2IGcHJvdG8z"));
+            "ZWN0b3IiKQoGVmVjdG9yEgkKAVgYASABKAMSCQoBWRgCIAEoAxIJCgFaGAMg",
+            "ASgDYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -48,7 +49,7 @@ namespace Protocol {
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.Operate), global::Protocol.Operate.Parser, new[]{ "UId", "Type", "MoveOperate", "SkillOperate" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.SkillOperate), global::Protocol.SkillOperate.Parser, new[]{ "SkillID", "DirOrPos", "Target" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.MoveOperate), global::Protocol.MoveOperate.Parser, new[]{ "Velocity" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.Vector), global::Protocol.Vector.Parser, new[]{ "X", "Z" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.Vector), global::Protocol.Vector.Parser, new[]{ "X", "Y", "Z" }, null, null, null, null)
           }));
     }
     #endregion
@@ -1402,7 +1403,7 @@ namespace Protocol {
     public const int DirOrPosFieldNumber = 2;
     private global::Protocol.Vector dirOrPos_;
     /// <summary>
-    /// 指向型技能的方向或位置
+    /// 技能的方向或位置
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1869,6 +1870,7 @@ namespace Protocol {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public Vector(Vector other) : this() {
       x_ = other.x_;
+      y_ = other.y_;
       z_ = other.z_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -1883,7 +1885,7 @@ namespace Protocol {
     public const int XFieldNumber = 1;
     private long x_;
     /// <summary>
-    /// x轴方向
+    /// x轴
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1894,11 +1896,26 @@ namespace Protocol {
       }
     }
 
+    /// <summary>Field number for the "Y" field.</summary>
+    public const int YFieldNumber = 2;
+    private long y_;
+    /// <summary>
+    /// y轴
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public long Y {
+      get { return y_; }
+      set {
+        y_ = value;
+      }
+    }
+
     /// <summary>Field number for the "Z" field.</summary>
-    public const int ZFieldNumber = 2;
+    public const int ZFieldNumber = 3;
     private long z_;
     /// <summary>
-    /// z轴方向
+    /// z轴
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1925,6 +1942,7 @@ namespace Protocol {
         return true;
       }
       if (X != other.X) return false;
+      if (Y != other.Y) return false;
       if (Z != other.Z) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -1934,6 +1952,7 @@ namespace Protocol {
     public override int GetHashCode() {
       int hash = 1;
       if (X != 0L) hash ^= X.GetHashCode();
+      if (Y != 0L) hash ^= Y.GetHashCode();
       if (Z != 0L) hash ^= Z.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -1957,8 +1976,12 @@ namespace Protocol {
         output.WriteRawTag(8);
         output.WriteInt64(X);
       }
-      if (Z != 0L) {
+      if (Y != 0L) {
         output.WriteRawTag(16);
+        output.WriteInt64(Y);
+      }
+      if (Z != 0L) {
+        output.WriteRawTag(24);
         output.WriteInt64(Z);
       }
       if (_unknownFields != null) {
@@ -1975,8 +1998,12 @@ namespace Protocol {
         output.WriteRawTag(8);
         output.WriteInt64(X);
       }
-      if (Z != 0L) {
+      if (Y != 0L) {
         output.WriteRawTag(16);
+        output.WriteInt64(Y);
+      }
+      if (Z != 0L) {
+        output.WriteRawTag(24);
         output.WriteInt64(Z);
       }
       if (_unknownFields != null) {
@@ -1991,6 +2018,9 @@ namespace Protocol {
       int size = 0;
       if (X != 0L) {
         size += 1 + pb::CodedOutputStream.ComputeInt64Size(X);
+      }
+      if (Y != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(Y);
       }
       if (Z != 0L) {
         size += 1 + pb::CodedOutputStream.ComputeInt64Size(Z);
@@ -2009,6 +2039,9 @@ namespace Protocol {
       }
       if (other.X != 0L) {
         X = other.X;
+      }
+      if (other.Y != 0L) {
+        Y = other.Y;
       }
       if (other.Z != 0L) {
         Z = other.Z;
@@ -2037,6 +2070,10 @@ namespace Protocol {
             break;
           }
           case 16: {
+            Y = input.ReadInt64();
+            break;
+          }
+          case 24: {
             Z = input.ReadInt64();
             break;
           }
@@ -2064,6 +2101,10 @@ namespace Protocol {
             break;
           }
           case 16: {
+            Y = input.ReadInt64();
+            break;
+          }
+          case 24: {
             Z = input.ReadInt64();
             break;
           }

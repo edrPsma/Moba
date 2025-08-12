@@ -25,7 +25,15 @@ public class PlayForm : UIForm
 
     private void OnLogicUpdate(FixInt deltaTime)
     {
+
         Vector3 dir = new Vector3(_joystick.Horizontal, 0, _joystick.Vertical).normalized;
+
+        if (dir == Vector3.zero)
+        {
+            float x = Input.GetAxisRaw("Horizontal");
+            float z = Input.GetAxisRaw("Vertical");
+            dir = new Vector3(x, 0, z).normalized;
+        }
 
         if (_lastDir == dir && dir == Vector3.zero)
         {

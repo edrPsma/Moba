@@ -11,6 +11,8 @@ public interface IAssetSystem
 
     T Get<T>(string location) where T : UnityEngine.Object;
 
+    SkillConfig GetSkillConfig(int skillID);
+
     void Dispose();
 }
 
@@ -55,6 +57,12 @@ public class AssetSystem : AbstarctController, IAssetSystem
         {
             return null;
         }
+    }
+
+    public SkillConfig GetSkillConfig(int skillID)
+    {
+        DTSkill table = DataTable.GetItem<DTSkill>(skillID);
+        return Get<SkillConfig>($"Assets/GameAssets/So/Skill/{table.Config}.asset");
     }
 
     public void Dispose()

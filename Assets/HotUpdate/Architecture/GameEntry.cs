@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Audio;
 using Observable;
+using Reflection;
 using Scene;
 using Task;
 using UI;
@@ -18,6 +19,7 @@ public static class GameEntry
     public static ITaskManager Task { get; private set; }
     public static IAudioManager Audio { get; private set; }
     public static INetManager Net { get; private set; }
+    public static IReflectionManager Reflection { get; private set; }
 
     static bool _initialize;
 
@@ -30,6 +32,8 @@ public static class GameEntry
         }
 
         _initialize = true;
+        Reflection = ReflectionManager.Instance;
+        Reflection.Init(new ReflectionHandler());
         Resource = YooAssets.GetPackage("DefaultPackage");
         Event = new TypeEventSource();
         UI = UIManager.Instance;

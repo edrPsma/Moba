@@ -14,6 +14,7 @@ public class DamageMark : MonoView
 {
 	[Inject] public IDamageMarkFactory DamageMarkFactory;
 	[Inject] public IAssetSystem AssetSystem;
+	[Inject] public ICombatSystem CombatSystem;
 
 	[SerializeField] private long _limitValue;
 	[SerializeField] private TMP_Text _content;
@@ -52,14 +53,13 @@ public class DamageMark : MonoView
 		Fade(config);
 		Scale(config);
 
-		//TODO 设置速度
-		GameEntry.Task.AddTask(DelayToRecycle)
+		CombatSystem.Timer.AddTask(DelayToRecycle)
 		  .SetName("DamageMark DelayToRecycle")
 		  .Delay(TimeSpan.FromSeconds(config.Duration))
 		  .Run();
 	}
 
-	private void DelayToRecycle(TaskInfo taskInfo)
+	private void DelayToRecycle(FixIntTimer.TaskInfo info)
 	{
 		foreach (var item in _tweenSeq)
 		{

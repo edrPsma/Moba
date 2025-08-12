@@ -21,12 +21,14 @@ public readonly struct EventShowSkillIndicator
     public Vector2 Vector { get; }
     public float Area { get; }
     public float Area2 { get; }
+    public LogicActor Target { get; }
 
-    public EventShowSkillIndicator(ESkillReleaseType type, Vector2 vector, float area, float area2)
+    public EventShowSkillIndicator(ESkillReleaseType type, Vector2 vector, float area, float area2, LogicActor actor)
     {
         SkillReleaseType = type;
         Vector = vector;
         Area = area;
         Area2 = area2;
+        Target = actor;
     }
 }

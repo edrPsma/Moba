@@ -20,6 +20,8 @@ public partial class MVCContainer
 
 		_container.BindInterfacesAndSelfTo<OperateSystem>().AsSingle();
 
+		_container.BindInterfacesAndSelfTo<SkillSystem>().AsSingle();
+
 		_container.BindInterfacesAndSelfTo<LoginController>().AsSingle();
 
 		_container.BindInterfacesAndSelfTo<MatchController>().AsSingle();

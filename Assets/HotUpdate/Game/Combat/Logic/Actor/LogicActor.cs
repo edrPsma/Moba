@@ -15,6 +15,7 @@ public abstract class LogicActor
     public abstract FixInt MoveSpeed { get; set; }
     public abstract OBBCollider Collider { get; }
     public AttributeSet AttributeSet { get; }
+    public abstract RenderingActor Rendering { get; }
 
     public LogicActor(int actorID, ECamp camp, ELayer layer)
     {
@@ -35,6 +36,7 @@ public abstract class LogicActor
 public abstract class LogicActor<T> : LogicActor where T : RenderingActor
 {
     public T RenderingActor { get; }
+    public override RenderingActor Rendering => RenderingActor;
 
     public LogicActor(int actorID, ECamp camp, ELayer layer, T renderingActor) : base(actorID, camp, layer)
     {
@@ -50,6 +52,8 @@ public abstract class LogicActor<T> : LogicActor where T : RenderingActor
 
 public enum ECamp
 {
+    Neutral = 0,
+
     Red = 1,
 
     Blue = 2,

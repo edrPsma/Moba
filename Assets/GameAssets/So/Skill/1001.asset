@@ -16,11 +16,12 @@ MonoBehaviour:
   Times: 00000000
   RuleType: 0
   RuleValues: 
-  ReleaseType: 2
-  SelectArea: 5
-  BulletPlace: 0
+  TargetType: 2
+  SelectArea: 10
+  ReleaseType: 1
+  BulletPlace: 1
   DamageAreaType: 1
-  DamageArea: 0
+  DamageArea: 03000000
   DestoryType: 0
   Duration: 0
   Delay: 0

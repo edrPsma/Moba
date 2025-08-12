@@ -12,7 +12,7 @@ public enum EDamageAreaType
     /// <summary>
     /// 圆形
     /// </summary>
-    Circle = 1,
+    Round = 1,
 
     /// <summary>
     /// 矩形
@@ -23,4 +23,9 @@ public enum EDamageAreaType
     /// 扇形
     /// </summary>
     Sector = 3,
+
+    /// <summary>
+    /// 偏移矩形
+    /// </summary>
+    OffsetRectangle = 4,
 }

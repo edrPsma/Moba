@@ -13,6 +13,8 @@ public class GameScene : BaseSceneState
     public Vector3 RedSpawnPoint;
     public CameraFollow CameraFollow;
     public DamageMark DamageMark;
+    public HPBar FriendlyHpBar;
+    public HPBar EnemyHpBar;
 
     protected override void OnSceneLoaded()
     {
@@ -22,6 +24,8 @@ public class GameScene : BaseSceneState
         RedSpawnPoint = FindRootObject("SpawnPoint").transform.Find("Red").position;
         CameraFollow = FindRootObject("CameraRoot").GetComponent<CameraFollow>();
         DamageMark = FindRootObject("Assets").GetComponentInChildren<DamageMark>(true);
+        FriendlyHpBar = FindRootObject("Assets").Find<HPBar>("HpBar");
+        EnemyHpBar = FindRootObject("Assets").Find<HPBar>("HpBar Enemy");
 
         GameEntry.Scene.SetActiveScene<GameScene>();
     }

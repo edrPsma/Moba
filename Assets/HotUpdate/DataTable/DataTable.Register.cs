@@ -9,9 +9,10 @@ public static partial class DataTable
 {
     static partial void Register()
     {
-		_totalCount = 3;
+		_totalCount = 4;
 		Load<DTHero>();
 		Load<DTSkill>();
+		Load<DTSkill_effect>();
 		Load<DTTest>();
 
     }

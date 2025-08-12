@@ -14,7 +14,7 @@ public interface IOperateSystem : ILogicController
 
     void SendMoveOperate(FixIntVector3 dir);
 
-    void SendSkillOperate(int skillID, FixIntVector3 vector3, int targetID);
+    void SendSkillOperate(int skillID, FixIntVector3 dirOrPos, int targetID);
 }
 
 [Controller]
@@ -23,6 +23,7 @@ public class OperateSystem : AbstarctController, IOperateSystem
     [Inject] public IPlayerModel PlayerModel;
     [Inject] public IActorManager ActorManager;
     [Inject] public ICombatSystem CombatSystem;
+    [Inject] public ISkillSystem SkillSystem;
 
     List<Operate> _operates = new List<Operate>();
     public event Action<FixInt> OnLogicUpdate;
@@ -81,7 +82,7 @@ public class OperateSystem : AbstarctController, IOperateSystem
         }
     }
 
-    public void SendSkillOperate(int skillID, FixIntVector3 vector3, int targetID)
+    public void SendSkillOperate(int skillID, FixIntVector3 dirOrPos, int targetID)
     {
         if (!CombatSystem.InCombat) return;
         if (!CombatSystem.CanOperate.Value) return;
@@ -91,13 +92,14 @@ public class OperateSystem : AbstarctController, IOperateSystem
             Operate operate = new Operate();
             operate.Type = 2;
             operate.UId = PlayerModel.UID;
-            Vector dirOrPos = new Vector();
-            dirOrPos.X = vector3.x.Value;
-            dirOrPos.Z = vector3.z.Value;
+            Vector vector = new Vector();
+            vector.X = dirOrPos.x.Value;
+            vector.Y = dirOrPos.y.Value;
+            vector.Z = dirOrPos.z.Value;
             operate.SkillOperate = new SkillOperate
             {
                 SkillID = skillID,
-                DirOrPos = dirOrPos,
+                DirOrPos = vector,
                 Target = targetID
             };
 
@@ -108,13 +110,14 @@ public class OperateSystem : AbstarctController, IOperateSystem
             U2GS_Operate operate = new U2GS_Operate();
             operate.Type = 2;
 
-            Vector dirOrPos = new Vector();
-            dirOrPos.X = vector3.x.Value;
-            dirOrPos.Z = vector3.z.Value;
+            Vector vector = new Vector();
+            vector.X = dirOrPos.x.Value;
+            vector.Y = dirOrPos.y.Value;
+            vector.Z = dirOrPos.z.Value;
             operate.SkillOperate = new SkillOperate
             {
                 SkillID = skillID,
-                DirOrPos = dirOrPos,
+                DirOrPos = vector,
                 Target = targetID
             };
             GameEntry.Net.SendMsg(operate);
@@ -140,6 +143,12 @@ public class OperateSystem : AbstarctController, IOperateSystem
 
     void ExcuteSkillOperate(Operate operate)
     {
+        HeroActor heroActor = ActorManager.GetSelfHero();
+        int skillID = operate.SkillOperate.SkillID;
+        FixIntVector3 vector = new FixIntVector3(operate.SkillOperate.DirOrPos.X, operate.SkillOperate.DirOrPos.Y, operate.SkillOperate.DirOrPos.Z);
+        int targetID = operate.SkillOperate.Target;
 
+        //TODO 获取SkillInfo 并释放技能
+        // SkillSystem.ExcuteSkill(skillID,vector,ActorManager.GetActor(targetID));
     }
 }

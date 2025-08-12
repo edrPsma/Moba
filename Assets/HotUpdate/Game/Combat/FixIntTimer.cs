@@ -170,6 +170,17 @@ public class FixIntTimer
         return _taskDic.ContainsKey(taskId);
     }
 
+    public void Dispose()
+    {
+        _addTaskCache.Clear();
+        foreach (var item in _taskDic)
+        {
+            _taskInfoPool.Release(item.Value);
+        }
+        _taskDic.Clear();
+        _removeList.Clear();
+    }
+
     public class TaskSource
     {
         public int TaskID;

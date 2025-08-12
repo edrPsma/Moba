@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "SkillConfig", menuName = "SkillConfig")]
@@ -10,11 +11,12 @@ public class SkillConfig : ScriptableObject
     public ESkillRuleType RuleType;
     public int[] RuleValues;
 
-    public ESkillReleaseType ReleaseType;
+    public ETargetType TargetType;
     public int SelectArea;
-    public EBulletPlace BulletPlace;
+    public ESkillReleaseType ReleaseType;
+    [ShowIf(nameof(ShowBulletPlace))] public EBulletPlace BulletPlace;
     public EDamageAreaType DamageAreaType;
-    public int DamageArea;
+    public int[] DamageArea;
 
     public EDestoryType DestoryType;
     public int Duration;
@@ -28,4 +30,15 @@ public class SkillConfig : ScriptableObject
     public string SkillBoomPrefabPath;
     public float SkillBoomPrefabScale = 1;
 
+    bool ShowBulletPlace()
+    {
+        if (ReleaseType == ESkillReleaseType.TargetUnit)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

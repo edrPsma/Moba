@@ -37,7 +37,7 @@ message Operate
 message SkillOperate
 {
     int32 skillID = 1;// 释放的技能ID
-    Vector dirOrPos = 2;// 指向型技能的方向或位置
+    Vector dirOrPos = 2;// 技能的方向或位置
     int32 target = 3;// 锁定型技能的目标ID
 }
 
@@ -48,6 +48,7 @@ message MoveOperate
 
 message Vector
 {
-    int64 X = 1;// x轴方向
-    int64 Z = 2;// z轴方向
+    int64 X = 1;// x轴
+    int64 Y = 2;// y轴
+    int64 Z = 3;// z轴
 }

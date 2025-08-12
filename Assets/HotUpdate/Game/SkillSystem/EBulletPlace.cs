@@ -7,10 +7,10 @@ public enum EBulletPlace
     /// <summary>
     /// 自身位置
     /// </summary>
-    Self,
+    Self = 1,
 
     /// <summary>
     /// 目标位置
     /// </summary>
-    Target
+    Target = 2
 }

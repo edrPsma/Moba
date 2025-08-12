@@ -7,6 +7,8 @@ using Zenject;
 
 public interface IActorManager : ILogicController
 {
+    LogicActor GetActor(int actorID);
+
     HeroActor SpawnHero(uint uid, int heroID, ECamp layer);
 
     HeroActor GetHero(uint uid);
@@ -56,6 +58,25 @@ public class ActorManager : AbstarctController, IActorManager
         heroActor.SetPosition(scene.GetSpawnPosition(camp));
         MoveSystem.AddUnit(heroActor);
 
+        heroActor.AttributeSet.SetValue(EAttributeKey.Health, 100);
+        heroActor.AttributeSet.SetValue(EAttributeKey.AttackPower, 5);
+        heroActor.AttributeSet.SetValue(EAttributeKey.MovementSpeed, 5);
+        heroActor.AttributeSet.SetValue(EAttributeKey.MovementSpeedBonus, 0);
+        heroActor.AttributeSet.ResetHP(100, 0, 100);
+
+        if (CombatSystem.SelfCamp == heroActor.Camp)
+        {
+            HPBar hPBar = GameObject.Instantiate(scene.FriendlyHpBar);
+            hPBar.SetParent(heroActor.RenderingActor.HeadTrans);
+            hPBar.Init(heroActor);
+        }
+        else
+        {
+            HPBar hPBar = GameObject.Instantiate(scene.EnemyHpBar);
+            hPBar.SetParent(heroActor.RenderingActor.HeadTrans);
+            hPBar.Init(heroActor);
+        }
+
         // 设置相机跟随
         if (PlayerModel.UID == uid)
         {
@@ -83,6 +104,11 @@ public class ActorManager : AbstarctController, IActorManager
     public HeroActor GetSelfHero()
     {
         return GetHero(PlayerModel.UID);
+    }
+
+    public LogicActor GetActor(int actorID)
+    {
+        return _actorDic.GetValue(actorID);
     }
 
     int GetActorID()

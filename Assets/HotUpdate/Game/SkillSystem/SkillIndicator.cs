@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FixedPointNumber;
 using UnityEngine;
 
 public class SkillIndicator : MonoBehaviour
@@ -9,6 +10,7 @@ public class SkillIndicator : MonoBehaviour
     [SerializeField] Transform _area2;
     [SerializeField] Transform _arrow;
     [SerializeField] Transform _sector;
+    [SerializeField] LineRenderer _lineRenderer;
 
     void Start()
     {
@@ -27,6 +29,7 @@ public class SkillIndicator : MonoBehaviour
             _area2.SetActive(false);
             _arrow.SetActive(false);
             _sector.SetActive(false);
+            _lineRenderer.SetActive(false);
         }
         else if (e.SkillReleaseType == ESkillReleaseType.TargetUnit)
         {
@@ -34,7 +37,24 @@ public class SkillIndicator : MonoBehaviour
             _area2.SetActive(false);
             _arrow.SetActive(false);
             _sector.SetActive(false);
+            _lineRenderer.SetActive(true);
             _area.transform.localScale = Vector3.one * e.Area;
+
+            if (e.Target != null)
+            {
+                _lineRenderer.SetPosition(0, transform.position);
+                _lineRenderer.SetPosition(1, e.Target.Rendering.transform.position);
+            }
+            else
+            {
+                Vector3 dir = new Vector3(e.Vector.x, 0, e.Vector.y);
+                Quaternion rotation = Quaternion.Euler(0, 45, 0);
+                Vector3 rotated = rotation * dir;
+
+                Vector3 pos = rotated * e.Area;
+                _lineRenderer.SetPosition(0, transform.position);
+                _lineRenderer.SetPosition(1, pos + transform.position);
+            }
         }
         else if (e.SkillReleaseType == ESkillReleaseType.TargetPoint)
         {
@@ -42,6 +62,7 @@ public class SkillIndicator : MonoBehaviour
             _area2.SetActive(true);
             _arrow.SetActive(false);
             _sector.SetActive(false);
+            _lineRenderer.SetActive(false);
             _area.transform.localScale = Vector3.one * e.Area;
             _area2.transform.localScale = Vector3.one * e.Area2;
 
@@ -49,7 +70,7 @@ public class SkillIndicator : MonoBehaviour
             Quaternion rotation = Quaternion.Euler(0, 45, 0);
             Vector3 rotated = rotation * dir;
 
-            Vector3 pos = rotated * e.Area * 0.5f;
+            Vector3 pos = rotated * e.Area;
             _area2.transform.localPosition = pos;
         }
         else if (e.SkillReleaseType == ESkillReleaseType.VectorSkill)
@@ -58,6 +79,7 @@ public class SkillIndicator : MonoBehaviour
             _area2.SetActive(false);
             _arrow.SetActive(true);
             _sector.SetActive(false);
+            _lineRenderer.SetActive(false);
             Vector3 dir = new Vector3(e.Vector.x, 0, e.Vector.y);
             Quaternion rotation = Quaternion.Euler(0, 45, 0);
             Vector3 rotated = rotation * dir;

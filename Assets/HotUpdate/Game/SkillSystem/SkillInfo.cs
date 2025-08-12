@@ -7,5 +7,5 @@ public class SkillInfo
     public DTSkill Data;
     public SkillConfig Config;
     public ELayer Layer;
-    public SkillOwner Owner;
+    public LogicActor Owner;
 }
