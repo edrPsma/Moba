@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using FixedPointNumber;
 using UnityEngine;
+using YooAsset;
+using Zenject;
 
 public abstract class RenderingActor : MonoBehaviour
 {
+    [Inject] public IAssetSystem AssetSystem;
     public LogicActor LogicActor { get; private set; }
 
     public abstract Transform BodyTrans { get; protected set; }
@@ -23,9 +26,17 @@ public abstract class RenderingActor : MonoBehaviour
     int _predictCount;
     bool _isPosChange;
 
+    Dictionary<string, int> _buffPrefabRefDic;// buff特效引用字典
+    Dictionary<string, GameObject> _buffPrefabDic;
+
+
+
     public virtual void Initialize(LogicActor logicActor)
     {
+        MVCContainer.Inject(this);
         LogicActor = logicActor;
+        _buffPrefabRefDic = new Dictionary<string, int>();
+        _buffPrefabDic = new Dictionary<string, GameObject>();
     }
 
     protected virtual void Update()
@@ -41,7 +52,7 @@ public abstract class RenderingActor : MonoBehaviour
         _isPosChange = true;
     }
 
-    public void UpdateRotate()
+    public void UpdateDirection()
     {
         _targetDir = LogicActor.Direction.ToVector3().normalized;
     }
@@ -49,9 +60,13 @@ public abstract class RenderingActor : MonoBehaviour
     public void UpdatePositionForce()
     {
         _predictCount = 0;
-        _targetDir = LogicActor.Direction.ToVector3().normalized;
         _targetPos = LogicActor.Position.ToVector3();
         transform.position = _targetPos;
+    }
+
+    public void UpdateDirectionForce()
+    {
+        _targetDir = LogicActor.Direction.ToVector3().normalized;
         if (_targetDir != Vector3.zero)
         {
             transform.forward = _targetDir;
@@ -140,4 +155,64 @@ public abstract class RenderingActor : MonoBehaviour
     #endregion
 
 
+    public void AddBuffPrefab(int buffId)
+    {
+        var data = DataTable.GetItem<DTSkill_buff>(buffId);
+        if (string.IsNullOrEmpty(data.Prefab)) return;
+
+        if (!_buffPrefabRefDic.ContainsKey(data.Prefab))
+        {
+            _buffPrefabRefDic.Add(data.Prefab, 1);
+
+            if (!_buffPrefabDic.ContainsKey(data.Prefab))
+            {
+                GameObject prefab = GameObject.Instantiate(AssetSystem.GetHeroAsset<GameObject>($"Assets/GameAssets/Prefab/SkillPrefab/{data.Prefab}.prefab"));
+                _buffPrefabDic.Add(data.Prefab, prefab);
+                switch (data.Position)
+                {
+                    case 1: prefab.SetParent(transform); break;
+                    case 2: prefab.SetParent(BodyTrans); break;
+                    case 3: prefab.SetParent(HeadTrans); break;
+                }
+            }
+        }
+        else
+        {
+            _buffPrefabRefDic[data.Prefab]++;
+        }
+    }
+
+    public void RemoveBuffPrefab(int buffId)
+    {
+        var data = DataTable.GetItem<DTSkill_buff>(buffId);
+        if (string.IsNullOrEmpty(data.Prefab)) return;
+
+        if (_buffPrefabRefDic.ContainsKey(data.Prefab))
+        {
+            _buffPrefabRefDic[data.Prefab]--;
+            if (_buffPrefabRefDic[data.Prefab] <= 0)
+            {
+                _buffPrefabRefDic.Remove(data.Prefab);
+                if (_buffPrefabDic.ContainsKey(data.Prefab))
+                {
+                    GameObject.Destroy(_buffPrefabDic[data.Prefab]);
+                    _buffPrefabDic.Remove(data.Prefab);
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("Combat buff特效计数异常,BuffID: {buffId}");
+        }
+    }
+
+    public void ClearAllBuffPrefab()
+    {
+        foreach (var item in _buffPrefabDic)
+        {
+            GameObject.Destroy(item.Value);
+        }
+        _buffPrefabDic.Clear();
+        _buffPrefabRefDic.Clear();
+    }
 }

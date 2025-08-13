@@ -19,6 +19,10 @@ public class SkillReleaseItem : MonoView, IPointerDownHandler, IPointerUpHandler
     [SerializeField] Joystick _joystick;
     [SerializeField] GameObject _bgObj;
     [SerializeField] GameObject _handleObj;
+    [SerializeField] Image _icon;
+    [SerializeField] Image _cdImage;
+    [SerializeField] Text _cdText;
+    [SerializeField] GameObject _disableObj;
 
     [SerializeField] int _minAngle = 10;
 
@@ -43,6 +47,12 @@ public class SkillReleaseItem : MonoView, IPointerDownHandler, IPointerUpHandler
         _skillID = skillID;
         _skillConfig = AssetSystem.GetSkillConfig(skillID);
         SetType(_skillConfig.ReleaseType);
+
+        DTSkill table = DataTable.GetItem<DTSkill>(skillID);
+        _icon.LoadSprite($"Assets/GameAssets/ResImages/SkillIcon/{table.Icon}.png");
+        _cdText.text = string.Empty;
+        _cdImage.fillAmount = 0;
+        _disableObj.SetActive(false);
     }
 
     [Button]

@@ -1,4 +1,5 @@
 {
-	"410001":{"ID":410001,"Type":1,"TriggerTimeing":0,"EffectValue":[401001]}
+	"410001":{"ID":410001,"Type":1,"TriggerTimeing":0,"EffectValue":[401001]},
+	"410002":{"ID":410002,"Type":2,"TriggerTimeing":0,"EffectValue":[3]}
 
 }

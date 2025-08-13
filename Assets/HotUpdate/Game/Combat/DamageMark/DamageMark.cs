@@ -45,7 +45,7 @@ public class DamageMark : MonoView
 	{
 		//TODO 设置父节点
 		// transform.SetParent(GameEntry.Prefab.SceneNode);
-		transform.position = pos;
+		transform.position = pos + Vector3.up * 0.5f;
 
 		SetText(config, value);
 		MoveX(config, dir);

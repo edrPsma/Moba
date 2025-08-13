@@ -8,4 +8,9 @@ public enum EEffectType
     /// 添加Buff
     /// </summary>
     AddBuff = 1,
+
+    /// <summary>
+    /// 闪现
+    /// </summary>
+    Flash = 2,
 }

@@ -360,6 +360,10 @@ MonoBehaviour:
   _joystick: {fileID: 7999732969174940213}
   _bgObj: {fileID: 1906881783489377073}
   _handleObj: {fileID: 5327561953098421752}
+  _icon: {fileID: 6202298755262401575}
+  _cdImage: {fileID: 5359509695996074818}
+  _cdText: {fileID: 3776893790083126088}
+  _disableObj: {fileID: 6795911868821864582}
   _minAngle: 10
 --- !u!114 &7999732969174940213
 MonoBehaviour:
@@ -1066,7 +1070,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6757519225511072130
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1694,6 +1698,10 @@ MonoBehaviour:
   _joystick: {fileID: 6535100399721568465}
   _bgObj: {fileID: 8002960773605731916}
   _handleObj: {fileID: 1215163966236001076}
+  _icon: {fileID: 3148645265679207108}
+  _cdImage: {fileID: 7831102809775116707}
+  _cdText: {fileID: 4081144560048580815}
+  _disableObj: {fileID: 4614413240476338484}
   _minAngle: 10
 --- !u!114 &6535100399721568465
 MonoBehaviour:
@@ -1957,7 +1965,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0.54
+  m_FillAmount: 0.583
   m_FillClockwise: 0
   m_FillOrigin: 2
   m_UseSpriteMesh: 0
@@ -2930,6 +2938,10 @@ MonoBehaviour:
   _joystick: {fileID: 8030212390215241065}
   _bgObj: {fileID: 6128163934523084277}
   _handleObj: {fileID: 4307982082631720863}
+  _icon: {fileID: 1346711691141757304}
+  _cdImage: {fileID: 745748525908124420}
+  _cdText: {fileID: 7557839245168770836}
+  _disableObj: {fileID: 6346097466319995668}
   _minAngle: 10
 --- !u!114 &8030212390215241065
 MonoBehaviour:
@@ -3941,7 +3953,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6845313584443758385
 RectTransform:
   m_ObjectHideFlags: 0

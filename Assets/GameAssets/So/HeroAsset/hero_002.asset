@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e7a3df0514e0dcf4caf29deec26aba85, type: 3}
-  m_Name: Houyi
+  m_Name: hero_002
   m_EditorClassIdentifier: 
   _assets: []

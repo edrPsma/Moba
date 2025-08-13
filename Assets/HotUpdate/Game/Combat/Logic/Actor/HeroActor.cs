@@ -32,7 +32,7 @@ public class HeroActor : LogicActor<HeroRenderingActor>
             if (_dir != value && value != FixIntVector3.zero)
             {
                 _dir = value;
-                RenderingActor.UpdateRotate();
+                RenderingActor.UpdateDirection();
             }
         }
     }
@@ -60,9 +60,15 @@ public class HeroActor : LogicActor<HeroRenderingActor>
         return HitBox.Position - new FixIntVector3(0, HitBox.Height / 2, 0);
     }
 
-    public void SetPosition(FixIntVector3 pos)
+    public override void SetPosition(FixIntVector3 pos)
     {
         HitBox.Position = pos + new FixIntVector3(0, HitBox.Height / 2, 0);
         RenderingActor.UpdatePositionForce();
+    }
+
+    public override void SetDirection(FixIntVector3 dir)
+    {
+        Direction = dir;
+        RenderingActor.UpdateDirectionForce();
     }
 }

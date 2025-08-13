@@ -64,7 +64,7 @@ public class LoadingGameState : BaseState
             int heroID = GameModel.LoadInfo[i].HeroID;
             DTHero table = DataTable.GetItem<DTHero>(heroID);
             AssetSystem.Preload<GameObject>($"Assets/GameAssets/Prefab/Chars/{table.Model}.prefab", AddAssetCount);
-            AssetSystem.Preload<HeroAsset>($"Assets/GameAssets/So/HeroAsset/{table.Asset}.asset", AddAssetCount);
+            AssetSystem.PreloadHeroAsset($"Assets/GameAssets/So/HeroAsset/{table.Asset}.asset", AddAssetCount);
             for (int j = 0; j < table.Skills.Length; j++)
             {
                 DTSkill dTSkill = DataTable.GetItem<DTSkill>(table.Skills[j]);

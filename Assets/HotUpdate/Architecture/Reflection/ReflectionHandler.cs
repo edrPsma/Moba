@@ -47,6 +47,11 @@ namespace Reflection
 			AddBuffEffector_Attr.OnReflect(AddBuffEffector_Ins);
 			RefDic[AddBuffEffector_Attr.BaseType].SetValue(AddBuffEffector_Attr.Key, AddBuffEffector_Ins);
 
+			ReflectionAttribute FlashEffector_Attr = typeof(FlashEffector).GetCustomAttribute<ReflectionAttribute>();
+			FlashEffector FlashEffector_Ins = new FlashEffector();
+			FlashEffector_Attr.OnReflect(FlashEffector_Ins);
+			RefDic[FlashEffector_Attr.BaseType].SetValue(FlashEffector_Attr.Key, FlashEffector_Ins);
+
 			ReflectionAttribute CommonRule_Attr = typeof(CommonRule).GetCustomAttribute<ReflectionAttribute>();
 			CommonRule CommonRule_Ins = new CommonRule();
 			CommonRule_Attr.OnReflect(CommonRule_Ins);

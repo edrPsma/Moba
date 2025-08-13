@@ -41,6 +41,7 @@ public class BuffOwner : IBuffOwner
             _buffDic[buffId].Over();
         }
 
+        Owner.Rendering.AddBuffPrefab(buffId);
         _buffDic.Add(buffId, buff);
         buff.Start();
     }
@@ -51,6 +52,7 @@ public class BuffOwner : IBuffOwner
         {
             _buffDic.Remove(buff.Data.ID);
             SkillSystem.ReleaseBuff(buff);
+            Owner.Rendering.RemoveBuffPrefab(buff.Data.ID);
         }
     }
 
@@ -82,6 +84,7 @@ public class BuffOwner : IBuffOwner
     public void Dispose()
     {
         RemoveAllBuff();
+        Owner.Rendering.ClearAllBuffPrefab();
     }
 
     public void RemoveBuff(int buffID)
@@ -91,6 +94,7 @@ public class BuffOwner : IBuffOwner
             Buff buff = _buffDic[buffID];
             _buffDic.Remove(buffID);
             SkillSystem.ReleaseBuff(buff);
+            Owner.Rendering.RemoveBuffPrefab(buff.Data.ID);
         }
     }
 

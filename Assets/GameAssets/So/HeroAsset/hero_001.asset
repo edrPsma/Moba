@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7a3df0514e0dcf4caf29deec26aba85, type: 3}
+  m_Name: hero_001
+  m_EditorClassIdentifier: 
+  Assets:
+  - Path: Assets/GameAssets/Prefab/SkillPrefab/hero_001_4_attack.prefab
+    Asset: {fileID: 6792986498197846658, guid: 5a96dc879ab314b4783d7bd4c2a8b879, type: 3}
+  - Path: Assets/GameAssets/Prefab/SkillPrefab/hero_001_4_skill.prefab
+    Asset: {fileID: 3379929294614839733, guid: 8503505d5dadf2549886d40665b1822f, type: 3}
+  - Path: Assets/GameAssets/Prefab/SkillPrefab/Area_heal_green.prefab
+    Asset: {fileID: 6331275906715107345, guid: 690951f4781b19649bc5c7892414ff37, type: 3}

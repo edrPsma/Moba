@@ -38,7 +38,16 @@ public abstract class LogicActor
         BuffOwner.LogicUpdate(deltaTime);
     }
 
+    public virtual void Dispose()
+    {
+        BuffOwner.Dispose();
+    }
+
     public abstract FixIntVector3 Direction { get; set; }
+
+    public abstract void SetPosition(FixIntVector3 pos);
+
+    public abstract void SetDirection(FixIntVector3 dir);
 }
 public abstract class LogicActor<T> : LogicActor where T : RenderingActor
 {
@@ -49,11 +58,6 @@ public abstract class LogicActor<T> : LogicActor where T : RenderingActor
     {
         RenderingActor = renderingActor;
         renderingActor.Initialize(this);
-    }
-
-    public virtual void Dispose()
-    {
-
     }
 }
 
