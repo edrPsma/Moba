@@ -23,4 +23,9 @@ public enum ESkillReleaseType
     /// 指定方向
     /// </summary>
     VectorSkill = 3,
+
+    /// <summary>
+    /// 扇形指定方向
+    /// </summary>
+    SectorVectorSkill = 4,
 }

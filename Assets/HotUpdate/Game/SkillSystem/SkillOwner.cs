@@ -98,7 +98,7 @@ public class SkillOwner
 
         SkillInfo skillInfo = GetSkillInfo(skillID);
 
-        if (skillInfo.Config.ReleaseType == ESkillReleaseType.VectorSkill)
+        if (skillInfo.Config.ReleaseType == ESkillReleaseType.VectorSkill || skillInfo.Config.ReleaseType == ESkillReleaseType.SectorVectorSkill)
         {
             LogicActor.SetDirection(dirOrPos);
         }

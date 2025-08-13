@@ -86,5 +86,18 @@ public class SkillIndicator : MonoBehaviour
             _arrow.transform.localScale = Vector3.one * e.Area;
             _arrow.transform.forward = -rotated;
         }
+        else if (e.SkillReleaseType == ESkillReleaseType.SectorVectorSkill)
+        {
+            _area.SetActive(false);
+            _area2.SetActive(false);
+            _arrow.SetActive(false);
+            _sector.SetActive(true);
+            _lineRenderer.SetActive(false);
+            Vector3 dir = new Vector3(e.Vector.x, 0, e.Vector.y);
+            Quaternion rotation = Quaternion.Euler(0, 45, 0);
+            Vector3 rotated = rotation * dir;
+            _sector.transform.localScale = Vector3.one * e.Area;
+            _sector.transform.forward = -rotated;
+        }
     }
 }

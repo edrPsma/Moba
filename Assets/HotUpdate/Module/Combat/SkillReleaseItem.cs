@@ -123,7 +123,13 @@ public class SkillReleaseItem : MonoView, IPointerDownHandler, IPointerUpHandler
         }
         else if (_type == ESkillReleaseType.VectorSkill)
         {
-            HeroActor heroActor = ActorManager.GetSelfHero();
+            FixIntVector3 dir = new FixIntVector3(vector.x, 0, vector.y);
+            FixIntVector3 targetDir = RotateY45(dir);
+
+            OperateSystem.SendSkillOperate(_skillID, targetDir, 0);
+        }
+        else if (_type == ESkillReleaseType.SectorVectorSkill)
+        {
             FixIntVector3 dir = new FixIntVector3(vector.x, 0, vector.y);
             FixIntVector3 targetDir = RotateY45(dir);
 

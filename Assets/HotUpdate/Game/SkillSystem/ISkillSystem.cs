@@ -100,6 +100,11 @@ public class SkillSystem : AbstarctController, ISkillSystem
             excutor.Position = skillInfo.Owner.Position;
             excutor.Direction = dirOrPos;
         }
+        else if (skillInfo.Config.ReleaseType == ESkillReleaseType.SectorVectorSkill)
+        {
+            excutor.Position = skillInfo.Owner.Position;
+            excutor.Direction = dirOrPos;
+        }
         else if (skillInfo.Config.ReleaseType == ESkillReleaseType.TargetPoint)
         {
             excutor.Position = dirOrPos;

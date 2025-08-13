@@ -20,10 +20,10 @@ MonoBehaviour:
   RuleValues: 
   TargetType: 2
   SelectArea: 5
-  ReleaseType: 3
+  ReleaseType: 4
   BulletPlace: 1
   DamageAreaType: 3
-  DamageArea: 050000002d000000
+  DamageArea: 050000005a000000
   DestoryType: 0
   Duration: 0
   Delay: 0

@@ -19,7 +19,7 @@ MonoBehaviour:
   RuleType: 0
   RuleValues: 
   TargetType: 1
-  SelectArea: 10
+  SelectArea: 3
   ReleaseType: 3
   BulletPlace: 2
   DamageAreaType: 1
