@@ -21,6 +21,12 @@ namespace Reflection
         public void Register()
         {
 			// InitDic
+			RefDic.Add(typeof(IBuffExcutor), new Dictionary<object, object>());
+			DelegateDic.Add(typeof(IBuffExcutor), new Dictionary<object, Delegate>());
+
+			RefDic.Add(typeof(ISkillEffector), new Dictionary<object, object>());
+			DelegateDic.Add(typeof(ISkillEffector), new Dictionary<object, Delegate>());
+
 			RefDic.Add(typeof(ISkillExcutor), new Dictionary<object, object>());
 			DelegateDic.Add(typeof(ISkillExcutor), new Dictionary<object, Delegate>());
 
@@ -31,6 +37,16 @@ namespace Reflection
 
 
 			// Register
+			ReflectionAttribute CureBuff_Attr = typeof(CureBuff).GetCustomAttribute<ReflectionAttribute>();
+			CureBuff CureBuff_Ins = new CureBuff();
+			CureBuff_Attr.OnReflect(CureBuff_Ins);
+			RefDic[CureBuff_Attr.BaseType].SetValue(CureBuff_Attr.Key, CureBuff_Ins);
+
+			ReflectionAttribute AddBuffEffector_Attr = typeof(AddBuffEffector).GetCustomAttribute<ReflectionAttribute>();
+			AddBuffEffector AddBuffEffector_Ins = new AddBuffEffector();
+			AddBuffEffector_Attr.OnReflect(AddBuffEffector_Ins);
+			RefDic[AddBuffEffector_Attr.BaseType].SetValue(AddBuffEffector_Attr.Key, AddBuffEffector_Ins);
+
 			ReflectionAttribute CommonRule_Attr = typeof(CommonRule).GetCustomAttribute<ReflectionAttribute>();
 			CommonRule CommonRule_Ins = new CommonRule();
 			CommonRule_Attr.OnReflect(CommonRule_Ins);

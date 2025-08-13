@@ -18,6 +18,14 @@ public interface ISkillSystem : ILogicController
     EffectorItem[] GetSkillEffector(SkillInfo skillInfo);
 
     void RecycleEffectorItems(ref EffectorItem[] effectors);
+
+    Buff Create(int buffID, LogicActor caster, LogicActor owner);
+
+    void ReleaseBuff(Buff buff);
+
+    IBuffExcutor GetBuffExcutor(int type);
+
+    IBuffExcutor GetBuffExcutor(EBuffExcutorType type);
 }
 
 [Controller]
@@ -25,6 +33,7 @@ public class SkillSystem : AbstarctController, ISkillSystem
 {
     [Inject] public IAssetSystem AssetSystem;
     ObjectPool<EffectorItem> _effectorItemPool;
+    ObjectPool<Buff> _buffPool;
 
     List<ISkillExcutor> _excuteList;// 当前正在执行的技能
     List<ISkillExcutor> _removeList;// 待移除的技能
@@ -37,6 +46,8 @@ public class SkillSystem : AbstarctController, ISkillSystem
         _removeList = new List<ISkillExcutor>();
         _effectorItemPool = new ObjectPool<EffectorItem>(EPoolType.Scalable, 50);
         _effectorItemPool.OnReleaseEvent += item => item.OnReset();
+        _buffPool = new ObjectPool<Buff>(EPoolType.Scalable, 50);
+        _buffPool.OnReleaseEvent += item => item.OnReset();
     }
 
     public void LogicUpdate(FixInt deltaTime)
@@ -209,5 +220,28 @@ public class SkillSystem : AbstarctController, ISkillSystem
         }
 
         return true;
+    }
+
+    public Buff Create(int buffID, LogicActor caster, LogicActor owner)
+    {
+        Buff buff = _buffPool.SpawnByType();
+        buff.Init(DataTable.GetItem<DTSkill_buff>(buffID), caster, owner);
+
+        return buff;
+    }
+
+    public void ReleaseBuff(Buff buff)
+    {
+        _buffPool.Release(buff);
+    }
+
+    public IBuffExcutor GetBuffExcutor(int type)
+    {
+        return GetBuffExcutor((EBuffExcutorType)type);
+    }
+
+    public IBuffExcutor GetBuffExcutor(EBuffExcutorType type)
+    {
+        return GameEntry.Reflection.Get<IBuffExcutor>(type);
     }
 }

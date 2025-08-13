@@ -17,6 +17,7 @@ public abstract class LogicActor
     public AttributeSet AttributeSet { get; }
     public abstract RenderingActor Rendering { get; }
     public SkillOwner SkillOwner { get; }
+    public BuffOwner BuffOwner { get; }
 
     public LogicActor(int actorID, ECamp camp, ELayer layer)
     {
@@ -25,13 +26,16 @@ public abstract class LogicActor
         Layer = layer;
         AttributeSet = new AttributeSet();
         AttributeSet.Initialize(this);
-        SkillOwner = new SkillOwner();
+        SkillOwner = MVCContainer.NewAndInject<SkillOwner>();
         SkillOwner.Initialize(this);
+        BuffOwner = MVCContainer.NewAndInject<BuffOwner>();
+        BuffOwner.Initialize(this);
     }
 
     public virtual void LogicUpdate(FixInt deltaTime)
     {
         SkillOwner.LogicUpdate(deltaTime);
+        BuffOwner.LogicUpdate(deltaTime);
     }
 
     public abstract FixIntVector3 Direction { get; set; }

@@ -16,16 +16,16 @@ MonoBehaviour:
   Times: 00000000
   RuleType: 0
   RuleValues: 
-  TargetType: 2
+  TargetType: 1
   SelectArea: 10
-  ReleaseType: 1
+  ReleaseType: 0
   BulletPlace: 2
   DamageAreaType: 1
   DamageArea: 03000000
-  DestoryType: 1
-  Duration: 1000
+  DestoryType: 0
+  Duration: 0
   Delay: 0
-  Interval: 200
+  Interval: 0
   ActionPrefabPath: 
   SkillPrefabPath: 
   SkillPrefabModify: {x: 0, y: 0, z: 1}

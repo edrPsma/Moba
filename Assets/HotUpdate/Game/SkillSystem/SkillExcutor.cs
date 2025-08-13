@@ -47,19 +47,20 @@ public abstract class SkillExcutor : ISkillExcutor
         _selector = SkillSystem.GetSelector(skillInfo.Config.DamageAreaType);
         Effectors = SkillSystem.GetSkillEffector(skillInfo);
         OnStart();
+        TakeReleaseEffector();
     }
 
     void ISkillExcutor.Update(FixInt deltaTime)
     {
         OnUpdate(deltaTime);
 
-        TakeDamage(deltaTime);
-
         ExcuteEffects(deltaTime);
+        TakeDamage(deltaTime);
     }
 
     void ISkillExcutor.Dispose()
     {
+        TakeEndEffector();
         OnDispose();
         Active = false;
         LockTarget = default;
@@ -149,6 +150,30 @@ public abstract class SkillExcutor : ISkillExcutor
             {
                 Effectors[i].Effector?.Excute(this, SkillInfo.Owner, deltaTime, Effectors[i].EffectValue);
             }
+        }
+    }
+
+    void TakeReleaseEffector()
+    {
+        if (Effectors == null) return;
+
+        for (int i = 0; i < Effectors.Length; i++)
+        {
+            Effectors[i].Effector?.Start(this, SkillInfo.Owner, Effectors[i].EffectValue);
+
+            if (Effectors[i].TriggerTiming != ETriggerTiming.OnRelease) continue;
+
+            Effectors[i].Effector?.As<IReleaseSkillEffector>()?.TakeEffect(this, SkillInfo.Owner, Effectors[i].EffectValue);
+        }
+    }
+
+    void TakeEndEffector()
+    {
+        if (Effectors == null) return;
+
+        for (int i = 0; i < Effectors.Length; i++)
+        {
+            Effectors[i].Effector?.End(this, SkillInfo.Owner, Effectors[i].EffectValue);
         }
     }
 

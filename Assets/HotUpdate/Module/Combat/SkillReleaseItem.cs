@@ -34,6 +34,7 @@ public class SkillReleaseItem : MonoView, IPointerDownHandler, IPointerUpHandler
         _joystick.OnDragEvent += OnDrag;
         _joystick.OnDragEndEvent += OnDragEnd;
         _joystick.OnDragStartEvent += OnDragStart;
+        _button.Subscribe(OnButtnClick);
     }
 
     [Button]
@@ -58,6 +59,8 @@ public class SkillReleaseItem : MonoView, IPointerDownHandler, IPointerUpHandler
             _joystick.enabled = true;
         }
         _type = type;
+        _bgObj.SetActive(false);
+        _handleObj.SetActive(false);
     }
 
     private void OnDragStart(Vector2 vector)
@@ -122,6 +125,11 @@ public class SkillReleaseItem : MonoView, IPointerDownHandler, IPointerUpHandler
         }
 
         _lockTarget = null;
+    }
+
+    private void OnButtnClick()
+    {
+        OperateSystem.SendSkillOperate(_skillID, FixIntVector3.zero, 0);
     }
 
     void FixedUpdate()
@@ -203,6 +211,8 @@ public class SkillReleaseItem : MonoView, IPointerDownHandler, IPointerUpHandler
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        _bgObj.SetActive(false);
+        _handleObj.SetActive(false);
         GameEntry.Event.Trigger(new EventShowSkillIndicator(ESkillReleaseType.NoTarget, Vector2.zero, 0, 0, null));
     }
 }

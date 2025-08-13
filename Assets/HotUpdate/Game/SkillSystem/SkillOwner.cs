@@ -15,7 +15,6 @@ public class SkillOwner
 
     public void Initialize(LogicActor actor)
     {
-        MVCContainer.Inject(this);
         LogicActor = actor;
         SkillInfos = new List<SkillInfo>();
         _skillTimerDic = new Dictionary<int, FixInt>();

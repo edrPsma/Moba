@@ -3,10 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EffectorAttribute : Attribute
+public class EffectorAttribute : ReflectionAttribute
 {
-    //TODO 标签修改
-    public EffectorAttribute(EEffectType impactorType)
+    public EffectorAttribute(EEffectType effectType) : base(typeof(ISkillEffector), effectType, 100)
     {
     }
 }

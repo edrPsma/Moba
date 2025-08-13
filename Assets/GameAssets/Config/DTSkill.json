@@ -5,7 +5,7 @@
 	"20002":{"ID":20002,"Icon":"UI_Skill_Icon_Buff","Config":"20002","Magnification":30000,"Effects":[]},
 	"30001":{"ID":30001,"Icon":"","Config":"30001","Magnification":10000,"Effects":[]},
 	"30002":{"ID":30002,"Icon":"UI_Skill_Icon_SpiritArrows","Config":"30002","Magnification":30000,"Effects":[]},
-	"40001":{"ID":40001,"Icon":"UI_Skill_Icon_Heal","Config":"40001","Magnification":10000,"Effects":[]},
+	"40001":{"ID":40001,"Icon":"UI_Skill_Icon_Heal","Config":"40001","Magnification":10000,"Effects":[410001]},
 	"40002":{"ID":40002,"Icon":"UI_Skill_Icon_Slide","Config":"40002","Magnification":10000,"Effects":[]}
 
 }
