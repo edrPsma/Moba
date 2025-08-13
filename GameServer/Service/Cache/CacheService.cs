@@ -9,6 +9,8 @@ namespace GameServer.Service
     {
         bool IsAcctOnline(string acct);
 
+        bool IsOnline(uint uid);
+
         void AcctOnline(string acct, ServerSession session, UserData userData);
 
         string GetPlayerName(uint uid);
@@ -50,6 +52,11 @@ namespace GameServer.Service
             }
 
             return false;
+        }
+
+        public bool IsOnline(uint uid)
+        {
+            return _sessionDic.ContainsKey(uid);
         }
 
         public void AcctOnline(string acct, ServerSession session, UserData userData)

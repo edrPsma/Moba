@@ -14,6 +14,7 @@ public class LobbyForm : UIForm
 
     [Inject] public IMatchController MatchController;
     [Inject] public IPlayerModel PlayerModel;
+    [Inject] public IGameModel GameModel;
     int _countTask;
     protected override void OnStart()
     {
@@ -23,6 +24,7 @@ public class LobbyForm : UIForm
         this.Get<Button>("btnPvp").Subscribe(BtnPvpOnClick);
         this.Get<Button>("btnRank").Subscribe(BtnRankOnClick);
         this.Get<Text>("txtName").Observe(PlayerModel.Name).Bind(Panel);
+        GameModel.RoomDismiss.Register(OnDismiss).Bind(Panel);
     }
 
     private void BtnRankOnClick()
@@ -56,6 +58,14 @@ public class LobbyForm : UIForm
         else
         {
             GameEntry.Task.CancelTask(ref _countTask);
+        }
+    }
+
+    private void OnDismiss(bool value)
+    {
+        if (value)
+        {
+            SetMatchInfo(false);
         }
     }
 }

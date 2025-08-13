@@ -13,5 +13,6 @@ public class FlashEffector : BaseEffector
         FixIntVector3 pos = excutor.Position + excutor.Direction.normalized * param[0];
         excutor.SkillInfo.Owner.SetPosition(pos);
         excutor.SkillInfo.Owner.SetDirection(excutor.Direction);
+        excutor.SkillInfo.Owner.Rendering.PlayActionEffect("Flash_magic_blue_pink", excutor.SkillInfo.Owner.Rendering.BodyTrans);
     }
 }

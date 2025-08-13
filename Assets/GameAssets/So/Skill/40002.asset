@@ -26,7 +26,7 @@ MonoBehaviour:
   Duration: 0
   Delay: 0
   Interval: 0
-  ActionPrefabPath: 
+  ActionPrefabPath: Flash_magic_blue_pink
   SkillPrefabPath: 
   SkillPrefabModify: {x: 0, y: 0, z: 1}
   SkillBoomPrefabPath: 

@@ -8,6 +8,7 @@ using Zenject;
 public abstract class RenderingActor : MonoBehaviour
 {
     [Inject] public IAssetSystem AssetSystem;
+    [Inject] public ICombatSystem CombatSystem;
     public LogicActor LogicActor { get; private set; }
 
     public abstract Transform BodyTrans { get; protected set; }
@@ -214,5 +215,14 @@ public abstract class RenderingActor : MonoBehaviour
         }
         _buffPrefabDic.Clear();
         _buffPrefabRefDic.Clear();
+    }
+
+
+    public void PlayActionEffect(string location, Transform trans)
+    {
+        GameObject clone = AssetSystem.GetHeroAsset<GameObject>($"Assets/GameAssets/Prefab/SkillPrefab/{location}.prefab");
+        AutoRecyclingEffects prefab = GameObject.Instantiate(clone).GetComponent<AutoRecyclingEffects>();
+        prefab.SetParent(trans);
+        prefab.PlayAndRecycle();
     }
 }

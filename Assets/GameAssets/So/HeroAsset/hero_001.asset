@@ -19,3 +19,5 @@ MonoBehaviour:
     Asset: {fileID: 3379929294614839733, guid: 8503505d5dadf2549886d40665b1822f, type: 3}
   - Path: Assets/GameAssets/Prefab/SkillPrefab/Area_heal_green.prefab
     Asset: {fileID: 6331275906715107345, guid: 690951f4781b19649bc5c7892414ff37, type: 3}
+  - Path: Assets/GameAssets/Prefab/SkillPrefab/Flash_magic_blue_pink.prefab
+    Asset: {fileID: 6073891735194678028, guid: 064c608c3a271334299e1fa22913842f, type: 3}

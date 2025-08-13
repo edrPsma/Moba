@@ -131,7 +131,7 @@ public class OperateSystem : AbstarctController, IOperateSystem
 
     void ExcuteMoveOperate(Operate operate)
     {
-        HeroActor heroActor = ActorManager.GetSelfHero();
+        HeroActor heroActor = ActorManager.GetHero(operate.UId);
         FixInt x = operate.MoveOperate.Velocity.X;
         FixInt z = operate.MoveOperate.Velocity.Z;
 
