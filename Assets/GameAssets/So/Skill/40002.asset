@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: 40002
   m_EditorClassIdentifier: 
   AnimationName: 
+  ActionDuration: 0
   Times: 00000000
+  CD: 5000
   RuleType: 0
   RuleValues: 
   TargetType: 1
@@ -27,6 +29,7 @@ MonoBehaviour:
   Delay: 0
   Interval: 0
   ActionPrefabPath: Flash_magic_blue_pink
+  ActionPrefabPos: 0
   SkillPrefabPath: 
   SkillPrefabModify: {x: 0, y: 0, z: 1}
   SkillBoomPrefabPath: 

@@ -18,6 +18,7 @@ public abstract class LogicActor
     public abstract RenderingActor Rendering { get; }
     public SkillOwner SkillOwner { get; }
     public BuffOwner BuffOwner { get; }
+    public AIAgent AIAgent { get; }
 
     public LogicActor(int actorID, ECamp camp, ELayer layer)
     {
@@ -30,6 +31,8 @@ public abstract class LogicActor
         SkillOwner.Initialize(this);
         BuffOwner = MVCContainer.NewAndInject<BuffOwner>();
         BuffOwner.Initialize(this);
+        AIAgent = MVCContainer.NewAndInject<AIAgent>();
+        AIAgent.Initialize(this);
     }
 
     public virtual void LogicUpdate(FixInt deltaTime)

@@ -120,14 +120,18 @@ public abstract class RenderingActor : MonoBehaviour
             transform.position = LogicActor.Position.ToVector3();
         }
 
-        if (LogicActor.Velocity != FixIntVector3.zero)
+        if (LogicActor.AIAgent.CanMove.Value == 0)
         {
-            PlayAnimation("run");
+            if (LogicActor.Velocity != FixIntVector3.zero)
+            {
+                PlayAnimation("run");
+            }
+            else
+            {
+                PlayAnimation("idle");
+            }
         }
-        else
-        {
-            PlayAnimation("idle");
-        }
+
     }
 
     void SyncDir()
@@ -224,5 +228,23 @@ public abstract class RenderingActor : MonoBehaviour
         AutoRecyclingEffects prefab = GameObject.Instantiate(clone).GetComponent<AutoRecyclingEffects>();
         prefab.SetParent(trans);
         prefab.PlayAndRecycle();
+    }
+
+    public Transform GetPartTrans(EPart part)
+    {
+        if (part == EPart.Bottom)
+        {
+            return transform;
+        }
+        else if (part == EPart.Body)
+        {
+            return BodyTrans;
+        }
+        else if (part == EPart.Head)
+        {
+            return HeadTrans;
+        }
+
+        return transform;
     }
 }

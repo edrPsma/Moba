@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RemoteIP: 192.168.0.110
   Port: 17666
-  TestMode: 0
+  TestMode: 1

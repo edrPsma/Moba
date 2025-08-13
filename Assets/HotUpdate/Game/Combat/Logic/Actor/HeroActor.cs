@@ -20,7 +20,11 @@ public class HeroActor : LogicActor<HeroRenderingActor>
         set
         {
             HitBox.Velocity = value;
-            Direction = value;
+
+            if (value != FixIntVector3.zero)
+            {
+                Direction = value;
+            }
         }
     }
 
@@ -68,7 +72,7 @@ public class HeroActor : LogicActor<HeroRenderingActor>
 
     public override void SetDirection(FixIntVector3 dir)
     {
-        Direction = dir;
+        Direction = dir.normalized;
         RenderingActor.UpdateDirectionForce();
     }
 }

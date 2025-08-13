@@ -49,6 +49,9 @@ public class OperateSystem : AbstarctController, IOperateSystem
 
     public void SendMoveOperate(FixIntVector3 dir)
     {
+        HeroActor heroActor = ActorManager.GetSelfHero();
+        if (heroActor.AIAgent.CanMove.Value != 0) return;
+
         if (!CombatSystem.InCombat) return;
         if (!CombatSystem.CanOperate.Value) return;
 
@@ -84,6 +87,9 @@ public class OperateSystem : AbstarctController, IOperateSystem
 
     public void SendSkillOperate(int skillID, FixIntVector3 dirOrPos, int targetID)
     {
+        HeroActor heroActor = ActorManager.GetSelfHero();
+        if (heroActor.AIAgent.CanReleseSkill.Value != 0) return;
+
         if (!CombatSystem.InCombat) return;
         if (!CombatSystem.CanOperate.Value) return;
 
@@ -132,6 +138,9 @@ public class OperateSystem : AbstarctController, IOperateSystem
     void ExcuteMoveOperate(Operate operate)
     {
         HeroActor heroActor = ActorManager.GetHero(operate.UId);
+
+        if (heroActor.AIAgent.CanMove.Value != 0) return;
+
         FixInt x = operate.MoveOperate.Velocity.X;
         FixInt z = operate.MoveOperate.Velocity.Z;
 
@@ -144,10 +153,13 @@ public class OperateSystem : AbstarctController, IOperateSystem
     void ExcuteSkillOperate(Operate operate)
     {
         HeroActor heroActor = ActorManager.GetHero(operate.UId);
+
+        if (heroActor.AIAgent.CanReleseSkill.Value != 0) return;
+
         int skillID = operate.SkillOperate.SkillID;
         FixIntVector3 vector = new FixIntVector3(operate.SkillOperate.DirOrPos.X, operate.SkillOperate.DirOrPos.Y, operate.SkillOperate.DirOrPos.Z);
         int targetID = operate.SkillOperate.Target;
 
-        SkillSystem.ExcuteSkill(heroActor.SkillOwner.GetSkillInfo(skillID), vector, ActorManager.GetActor(targetID));
+        heroActor.SkillOwner.ReleaseSkill(skillID, vector, ActorManager.GetActor(targetID));
     }
 }

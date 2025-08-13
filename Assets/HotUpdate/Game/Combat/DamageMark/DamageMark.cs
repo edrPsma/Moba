@@ -63,7 +63,7 @@ public class DamageMark : MonoView
 	{
 		foreach (var item in _tweenSeq)
 		{
-			item.Kill();
+			item?.Kill();
 		}
 
 		_tweenSeq.Clear();

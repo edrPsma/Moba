@@ -12,21 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2414ebc3262ce341ba06b97801b87ba, type: 3}
   m_Name: 10002
   m_EditorClassIdentifier: 
-  AnimationName: 
-  Times: 00000000
+  AnimationName: skill
+  ActionDuration: 850
+  Times: 20030000
+  CD: 5000
   RuleType: 0
   RuleValues: 
   TargetType: 2
-  SelectArea: 10
-  ReleaseType: 1
-  BulletPlace: 2
-  DamageAreaType: 1
-  DamageArea: 03000000
+  SelectArea: 5
+  ReleaseType: 3
+  BulletPlace: 1
+  DamageAreaType: 3
+  DamageArea: 050000002d000000
   DestoryType: 0
   Duration: 0
   Delay: 0
   Interval: 0
-  ActionPrefabPath: 
+  ActionPrefabPath: hero_001_4_skill
+  ActionPrefabPos: 0
   SkillPrefabPath: 
   SkillPrefabModify: {x: 0, y: 0, z: 1}
   SkillBoomPrefabPath: 

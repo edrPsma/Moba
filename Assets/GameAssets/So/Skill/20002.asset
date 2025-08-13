@@ -13,12 +13,14 @@ MonoBehaviour:
   m_Name: 20002
   m_EditorClassIdentifier: 
   AnimationName: 
+  ActionDuration: 0
   Times: 00000000
+  CD: 0
   RuleType: 0
   RuleValues: 
   TargetType: 2
   SelectArea: 10
-  ReleaseType: 1
+  ReleaseType: 3
   BulletPlace: 2
   DamageAreaType: 1
   DamageArea: 03000000
@@ -27,6 +29,7 @@ MonoBehaviour:
   Delay: 0
   Interval: 200
   ActionPrefabPath: 
+  ActionPrefabPos: 0
   SkillPrefabPath: 
   SkillPrefabModify: {x: 0, y: 0, z: 1}
   SkillBoomPrefabPath: 

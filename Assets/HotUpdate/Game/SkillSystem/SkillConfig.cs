@@ -7,7 +7,9 @@ using UnityEngine;
 public class SkillConfig : ScriptableObject
 {
     public string AnimationName;
+    public int ActionDuration;
     public int[] Times = new int[] { 0 };
+    public int CD;
     public ESkillRuleType RuleType;
     public int[] RuleValues;
 
@@ -24,6 +26,7 @@ public class SkillConfig : ScriptableObject
 
     public int Interval;
     public string ActionPrefabPath;
+    public EPart ActionPrefabPos;
     public string SkillPrefabPath;
     public Vector3 SkillPrefabModify = Vector3.forward;
 
@@ -41,4 +44,13 @@ public class SkillConfig : ScriptableObject
             return false;
         }
     }
+}
+
+public enum EPart
+{
+    Bottom = 0,
+
+    Body = 1,
+
+    Head = 2,
 }

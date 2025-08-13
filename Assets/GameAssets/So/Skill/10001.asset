@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2414ebc3262ce341ba06b97801b87ba, type: 3}
   m_Name: 10001
   m_EditorClassIdentifier: 
-  AnimationName: 
+  AnimationName: attack
+  ActionDuration: 1000
   Times: 00000000
+  CD: 0
   RuleType: 0
   RuleValues: 
   TargetType: 2
@@ -27,6 +29,7 @@ MonoBehaviour:
   Delay: 0
   Interval: 200
   ActionPrefabPath: 
+  ActionPrefabPos: 0
   SkillPrefabPath: 
   SkillPrefabModify: {x: 0, y: 0, z: 1}
   SkillBoomPrefabPath: 
