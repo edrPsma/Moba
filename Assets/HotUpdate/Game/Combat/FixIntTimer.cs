@@ -40,11 +40,7 @@ public class FixIntTimer
 
             UpdateTaskTimers(task, deltaTime);
 
-            if (task.ExcuteTime == 0)
-            {
-                task.TaskAction?.Invoke(new TaskInfo(task.TaskID, ++task.ExcuteTime));
-            }
-            else if (task.ExcuteTime <= task.RepeatTimes || task.RepeatTimes < 0)
+            if (task.ExcuteTime <= task.RepeatTimes || task.RepeatTimes < 0)
             {
                 if (task.Timer >= task.DelayTime)
                 {
@@ -74,8 +70,8 @@ public class FixIntTimer
 
     void UpdateTaskTimers(TaskSource task, FixInt deltaTime)
     {
-        task.Timer += deltaTime * 1000 * task.RunSpeed();
-        task.TotalTimer += deltaTime * 1000 * task.RunSpeed();
+        task.Timer += deltaTime * 1000;
+        task.TotalTimer += deltaTime * 1000;
     }
 
     bool ShouldRemoveTask(TaskSource task)
@@ -192,7 +188,6 @@ public class FixIntTimer
         public FixInt DelayTime;
         public FixInt Duration;
         public int RepeatTimes;
-        public Func<FixInt> RunSpeed = GetDefultRunSpeed;
 
         public Action<TaskInfo> TaskAction;
         static FixInt GetDefultRunSpeed() => 1;
@@ -202,7 +197,6 @@ public class FixIntTimer
             TaskID = 0;
             Active = false;
             Timer = 0;
-            RunSpeed = GetDefultRunSpeed;
             TotalTimer = 0;
             ExcuteTime = 0;
             DelayTime = 0;
@@ -238,23 +232,6 @@ public class FixIntTimer
         public TaskSource SetDuration(TimeSpan timeSpan)
         {
             Duration = new FixInt(timeSpan.TotalMilliseconds);
-            return this;
-        }
-
-
-        public TaskSource SetSpeed(float speed)
-        {
-            RunSpeed = () => speed;
-            return this;
-        }
-
-        public TaskSource SetSpeed(Func<FixInt> speedFun)
-        {
-            if (speedFun == null)
-            {
-                return this;
-            }
-            RunSpeed = speedFun;
             return this;
         }
 

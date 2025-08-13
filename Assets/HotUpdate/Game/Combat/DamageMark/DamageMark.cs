@@ -53,13 +53,13 @@ public class DamageMark : MonoView
 		Fade(config);
 		Scale(config);
 
-		GameEntry.Task.AddTask(DelayToRecycle)
+		CombatSystem.Timer.AddTask(DelayToRecycle)
 		  .SetName("DamageMark DelayToRecycle")
 		  .Delay(TimeSpan.FromSeconds(config.Duration))
 		  .Run();
 	}
 
-	private void DelayToRecycle(TaskInfo info)
+	private void DelayToRecycle(FixIntTimer.TaskInfo info)
 	{
 		foreach (var item in _tweenSeq)
 		{
